@@ -1,1 +1,0 @@
-# leeyoshinari.github.io
