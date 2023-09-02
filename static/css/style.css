@@ -252,7 +252,7 @@ header {
 
 .list li h3 {
     margin: 0 10px 2px;
-    font-size: 14px;
+    height: 91px;
     font-weight: 400;
     cursor: pointer;
     overflow: hidden;
