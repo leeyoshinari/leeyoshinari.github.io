@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>白瑜的博客</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="shortcut icon" href="/img/favicon.ico">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+</head>
+<body>
+  <div class="l_body s:aa index tech" id="start" layout>
+    <aside class="l_left"></aside>
+    <div class="l_main" id="main">
+      <header class="header mobile-only"></header>
+      <div class="navbar top">
+        <nav class="post">
+          <a href="/">最近</a><a class="active" href="/p/document.html">文档</a><a href="/p/archives.html">归档</a>
+        </nav>
+      </div>
+      <div class="post-list post">
+        <a class="post-card post" href="/p/987654325.html">
+          <article class="md-text">
+            <h2 class="post-title">acme 证书</h2>
+            <div class="excerpt">
+              <p>安装 acme 证书</p>
+            </div>
+            <div class="meta cap">
+              <span class="cap post-meta"><img src="/img/post-date.svg" alt=""><time datetime="2024-12-31T18:20:00.000Z">2024-12-31</time></span>
+            </div>
+          </article>
+        </a>
+        <a class="post-card post" href="/p/987654324.html">
+          <article class="md-text">
+            <h2 class="post-title">部署 TURN 服务</h2>
+            <div class="excerpt">
+              <p>部署 STUN/TURN 服务，用于“打洞”和中继</p>
+            </div>
+            <div class="meta cap">
+              <span class="cap post-meta"><img src="/img/post-date.svg" alt=""><time datetime="2024-12-31T18:20:00.000Z">2024-12-31</time></span>
+            </div>
+          </article>
+        </a>
+        <!--a class="post-card post" href="/p/888888888.html">
+          <article class="md-text">
+            <h2 class="post-title">如何搭建博客网站</h2>
+            <div class="excerpt">
+              <p>详细介绍本博客的搭建步骤</p>
+            </div>
+            <div class="meta cap">
+              <span class="cap post-meta"><img src="/img/post-date.svg" alt="" /><time datetime="2024-07-31T09:00:00.000Z">2024-07-31</time></span>
+            </div>
+          </article>
+        </a-->
+      </div>
+      <footer class="page-footer footnote"><hr></footer>
+      <div class="main-mask" onclick="sidebar.dismiss()"></div>
+    </div>
+    <aside class="l_right"></aside>
+  </div>
+  <div id="spig" class="spig"><div id="message">……</div><div id="mumu" class="mumu"></div></div>
+</body>
+<script type="module">
+  import { createLeft, createFootNote, createMobileHeader, createDefaultRight, createFloatPanel } from '/js/template.js';
+  document.getElementsByClassName('l_left')[0].appendChild(createLeft());
+  document.getElementsByClassName('header mobile-only')[0].appendChild(createMobileHeader());
+  document.getElementsByClassName('page-footer footnote')[0].appendChild(createFootNote());
+  document.getElementsByClassName('l_right')[0].appendChild(createDefaultRight());
+  document.getElementById('start').appendChild(createFloatPanel(false));
+  let hitokoto = document.createElement('script');
+  hitokoto.type = "text/javascript";
+  hitokoto.src = "https://v1.hitokoto.cn/?/?c=b&encode=js&select=%23hitokoto";
+  document.getElementsByClassName('l_right')[0].appendChild(hitokoto);
+</script>
+<script type="text/javascript" src="https://v1.hitokoto.cn/?/?c=b&encode=js&select=%23hitokoto" async></script>
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/spig.js"></script>
+</html>

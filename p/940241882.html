@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>白瑜的博客</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="shortcut icon" href="/img/favicon.ico">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <link rel="stylesheet" href="/css/viewer.min.css">
+  <script type="text/javascript" src="/js/viewer.min.js"></script>
+</head>
+<body>
+  <div class="l_body s:aa content tech" id="start" layout="post" >
+    <aside class="l_left"></aside>
+    <div class="l_main" id="main">
+      <header class="header mobile-only"></header>
+      <div class="article banner top"><div class="content"><div class="bottom only-title"><div class="text-area">
+        <h1 class="text title"><span>做一个自己的领券 APP</span></h1>
+      </div><div class="publish-date"><span>发布时间: 2023-02-12</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>更新时间: 2024-04-23</span><span class="copy-right">版权</span></div><div class="copyright-content"></div></div></div></div>
+      <article class="md-text content">
+        <h2>介绍</h2>
+        <p>之前有“写过”一个领优惠券购物的微信小程序，详见<a href="https://mp.weixin.qq.com/s?__biz=Mzg5OTA3NDk2MQ==&mid=2247483849&idx=2&sn=21d1c53f45a11d9a7b3f1fc2220fa987&chksm=c0599f37f72e1621e184b4d54d6ce4954866910423d0ba29df023bd69756eaf470bdc436dc4c&scene=21#wechat_redirect" target="_blank">做一个自己的领券小程序</a>和<a href="https://mp.weixin.qq.com/s?__biz=Mzg5OTA3NDk2MQ==&mid=2247483849&idx=1&sn=c2828671541119c8103b78acec2f20f8&chksm=c0599f37f72e1621cee793e8bc1f18524805a9f3d003f4ec69cdc8aa4970e9bc66f8f8e7b15c&scene=21#wechat_redirect" target="_blank">领优惠券买东西啦</a>。每个月微信都给一定的免费调用额度（我总会经常看看有没有用超了），本来岁月静好，结果估计小马哥的钱不够花了，终于把刀挥向了广大个人开发者，微信小程序云调用每月保底消费 19.9，果然韭菜长好了肯定会被割的。所以我就不得不换个地方了，本来想迁到阿里云，但是万一哪天阿里云也要割韭菜了呢，于是决定从零开始做一个 app。</p>
+        <p>说来惭愧，由于能力有限，这个 app 只有一个页面，成品的 app 的页面长这个样子（感觉页面没有任何美感可言）</p>
+        <img src="/img/couponApp/home.jpg" alt="" loading="lazy" />
+        <h2>功能</h2>
+        <p>有了这个 app，再也不用受到第三方平台的奇葩规则和额度的限制了，所有功能完全自主可控。这个 app 主要提供的功能如下：</p>
+        <h3>搜索商品</h3>
+        <p>可以先在淘宝、京东、拼多多等 app 上查找自己需要购买的商品，然后复制商品名称，打开这个领券 app 可以搜索商品，快速货比三家，比如前段时间我就发现拼多多的蓝月亮洗衣液的单价要比淘宝的贵两块钱，于是我就在淘宝上下单了。当然也存在搜不到商品的情况，原因是商家没有推广这个商品。</p>
+        <p>如果没有输入搜索内容，默认显示各平台的每日热销榜，至于是不是真的热销我就不知道了。</p>
+        <h3>领取优惠券</h3>
+        <p>有些商品，你在淘宝上搜索没有优惠券，在这里搜索也没有优惠券；有些商品，你在淘宝上搜索有优惠券，在这里搜索也是一样的优惠券；有些商品，你在淘宝上搜索没有优惠券，但是在这里搜索有优惠券；总之，不管怎样，还是能省那么一点点钱的（土豪请无视）。</p>
+        <p>如果搜索出来的商品很多，可能不太容易找出自己想要的商品，那么可以按价格从低到高、销量从高到低、是否有优惠券排序。</p>
+        <p>这里要说一下淘宝比较奇葩的规则：当搜索到的商品只有一个时，返回的数据中没有商品id和商品链接，只有当账号满足一定条件后才会返回所有数据；这时我就做了一个特殊处理：如果搜索到的商品只有一个，那么会用这个商品的店铺名再搜索一次，最后返回这个店铺的所有推广的商品，然后再去找一下需要购买的商品。</p>
+        <h3>官方活动</h3>
+        <p>各平台官方活动，包括淘宝、京东、拼多多、饿了么、美团等。在活动页面，你可以不定时地更新应时应景的活动，如果有官方红包活动，配置好后可以在打开 app 时有提醒，可以去活动页面领取官方红包。</p>
+        <h2>app跳转</h2>
+        <p>如果手机安装淘宝、京东、拼多多、美团等 app，则会打开 app 购买商品，如果没有安装，则会用浏览器打开链接，由于微信的种种限制，暂时无法打开京东、拼多多、美团、饿了么等小程序。</p>
+        <p>这里单独说一下饿了么，首先会跳转到淘宝，因为淘宝里有饿了么；如果没有安装淘宝，则会打开支付宝饿了么小程序。由此可见，阿里要比腾讯开放很多，腾讯狠起来，连自己旗下的小程序也禁止跳转。</p>
+        <h2>app权限控制</h2>
+        <p>安装到手机的 app，很多人都会隐私的顾虑，我也很重视这个，所以这个 app 几乎不需要任何权限，这里说一下需要使用的权限：</p>
+        <p class="non-row md-indent">1、联网的权限，这个就不多说了，没网还用个鬼哦！</p>
+        <p class="non-row md-indent">2、读写剪贴板权限，从淘宝上复制商品标题，然后粘贴在这里搜索；或者从这个 app 复制商品标题（长按复制标题）。如果不需要粘贴复制功能，可以禁掉权限。</p>
+        <p class="non-row md-indent">3、文件读写权限，为了节省流量，app 内的所有商品的图片会被缓存到本地，避免再次搜索相同商品时仍下载图片。图片会被缓存在 app 自己的目录里，这个目录是系统自动分配的，不需要用户授权，app 也只能读写这个目录。<span style="font-weight: bold;">凡是需要授权文件读写权限的 app 都是想去访问其他目录，这就可能会造成隐私泄露。</span></p>
+        <p>该 app 在我手机上的所有权限如下，这些权限基本的都是系统默认的，因为我在代码里根本没有申请过这些权限。你可以选择全部禁用掉。</p>
+        <img src="/img/couponApp/privilege.jpg" alt="" loading="lazy" />
+        <h2>缓存数据</h2>
+        <p>上面提到过了，为了节省流量，商品的图片会被缓存到本地，这个本地储存文件的总大小限制在 200M，所以你不用担心它会占用过多的储存空间。这些文件可以被垃圾清理程序清理掉；如果你卸载了 app，这些数据也都会被自动清理掉。</p>
+        <h2>兼容性</h2>
+        <p>系统类型：仅支持 Android 系统，由于没有苹果电脑，自己的 windows 电脑配置太低，暂时没做 IOS 版本。</p>
+        <p>系统版本：目标版本是 Android11，最低兼容版本是 Android8。</p>
+        <p>手机类型：仅在我自己的手机上跑了一下，未测试其他品牌的手机。</p>
+        <p>分辨率：仅在我自己的手机上测试了字体最大和最小时，页面显示是否正常。</p>
+        <h2>app升级</h2>
+        <p>每次启动 app 时，会去检查有没有最新版本，如果有新版本，则会去跳转到浏览器下载 app。这一切都是借助于 github 提供的永久下载链接。由于国内 github 访问是受限的，所以如果你打不开链接，可以多试几次；如果还不行，可以换个网络多试几次；</p>
+        <p>最后说一下这个 app 为什么没有发布，因为发布到应用商店需要提交各种资料，需要各种审核和校验，流程复杂，所以还是简单为好，我也只是做着玩玩而已。</p>
+        <p>注：由于 app 是非应用商店下载的，几乎所有手机都会不允许安装，所以你需要授权允许该 app 安装，具体授权方法每个手机都不一样，可以去网上查一下方法</p>
+        <h2>最新提示</h2>
+        <p>由于淘宝接口升级，查询淘宝商品优惠信息的接口需要修改。</p>
+        <p>由于京东接口授权策略变化，查询京东商品优惠信息的接口需要修改。</p>
+        <h2>项目地址</h2>
+        <p><a href="https://github.com/leeyoshinari/coupon" target="_blank">https://github.com/leeyoshinari/coupon</a>，该项目已停止维护。</p>
+        <hr style="margin-top: 3em;">
+        <div class="article-footer fs14"></div>
+      </article>
+      <footer class="page-footer footnote"><hr></footer>
+      <div class="main-mask" onclick="sidebar.dismiss()"></div>
+    </div>
+    <aside class="l_right"></aside>
+  </div>
+  <div id="spig" class="spig"><div id="message">……</div><div id="mumu" class="mumu"></div></div>
+</body>
+<script type="module">
+  import { createLeft, createFootNote, createMobileHeader, createDonate, createRight, createFloatPanel } from '/js/template.js';
+  document.getElementsByClassName('l_left')[0].appendChild(createLeft());
+  document.getElementsByClassName('header mobile-only')[0].appendChild(createMobileHeader());
+  document.getElementsByClassName('article-footer fs14')[0].appendChild(createDonate());
+  document.getElementsByClassName('page-footer footnote')[0].appendChild(createFootNote());
+  document.getElementsByClassName('l_right')[0].appendChild(createRight());
+  document.getElementById('start').appendChild(createFloatPanel());
+</script>
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/spig.js"></script>
+</html>

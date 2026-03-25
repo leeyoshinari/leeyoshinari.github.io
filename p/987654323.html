@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>白瑜的博客</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="shortcut icon" href="/img/favicon.ico">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <link rel="stylesheet" href="/css/viewer.min.css">
+  <script type="text/javascript" src="/js/viewer.min.js"></script>
+</head>
+<body>
+  <div class="l_body s:aa content tech" id="start" layout="post" >
+    <aside class="l_left"></aside>
+    <div class="l_main" id="main">
+      <header class="header mobile-only"></header>
+      <div class="article banner top"><div class="content"><div class="bottom only-title"><div class="text-area">
+        <h1 class="text title"><span>自建家庭 KTV</span></h1>
+      </div><div class="publish-date"><span>发布时间: 2024-10-20</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>更新时间: 2024-10-22</span><span class="copy-right">版权</span></div><div class="copyright-content"></div></div></div></div>
+      <article class="md-text content">
+        <p>现在用户最多、曲库最多的 K 歌软件是全民K歌，基本上想唱的歌都有，而且基本上每首歌都有 MV 或视频，使用体验也还不错，但是收费太贵了，对于一个月唱不了几次的打工人来说，唱一首歌就是“天价”。那是不是可以选择其他 K 歌软件呢？</p>
+        <p>比如唱吧，曲库是真的有限，很多歌都没有，有些歌也不是原唱，大部分歌没有 MV，就一张默认的背景图片，恕我直言：没有 MV 的 K 歌软件就是垃圾。至于更多的其他 K 歌软件，真是一个比一个垃圾，也就三六十万的曲库也敢号称海量，可能是梁静茹给它们的勇气吧。</p>
+        <p>网上有很多卖破解版的 K 歌软件，首先是曲库有限，其次是搞不好哪天官方把漏洞堵上了就不能用了，使用体验极差。而网上找到的一些开源的 K 歌软件，基本上都是有音乐没有 MV，且曲库来源第三方，很多歌都没有，基本没法用。那有没有其他可以永久免费无限量的 K 歌的软件呢？</p>
+        <p>废话不多说，先上干货。</p>
+        <h2>功能介绍</h2>
+        <p>本 KTV 系统适合不闲麻烦且非土豪的家庭/个人使用，本系统需要自建曲库，在此基础上支持点歌、切歌、原唱/伴奏切换、音量调整、暂停等 K 歌软件的核心功能，所有功能支持手机端控制，且全系统、全平台都可以使用。</p>
+        <h2>页面介绍</h2>
+        <p>系统总共只有 4 个页面，分别是曲库列表展示页面、音视频预处理页面、K 歌视频播放页面、手机端控制页面。其中 曲库列表展示页面 和 音视频预处理页面 做的比较简单，因为这两个页面在 K 歌的时候是用不到的。K 歌视频播放页面看着也挺简单的，其复杂的地方在控制逻辑，而不是页面展示。手机端控制页面已经尽可能地适配手机了，在手机、平板等竖屏设备上页面展示效果较好，但是在横屏设备上，页面展示就不那么友好。</p>
+        <h3>曲库列表展示</h3>
+        <p>该页面是首页，其他页面的跳转都在这个页面：</p>
+        <img src="/img/karaoke/index.jpg" alt="index.jpg" loading="lazy" />
+        <h3>音视频预处理</h3>
+        <p>该页面主要用来做音视频的简单处理，包括音频提取、音视频格式转换、修改视频元数据等：</p>
+        <img src="/img/karaoke/pre-deal.jpg" alt="pre-deal.jpg" loading="lazy" />
+        <h3>歌曲视频播放</h3>
+        <p>该页面主要用来播放歌曲视频 MV 的，另外包括音视频同步、音视频控制等功能也在此页面实现的：</p>
+        <img src="/img/karaoke/K.jpg" alt="K.jpg" loading="lazy" />
+        <h3>手机端控制</h3>
+        <p>所有 K 歌需要的核心功能这里都有，特别针对手机端做了适配：</p>
+        <img src="/img/karaoke/client.jpg" alt="client.jpg" loading="lazy" />
+        <h2>自建曲库</h2>
+        <p>为什么要自建曲库呢？绝大部分人唱歌可能来来回回也就不过百首，喜欢唱歌的人盲猜会有千首吧，因此不管那些 K 歌软件的曲库是多少万首，只要你想唱的歌没有，那它就不是一个好的曲库。任何 K 歌软件的曲库都是很有限的，如果曲库里没有你想唱的歌，你也没有任何办法，它不受你个人的控制。自建曲库的好处就是整个互联网都将是你的曲库，国内各大视频网站、短视频平台的歌曲 MV 都可以下载下来作为你的曲库（网上有很多下载方法，即使不能下载也还是有办法），如果喜欢国外歌曲，那么 Youtube 也可以是你的曲库，所以完全可以唱任何你想唱的歌，看你想看的 MV。且对于大部分人，自建曲库的时间成本很低的，完全可以均分到日常 K 歌中。</p>
+        <h3>歌曲下载</h3>
+        <p>很多歌曲都可以在 B 站找到，大部分都有带 K 歌字幕的视频，这种视频就非常适合下载下来作为曲库；如果实在找不到带 K 歌字幕的视频，普通的 MV 视频也是可以的，就是 K 歌体验不是很好。另外，像腾讯、爱奇艺、优酷等视频网站也可以看有没有 MV；像微博这种，如果有合适的视频的话也是可以用的；实在不行，抖音、快手等也是可以的；最后的最后就是去 Youtube 找了。</p>
+        <h3>视频预处理</h3>
+        <p>歌曲视频需要处理才能使用，步骤依次是从视频中提取音频、把音频中的人声和伴奏分离、去掉视频中的音频、把视频元数据放到视频头部。下面依次介绍每个步骤。</p>
+        <h4>音视频格式转换</h4>
+        <p>本系统支持的视频格式是 mp4，支持的音频格式是 mp3，如果不是这种格式，需要进行转换，命令如下：</p>
+        <pre><code># 转 mp4 格式<br>$ ffmpeg -i input.avi -c:v libx264 -c:a aac output.mp4<br><br># 转 mp3 格式<br>$ ffmpeg -i input.wav -codec:a libmp3lame output.mp3</code></pre>
+        <p>或者直接使用系统提供的格式转换能力，在页面上操作很方便。</p>
+        <h4>音视频提取</h4>
+        <p>首先需要从视频中提取出音频，命令如下：</p>
+        <pre><code>$ ffmpeg -i input.mp4 -q:a 0 -map a output.mp3</code></pre>
+        <p>其次需要把视频中的音频去掉，命令如下：（其实这步不做影响不大）</p>
+        <pre><code>$ ffmpeg -i input.mp4 -an -vcodec copy output.mp4</code></pre>
+        <p>最后把视频文件的元数据放到视频的头部，命令如下：（这步必须做，否则严重影响 K 歌体验）</p>
+        <pre><code>$ ffmpeg -i input.mp4 -map_metadata 0 -c:v copy -c:a copy -movflags +faststart output.mp4</code></pre>
+        <p>或者直接使用系统提供的音视频提取能力，在页面上操作很方便。</p>
+        <h4>分离人声和伴奏</h4>
+        <p>这步操作及其重要，是自建曲库的核心步骤。有很多 K 歌软件的伴奏和人声分离不是很好，伴奏中带有人声，但是近些年人工智能大模型的出现，人声和伴奏的分离效果越来越好了。以下汇总了免费的人声和伴奏分离软件：</p>
+        <p>1、<a href="https://github.com/Anjok07/ultimatevocalremovergui/releases" target="_blank">ultimatevocalremover</a>：简称 UVR，号称天花板级别的音频处理软件，可选择不同的模式和下载不同的模型，具体用法可网上查阅资料。Windows 和 Mac 电脑直接下载即可运行，Linux 系统需要自己编译部署；</p>
+        <p>2、<a href="https://github.com/jianchang512/vocal-separate/releases" target="_blank">vocal-separate</a>：极简的人声和伴奏分离软件，效果还可以，速度也挺快的。Windows 系统直接下载就可以用，Mac 和 Linux 系统需要自己部署；</p>
+        <p>3、<a href="https://www.tryreplay.io/" target="_blank">Replay</a>：还不错的人声和伴奏分离软件，全平台支持下载安装即可使用，需要自己下载训练好的模型；</p>
+        <p>4、Adobe Audition：Adobe 公司出品的音频处理软件，没用过，但既然敢拿出来卖，效果应该很不错。网上有很多破解版的可以用哦。</p>
+        <p>通过使用上述软件分离歌曲的人声和伴奏，最终会生成 2 个音频文件，分别是人声的音频和伴奏的音频。如果音频格式不是 mp3，请将它们转换成 mp3 格式。</p>
+        <h3>上传音视频文件</h3>
+        <p>将处理后的音频和视频文件命好名，建议以<code>歌曲名-歌手</code>这种方式命名，这样在搜索歌曲时，通过歌名和歌手都可以搜到。</p>
+        <p>音视频命名是有规范的，以<code>大鱼-周深</code>这首歌为例，视频文件的名字是<code>大鱼-周深.mp4</code>，人声文件的名字是<code>大鱼-周深_vocals.mp3</code>，伴奏文件的名字是<code>大鱼-周深_accompaniment.mp3</code>。也就是说人声音频的文件名要加上 <code>_vocals</code>，伴奏音频的文件名要加上 <code>_accompaniment</code>，且音频文件格式必须是 mp3，视频文件格式必须是 mp4。</p>
+        <p>音视频文件上传成功后，这首歌就加入到你的曲库里了，然后就可以点歌和 K 歌了。</p>
+        <h2>点歌</h2>
+        <p>在曲库列表展示页面，可以从曲库中搜索歌曲，然后点歌。点歌时，会去校验音视频文件是否都有，校验逻辑是按照命名规范去找文件是否存在，如果校验不通过，则不能点歌。</p>
+        <h2>开始K歌</h2>
+        <p>进入 K 歌视频播放页面即可开始 K 歌，该页面主要就是视频播放，外加简单的控制功能。</p>
+        <p style="font-weight: bold;">温馨提示：正式 K 歌时，可设置浏览器全屏展示 或者 视频全屏播放，这样用户体验最好。</p>
+        <p><span style="font-weight: bold; color: red;">特别注意：由于浏览器的安全限制（Google 浏览器和 Edge 浏览器有，其他浏览器未测试），在第一次进入网页或者刷新网页后，第一次播放视频需要手动触发，无法自动播放。</span>官方给出的解释是：避免未经用户操作自动发出声音。</p>
+        <p>一个比较鸡肋的小功能：如果你家里每个房间都有电视屏幕，想每个房间同时播放歌曲的 MV，那么每个设备都可以打开这个 K 歌页面，通过手机端就可以同时控制这些页面的歌曲播放。</p>
+        <h2>手机端控制</h2>
+        <p>手机扫码即可快速打开控制台页面（微信扫码或者浏览器扫码），然后就可以愉快的用手机来控制 K 歌了。控制台界面如下：</p>
+        <img src="/img/karaoke/client.jpg" alt="client.jpg" loading="lazy" />
+        <p>说实话，这个页面样式就是参考全民K歌的手机点歌页面，展示了当前正在唱的歌和下一首歌、切歌、原唱/伴奏切换、音量调整、开始/暂停、重唱、各种互动音效等，可以点歌，也可以查看已点歌曲列表，总之这个页面的功能基本上满足 K 歌需求。</p>
+        <h2>多对多控制</h2>
+        <p>理论上，播放歌曲视频的页面可以打开任意多个，手机控制页面也可以打开任意多个，基于 SSE(Server-Send Events) 实现这种多对多的关系。切歌、调整音量、原唱/伴奏切换等操作会实时同步到每一个客户端，每个客户端的数据和 K 歌状态展示完全一致。为什么不用 WebSocket？因为 SSE 从来没用过，想学习学习。</p>
+        <h2>本地部署</h2>
+        <h3>安装 FFmpeg</h3>
+        <p>FFmpeg 是最受欢迎的音视频和图像处理工具，很多很出名的软件的底层都用的是 FFmpeg。本系统对音视频的处理也用的是 FFmpeg，故首先电脑需要安装 FFmpeg。</p>
+        <p>去 <a href="https://ffmpeg.org/download.html" target="_blank">FFmpeg 官网</a> 下载对应系统的包，解压后文件夹里的程序就可以不用安装直接运行，但是程序调用还需要配置环境变量。Windows 系统需要将解压后的文件夹的路径配置到系统环境变量中；Linux 和 Mac 系统可以将可执行的程序软链接到 <code>/usr/bin</code> 文件夹里。以上操作不会的可以网上找教程。</p>
+        <p>验证是否配置成功，可在任意命令行窗口输入 <code>ffmpeg -version</code>，如果有正常的输出，则说明配置成功。</p>
+        <h3>部署K歌系统</h3>
+        <h4>Windows 系统</h4>
+        <p>Windows 系统直接下载打好的包（<a href="https://github.com/leeyoshinari/karaoke/releases" target="_blank">下载地址</a>），解压后，需要修改配置文件 <code>config.conf</code> 中的曲库存放目录，这个目录必须提前创建好，然后运行程序即可。程序运行后会有一个地址，如下图，复制链接到浏览器打开就可以了。</p>
+        <img src="/img/karaoke/windows.jpg" alt="windows.jpg" loading="lazy" />
+        <!--h4>Linux 系统</h4>
+        <p>Linux 系统可以使用 Docker 安装，执行命令：</p>
+        <p>注意：使用 Docker 安装时，FFmpeg 必须软链接到 <code>/usr/bin</code> 文件夹里。</p-->
+        <h4>源码部署</h4>
+        <p>1、获取源码，项目地址：<a href="https://github.com/leeyoshinari/karaoke" target="_blank">https://github.com/leeyoshinari/karaoke</a></p>
+        <p>2、修改 <code>config.conf</code> 配置文件</p>
+        <p>3、安装第三方包</p>
+        <pre><code>pip3 install -r requirements.txt</code></pre>
+        <p>4、初始化数据库</p>
+        <pre><code>aerich init -t settings.TORTOISE_ORM<br>aerich init-db</code></pre>
+        <p>5、启动</p>
+        <pre><code>python3 main.py</code></pre>
+        <h4>打包</h4>
+        <p>源码部署完成后，也可以将代码进行打包，快速在其他设备上部署，打包命令如下：</p>
+        <pre><code>pyinstaller --onefile --name main main.py --hidden-import settings --hidden-import main --hidden-import aerich --hidden-import fastapi --hidden-import uvicorn --hidden-import tortoise.backends.sqlite --hidden-import tortoise.backends.base --hidden-import tortoise.backends</code></pre>
+        <p>打包完成后，把 templates、static、config.conf、sqlite3.db 拷贝到 dist 文件夹中。</p>
+        <hr style="margin-top: 3em;">
+        <div class="article-footer fs14"></div>
+      </article>
+      <footer class="page-footer footnote"><hr></footer>
+      <div class="main-mask" onclick="sidebar.dismiss()"></div>
+    </div>
+    <aside class="l_right"></aside>
+  </div>
+  <div id="spig" class="spig"><div id="message">……</div><div id="mumu" class="mumu"></div></div>
+</body>
+<script type="module">
+  import { createLeft, createFootNote, createMobileHeader, createDonate, createRight, createFloatPanel } from '/js/template.js';
+  document.getElementsByClassName('l_left')[0].appendChild(createLeft());
+  document.getElementsByClassName('header mobile-only')[0].appendChild(createMobileHeader());
+  document.getElementsByClassName('article-footer fs14')[0].appendChild(createDonate());
+  document.getElementsByClassName('page-footer footnote')[0].appendChild(createFootNote());
+  document.getElementsByClassName('l_right')[0].appendChild(createRight());
+  document.getElementById('start').appendChild(createFloatPanel());
+</script>
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/spig.js"></script>
+</html>

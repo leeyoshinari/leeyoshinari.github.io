@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>白瑜的博客</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="shortcut icon" href="/img/favicon.ico">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <link rel="stylesheet" href="/css/viewer.min.css">
+  <script type="text/javascript" src="/js/viewer.min.js"></script>
+</head>
+<body>
+  <div class="l_body s:aa content tech" id="start" layout="post" >
+    <aside class="l_left"></aside>
+    <div class="l_main" id="main">
+      <header class="header mobile-only"></header>
+      <div class="article banner top"><div class="content"><div class="bottom only-title"><div class="text-area">
+        <h1 class="text title"><span>做一个自己的领券网站</span></h1>
+      </div><div class="publish-date"><span>发布时间: 2024-06-08</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>更新时间: 2024-09-13</span><span class="copy-right">版权</span></div><div class="copyright-content"></div></div></div></div>
+      <article class="md-text content">
+        <h2>介绍</h2>
+        <p>之前有写过一个<a href="/p/940241882.html">领优惠券的 APP</a>，因为淘宝和京东的接口升级，导致 APP 相关功能用不了，而我本地的 Android 开发环境已经删除了，重新搭建环境的成本比较高，而且电脑也有点带不动整套 Android 开发环境（如果你有 Android 开发环境，那么你可以试试修改代码），于是经过多方调研，决定做一个网站，复制 APP 的所有功能。界面如下图：</p>
+        <img src="/img/couponApp/shopping.jpg" alt="shopping.jpg" loading="lazy" />
+        <p>选择做一个网站的原因是因为：</p>
+        <p class="non-row md-indent">1、开发环境搭建简单，如有 bug 可随时修复</p>
+        <p class="non-row md-indent">2、跨平台支持能力，不管是 Android、IOS 还是鸿蒙</p>
+        <p class="non-row md-indent">3、可以把网站做成 PWA 应用，这样就可以像 APP 一样“安装”到手机上了</p>
+        <p class="non-row md-indent">4、可以接入流水线自动部署，无需自己准备服务器部署网站</p>
+        <p>但是，理想很丰满，现实很骨感。由于部分浏览器的各种安全限制，PWA 应用一旦“安装”到手机上，就无法跳转到第三方 APP 了。但是经测试，Chrome 和 Edge 的手机浏览器均可以正常跳转到第三方 APP，由于国内 Chrome 手机浏览器无法正常通过应用商店下载和安装，所以可以安装 Edge 手机浏览器。</p>
+        <h2>网站地址</h2>
+        <p><a href="https://shopping.ihuster.top" target="_blank">网站地址，建议用手机浏览器打开 https://shopping.ihuster.top</a>，不要用微信等软件的内置浏览器打开。</p>
+        <h2>本地部署</h2>
+        <p>1、克隆项目</p>
+        <pre><code>git clone https://github.com/leeyoshinari/shopping.git</code></pre>
+        <p>2、进入项目所在文件夹，执行</p>
+        <pre><code>npm run build<br>npm run dev</code></pre>
+        <p>在浏览器中打开 <a href="http://localhost:3000" target="_blank">http://localhost:3000</a> 即可看到网页.</p>
+        <h2>部署到 Vercel</h2>
+        <p>有很多免费的静态/动态代码托管网站，这里推荐使用 Vercel，它在国内访问速度还可以，唯一就是自动生成的域名国内无法访问，因此需要绑定一个域名，<a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fleeyoshinari%2Fshopping&project-name=shopping&repository-name=shopping" target="_blank">点我立即开始部署</a></p>          
+        <p>由于 Vercel 是美国的服务提供商，我们访问网站时，首先会去请求 Vercel 的服务，Vercel 转发请求到淘宝、京东等服务，获取到结果后再返回到 Vercel 的服务，然后才会返回到自己的浏览器上并展示出来，所以网站的加载会比较慢。</p>
+        <p>也可在其他代码托管网站部署，可自行探索。</p>
+        <h2>“安装”到手机</h2>
+        <p>当你使用手机浏览器访问网站时，一般情况下浏览器会有类似下图的提示，这里的安装需要加个引号，因为它不是像手机 App 那种方式安装，它只是把网站添加到主屏幕上，只是看起来像一个 App 而已，运行时还是需要在浏览器中才能运行，所以“安装”它比安装任何 App 都要安全。</p>
+        <img src="/img/couponApp/1725929216745.jpg" alt="install.jpg" loading="lazy" />
+        <p>如果没有出现类似的提示，可以多刷新页面几次；刷新页面后还是没有提示，可以在手机网页设置里找到 <code>添加到主屏幕</code> 或 <code>添加到桌面</code> 即可。</p>
+        <img src="/img/couponApp/1725929216751.jpg" alt="install1.jpg" loading="lazy" />
+        <h2>功能</h2>
+        <h3>搜索商品</h3>
+        <p>可以先在淘宝、京东、拼多多等 APP 上查找自己需要购买的商品，然后复制商品名称，打开这个领券网站可以搜索商品，快速货比三家，比如前段时间我就发现拼多多的蓝月亮洗衣液的单价要比淘宝的贵两块钱，于是我就在淘宝上下单了。当然也存在搜不到商品的情况，原因是商家没有推广这个商品。</p>
+        <p>如果没有输入搜索内容，默认显示各平台的每日热销榜，至于是不是真的热销我就不知道了。</p>
+        <h3>领取优惠券</h3>
+        <p>有些商品，你在淘宝上搜索没有优惠券，在这里搜索也没有优惠券；有些商品，你在淘宝上搜索有优惠券，在这里搜索也是一样的优惠券；有些商品，你在淘宝上搜索没有优惠券，但是在这里搜索有优惠券；总之，不管怎样，还是能省那么一点点钱的（土豪请无视）。</p>
+        <p>如果搜索出来的商品很多，可能不太容易找出自己想要的商品，那么可以按价格从低到高、销量从高到低、是否有优惠券排序。</p>
+        <!--p>这里要说一下淘宝比较奇葩的规则：当搜索到的商品只有一个时，返回的数据中没有商品id和商品链接，只有当账号满足一定条件后才会返回所有数据；这时我就做了一个特殊处理：如果搜索到的商品只有一个，那么会用这个商品的店铺名再搜索一次，最后返回这个店铺的所有推广的商品，然后再去找一下需要购买的商品。</p-->
+        <h3>官方活动&优惠</h3>
+        <p>各平台官方活动，包括淘宝、京东、拼多多、唯品会、饿了么、美团、滴滴等，可以去活动页面领取官方红包。另外有第三方平台提供的优惠链接，包括奶茶、快餐、话费、电影票、买花等。</p>
+        <p>左右滑动可切换不同的活动/优惠模块，长按可复制微信小程序链接，同样也需要配合<a href="https://github.com/leeyoshinari/coupon_minapp" target="_blank">这个项目</a>使用，特别适合不经常用又不想安装 APP 的用户，很多 APP 权限乱用，在微信小程序上就好很多。</p>
+        <h2>APP跳转</h2>
+        <p>打开网站领取优惠券购买商品时，会用浏览器打开链接，然后通过浏览器的外调能力拉起淘宝、京东、拼多多、美团等 APP 或提示安装 APP，这些行为都是浏览器的行为，这个网站只是告诉浏览器要做什么。</p>
+        <h2>复制商品链接</h2>
+        <p>长按商品，可以复制商品的链接，该链接可以在浏览器中打开，一般浏览器会自动识别链接并提示使用 APP 打开。</p>
+        <p>向右滑动可以复制商品的微信小程序链接，这个小程序链接需要配合<a href="https://github.com/leeyoshinari/coupon_minapp" target="_blank">这个项目</a>打开，主要用于不想安装 APP，例如像拼多多这种 APP 真的很流氓，但是在微信小程序里，拼多多的小程序就老实很多。</p>
+        <h2>缓存数据</h2>
+        <p>为了节省流量，商品列表中的图片采取懒加载方式，已加载的图片的缓存是浏览器的默认行为。</p>
+        <h2>兼容性</h2>
+        <p>已在 Android 手机上完成调试，简单测试使用 华为、小米、oppo、vivo 的默认浏览器打开网站，可以唤起对应的 APP；苹果手机未充分测试，只可以唤起部分 APP。 如果不能唤起 APP，可尝试安装第三方浏览器，支持力度最好的浏览器是 Chrome 浏览器。</p>
+        <h2>升级</h2>
+        <p>修改代码中的版本号，网站加载时会自动验证版本，如果网站的版本和本地缓存的版本不一致，就会重新加载网页。</p>
+        <h2>设置自己的账号</h2>
+        <p>在 <code>main.js</code> 文件的前十几行修改成自己的账号</p>
+        <h3>淘宝</h3>
+        <p>所有配置的值和 API 接口全部使用的是淘宝联盟官方的值</p>
+        <h3>京东</h3>
+        <p>由于京东联盟的限制，其相关的配置全部使用<a href="http://www.haojingke.com/open/index.html" target="_blank">第三方平台提供的 api</a>，在 <code>个人中心->开发管理->三方授权</code> 中授权京东联盟</p>
+        <h3>拼多多</h3>
+        <p>所有配置的值和 API 接口全部使用的是多多进宝官方的值。但是不明原因最近用不了了，也可使用<a href="http://www.haojingke.com/open/index.html" target="_blank">第三方平台提供的 api</a>。</p>
+        <h3>唯品会</h3>
+        <p>由于唯品会联盟的限制，其相关的配置全部使用<a href="http://www.haojingke.com/open/index.html" target="_blank">第三方平台提供的 api</a>，在 <code>个人中心->开发管理->三方授权</code> 中授权唯品会</p>
+        <h3>美团</h3>
+        <p>在美团外卖联盟微信公众号上获取推广链接，直接配置即可</p>
+        <h3>活动</h3>
+        <p>所有平台的活动的推广链接需要手动获取，然后在 <code>activity.ts</code> 文件中按照规范配置即可，并配置好每个链接的过期时间（单位：毫秒）</p>
+        <h3>其他优惠</h3>
+        <p>使用<a href="http://www.haojingke.com/open/index.html" target="_blank">第三方平台提供的优惠</a>，因为有些平台的优惠推广链接，个人开发者是没有权限申请的。</p>
+        <hr style="margin-top: 3em;">
+        <div class="article-footer fs14"></div>
+      </article>
+      <footer class="page-footer footnote"><hr></footer>
+      <div class="main-mask" onclick="sidebar.dismiss()"></div>
+    </div>
+    <aside class="l_right"></aside>
+  </div>
+  <div id="spig" class="spig"><div id="message">……</div><div id="mumu" class="mumu"></div></div>
+</body>
+<script type="module">
+  import { createLeft, createFootNote, createMobileHeader, createDonate, createRight, createFloatPanel } from '/js/template.js';
+  document.getElementsByClassName('l_left')[0].appendChild(createLeft());
+  document.getElementsByClassName('header mobile-only')[0].appendChild(createMobileHeader());
+  document.getElementsByClassName('article-footer fs14')[0].appendChild(createDonate());
+  document.getElementsByClassName('page-footer footnote')[0].appendChild(createFootNote());
+  document.getElementsByClassName('l_right')[0].appendChild(createRight());
+  document.getElementById('start').appendChild(createFloatPanel());
+</script>
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/spig.js"></script>
+</html>

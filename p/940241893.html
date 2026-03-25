@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>白瑜的博客</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="shortcut icon" href="/img/favicon.ico">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <link rel="stylesheet" href="/css/viewer.min.css">
+  <script type="text/javascript" src="/js/viewer.min.js"></script>
+</head>
+<body>
+  <div class="l_body s:aa content tech" id="start" layout="post" >
+    <aside class="l_left"></aside>
+    <div class="l_main" id="main">
+      <header class="header mobile-only"></header>
+      <div class="article banner top"><div class="content"><div class="bottom only-title"><div class="text-area">
+        <h1 class="text title"><span>AIGC 助力办公智能化</span></h1>
+      </div><div class="publish-date"><span>发布时间: 2024-05-25</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>更新时间: 2024-12-22</span><span class="copy-right">版权</span></div><div class="copyright-content"></div></div></div></div>
+      <article class="md-text content">
+        <h2>介绍</h2>
+        <p>ChatGPT 已经火了快几年了。2023 年，微软将 GPT4 整合进了 Office 办公套件，一时间惊艳四座，而普通用户如果想体验一下，就得花不少软妹币，奈何兜里“空空如也”，只能望而兴叹。</p>
+        <p>随着 AIGC 的火爆，在办公领域，盲猜大多数的人操作是：复制需要处理的文本，粘贴进大模型的 APP 或页面，等待响应结果后，再复制结果，然后粘贴到 Word 中。那能不能像 Office 那样全部在 Word 中操作，不用来回复制和粘贴呢？答案是肯定的，而且已有成熟的方案了。</p>
+        <p>OnlyOffice 是一个免费开源的办公软件，其在界面样式、交互和功能上几乎和微软的 Office 基本一致，更是能几乎完全兼容微软的 Office，同时也支持 PDF，远比某国产办公软件好用的多，最主要的是免费无广告，打脸某国产办公软件的套娃式收费和套娃式广告。</p>
+        <p>OnlyOffice 的插件功能很强大，其中一个是 ChatGPT 插件，虽然远不如微软的 Office Copilot 那么强大，但相对国内某些公司的那些“垃圾”玩意，这款插件的性价比和灵活度要高很多。但国内想使用这个 ChatGPT 插件，首先你需要会魔法，其次你要是土豪。所以我就进行了“大刀阔斧”的改进，如下：</p>
+        <p class="non-row md-indent">1、支持配置 OpenAI 的链接，让国内也有可能使用；目前有为数不多的一两位热心“网友”提供了免费的 GPT3.5 的代理，使用有限制，但足够个人使用，但不保证永久可用。</p>
+        <p class="non-row md-indent">2、新增支持 Google，因为 Google 的大模型可免费使用；使用 Google 需要先申请一个 key，这一步就需要魔法，后面使用更是需要魔法，但它的优势在于免费且限制更宽松。</p>
+        <p class="non-row md-indent">3、新增支持 ollama，直接可以使用本地大模型，防止文档被泄露。</p>
+        <p>ollama 是目前比较受欢迎的可以部署在本地的大模型工具，支持目前主流的开源大模型，这需要你有一个配置比较高的电脑了，如果想有一个比较好的使用体验，电脑内存至少要有 16G，而最好的开源大模型需要至少 64G 内存才可以运行，不过好在现在内存条也不贵。建议有条件的小伙伴本地部署开源的大模型，因为目前最新的开源大模型 Llama3.1 应该可以秒杀国内的一众公司自己的大模型了，打脸李彦宏的开源不如闭源的说法。</p>
+        <h2>效果演示</h2>
+        <div style="display: contents;">
+          <video controls preload="none" style="width: 100%; height: 100%;">
+              <source src="/img/AIGC/demo.mp4" type="video/mp4">
+          </video>
+        </div>
+        <h2>使用</h2>
+        <h3>下载</h3>
+        <p>可以去网站 <a href="https://github.com/leeyoshinari/aigc.plugin" target="_blank">aigc.plugin</a> 直接下载 zip 包，也可以使用下面命令 clone 项目：</p>
+        <pre><code>git clone https://github.com/leeyoshinari/aigc.plugin.git</code></pre>
+        <h3>打包</h3>
+        <p>进入项目内，选择所有文件，然后打成 zip 包。然后把压缩包的文件格式直接从 zip 修改成 plugin，对，你没看错，直接通过修改文件名的方式修改文件格式，最后得到一个 <code>xxx.plugin</code> 的文件。</p>
+        <h3>安装</h3>
+        <p>打开 OnlyOffice，随便打开一个空白文档，然后按下图步骤操作：</p>
+        <img src="/img/AIGC/aigc_install.jpg" alt="aigc_install.jpg" loading="lazy" />
+        <h3>设置</h3>
+        <p>首先需要启用该插件，在<code>后台插件</code> 中设置，如下图：</p>
+        <img src="/img/AIGC/aigc_use.jpg" alt="aigc_use.jpg" loading="lazy" />
+        <p>然后设置大模型，如下图。如果你使用的是 ollama，因为它没有 API KEY，这里就可以不用设置。每当你需要切换模型时，也需按下图的步骤重新选择模型。特别注意：选择具体模型时，是实时查询可用的模型，需要等一小会儿才会显示下拉列表。</p>
+        <img src="/img/AIGC/aigc_setting.jpg" alt="aigc_setting.jpg" loading="lazy" />
+        <p>为什么不支持国内的大模型呢？首先有些头部企业的大模型连开源的都不如，真是应了那句话“国外一开源，国内就遥遥领先”。其次是做的不如开源也就算了，关键是收费还挺贵的，还不如拿这钱去给自己的电脑买几个内存条。最后是使用过了最新的 ChatGPT 模型后，发现在某些问题上，国内的大模型可以说都是智障，当然了一般人可能也不会问这些问题。所以还是建议国内普通个人用户还是不要花冤枉钱买国内公司的大模型。</p>
+        <h2>TODO</h2>
+        <p>当前插件只支持 Word 文档，后续会尝试去支持 PowerPoint 和 Excel，最好是能支持一键把 Word 文档整理进 PPT 中，敬请期待 ~</p>
+        <h2>好物推荐</h2>
+        <p>如果只看这个插件的功能和 OnlyOffice，可能并不足够吸引你，建议搭配 <a href="/p/940241891.html">这个网盘</a> 使用，支持多人协作编辑文档，可以大大提高生产力。</p>
+        <hr style="margin-top: 3em;">
+        <div class="article-footer fs14"></div>
+      </article>
+      <footer class="page-footer footnote"><hr></footer>
+      <div class="main-mask" onclick="sidebar.dismiss()"></div>
+    </div>
+    <aside class="l_right"></aside>
+  </div>
+  <div id="spig" class="spig"><div id="message">……</div><div id="mumu" class="mumu"></div></div>
+</body>
+<script type="module">
+  import { createLeft, createFootNote, createMobileHeader, createDonate, createRight, createFloatPanel } from '/js/template.js';
+  document.getElementsByClassName('l_left')[0].appendChild(createLeft());
+  document.getElementsByClassName('header mobile-only')[0].appendChild(createMobileHeader());
+  document.getElementsByClassName('article-footer fs14')[0].appendChild(createDonate());
+  document.getElementsByClassName('page-footer footnote')[0].appendChild(createFootNote());
+  document.getElementsByClassName('l_right')[0].appendChild(createRight());
+  document.getElementById('start').appendChild(createFloatPanel());
+</script>
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/spig.js"></script>
+</html>

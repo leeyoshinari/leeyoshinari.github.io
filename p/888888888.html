@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>白瑜的博客</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="shortcut icon" href="/img/favicon.ico">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <link rel="stylesheet" href="/css/viewer.min.css">
+  <script type="text/javascript" src="/js/viewer.min.js"></script>
+</head>
+<body>
+  <div class="l_body s:aa content tech" id="start" layout="post" >
+    <aside class="l_left"></aside>
+    <div class="l_main" id="main">
+      <header class="header mobile-only"></header>
+      <div class="article banner top"><div class="content"><div class="bottom only-title"><div class="text-area">
+        <h1 class="text title"><span>如何搭建博客网站</span></h1>
+      </div><div class="publish-date"><span>发布时间: 2024-07-31</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>更新时间: 2024-08-01</span><span class="copy-right">版权</span></div><div class="copyright-content"></div></div></div></div>
+      <article class="md-text content">
+        <p>本博客是使用最原始的方式实现的，和别人的高端玩法不一样，最简单就是最好的。本博客是使用 Hexo 框架，按照<a href="https://github.com/FelicxFoster/FelicxFoster.github.io">FelicxFoster</a>项目的教程部署生成的静态页面，并在生成的页面模板的基础上进行了修改，扔掉了 Hexo 框架，做成了原生 HTML + CSS + JS 的前端静态网站。使用 Service Workers 对所有静态文件进行缓存，使用 PWA 技术将博客网站“安装”到手机上，像使用 APP 一样流畅的浏览博客。</p>
+        <h2>页面样式</h2>
+        <p>本博客的所有页面可以分为左中右 3 个部分，在手机端查看网站时，左边部分和右边部分会收起来，只展示出中间的内容。</p>
+        <p>PC 浏览器上的样式</p>
+        <img src="/img/blog/pc.jpg" alt="pc.jpg" loading="lazy" />
+        <p>手机浏览器上的样式</p>
+        <img src="/img/blog/mobile.jpg" alt="mobile.jpg" loading="lazy" />
+        <p>左边部分的内容在所有页面都是一样的，已将这部分提取出来模块化了，页面只需要引用这个模块即可。</p>
+        <p>中间部分可细分为上中下 3 个部分，上面部分在 PC 端浏览器上是隐藏的，只在手机端浏览器上显示，此部分也模块化了；中间部分是博客的内容了，每个页面都不一样，写博客也就是主要写这一部分；下面部分是每篇博客固定的内容，同样也模块化了。</p>
+        <p>右边部分的内容的框架是固定的，没有目录的时候展示的是默认内容，有目录的时候展示的是目录，目录是自动生成的，此部分也模块化了，只需要按需引用即可。</p>
+        <h2>开始写博客</h2>
+        <p>1、可以先复制一个已有的博客的 html 文件</p>
+        <p>2、把多余的内容删掉，然后手动写新的内容</p>
+        <p>3、博客标题用的是 h1 标签，一级目录是 h2 标签，二级目录是 h3 标签，依此类推</p>
+        <p>4、正文内容用 p 标签写，一个 p 标签是一个段落，段落首行默认缩进 2 个字符，段前间距 1 行</p>
+        <p>5、如果段落不需要段间距，p 标签需要添加 class <code>non-row md-indent</code></p>
+        <p>6、图片直接使用 img 标签，建议添加 <code>loading="lazy"</code> 属性以实现懒加载</p>
+        <p>7、无序列表使用 ul 和 li 标签</p>
+        <p>8、特殊字符、名字、变量等可使用 code 标签</p>
+        <p>9、代码、脚本等可使用 pre 和 code 标签</p>
+        <h2>静态文件缓存</h2>
+        <p>由于本博客网站是纯静态页面，静态资源文件都比较小，故可以通过缓存提高网站加载速度，优化用户体验。通过调研，选用 Service Workers 缓存方案把所有静态文件缓存到本地。</p>
+        <p>Service Workers 是一种由浏览器在后台独立运行的脚本，通过事件来处理网络请求、缓存资源和处理消息推送等任务。更重要的是 Service Workers 可以保证在断网的情况下仍可以正常浏览本地缓存的内容。</p>
+        <p>那如何触发缓存事件来缓存静态文件呢？你只需要浏览博客即可自动触发缓存，只会缓存已经浏览过的博客，缓存过的博客再次浏览不会消耗流量，所以博客网站的使用体验和有没有网、网络好不好没有任何关系。当然了，当网站更新了，会重新触发缓存，之前缓存的文件都将会失效。</p>
+        <h2>PWA</h2>
+        <p>渐进式 Web 应用（Progressive Web Apps, PWA）是一种 Web 应用，通过现代 Web 技术和标准，提供类似原生应用的体验。PWA 不仅可以在浏览器中运行，还可以在移动设备上像原生应用一样运行，无需通过应用商店安装。因为是在浏览器中运行，所以天生支持跨平台，不管是 Android、IOS、Windows、鸿蒙等系统，还是 PC、平板和手机，都可以运行 PWA，唯一的区别是不同的浏览器对 PWA 的支持不一样，经过有限的测试，发现 Chrome 浏览器对 PWA 支持最好，其次是 Edge 浏览器，然后是其他浏览器。</p>
+        <p>当你使用手机浏览器访问博客网站时，一般情况下会有类似下图的提示，这里的安装需要加个引号，因为它不是像手机 App 那种方式安装，它只是把网站添加到主屏幕上，只是看起来像一个 App 而已，运行时还是需要在浏览器中才能运行，所以“安装”它比安装任何 App 都要安全。</p>
+        <p class="non-row md-indent">如果没有出现下图的提示，可以多刷新页面几次；刷新页面后还是没有提示，可以在手机网页设置里找到 <code>添加到主屏幕</code> 或 <code>添加到桌面</code> 即可。</p>
+        <img src="/img/blog/install.jpg" alt="install.jpg" loading="lazy" />
+        <p>若想获取比较好的 PWA 使用体验，可以在手机上安装 Chrome 或 Edge 浏览器，但是由于众所周知的原因，国内安装 Chrome 比较麻烦，所以这里推荐安装 Edge 浏览器。</p>
+        <p>“安装”完成后，打开浏览博客，页面会自动缓存，以后即使没网也可以正常浏览博客。</p>
+        <h2>本地部署</h2>
+        <p>1、克隆本项目</p>
+        <pre><code>git clone https://github.com/leeyoshinari/myBlog.git</code></pre>
+        <p>2、选择你喜欢的 Web 服务器用于提供静态文件服务，这里推荐使用 <a href="https://nginx.org/en/download.html" target="_blank">Nginx</a>，你也可以选择其他的工具或方法</p>
+        <p>3、在浏览器中打开本地服务链接即可</p>
+        <h2>代码托管</h2>
+        <p>有很多静态/动态代码托管网站，这里推荐使用 Vercel，它在国内访问速度还可以，唯一就是自动生成的域名国内无法访问，因此需要绑定一个域名，<a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fleeyoshinari%2FmyBlog&project-name=myBlog&repository-name=myBlog" target="_blank">点我立即开始部署</a></p>          
+        <p>也可在其他代码托管网站部署，可自行探索。</p>
+        <h2>网站升级</h2>
+        <p>修改 <code>sw.js</code> 文件中的第一行的版本号，网站加载时会自动验证版本，如果网站的版本和本地缓存的版本不一致，就会重新加载网页。</p>
+        <hr style="margin-top: 3em;">
+        <div class="article-footer fs14"></div>
+      </article>
+      <footer class="page-footer footnote"><hr></footer>
+      <div class="main-mask" onclick="sidebar.dismiss()"></div>
+    </div>
+    <aside class="l_right"></aside>
+  </div>
+  <div id="spig" class="spig"><div id="message">……</div><div id="mumu" class="mumu"></div></div>
+</body>
+<script type="module">
+  import { createLeft, createFootNote, createMobileHeader, createDonate, createRight, createFloatPanel } from '/js/template.js';
+  document.getElementsByClassName('l_left')[0].appendChild(createLeft());
+  document.getElementsByClassName('header mobile-only')[0].appendChild(createMobileHeader());
+  document.getElementsByClassName('article-footer fs14')[0].appendChild(createDonate());
+  document.getElementsByClassName('page-footer footnote')[0].appendChild(createFootNote());
+  document.getElementsByClassName('l_right')[0].appendChild(createRight());
+  document.getElementById('start').appendChild(createFloatPanel());
+</script>
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/spig.js"></script>
+</html>

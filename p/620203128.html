@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>白瑜的博客</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="shortcut icon" href="/img/favicon.ico">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <link rel="stylesheet" href="/css/viewer.min.css">
+  <script type="text/javascript" src="/js/viewer.min.js"></script>
+</head>
+<body>
+  <div class="l_body s:aa content tech" id="start" layout="post" >
+    <aside class="l_left"></aside>
+    <div class="l_main" id="main">
+      <header class="header mobile-only"></header>
+      <div class="article banner top"><div class="content"><div class="bottom only-title"><div class="text-area">
+        <h1 class="text title"><span>性能测试相关知识</span></h1>
+      </div><div class="publish-date"><span>发布时间: 2024-09-20</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>更新时间: 2024-09-22</span><span class="copy-right">版权</span></div><div class="copyright-content"></div></div></div></div>
+      <article class="md-text content">
+        <h2>性能测试概念</h2>
+        <p>目前网上关于性能测试有很多概念，大概可以看到有性能测试、负载测试、压力测试、强度测试、容量测试、配置测试、稳定性测试等等，令人眼花缭乱。说实话，我真的分不清它们到底有什么区别，但是万变不离其宗，可以通过测试过程给性能测试如下定义：</p>
+        <p><span style="font-weight: bold;">性能测试针对系统的性能指标，建立性能测试模型，制定性能测试方案和监控策略，在业务场景条件之下执行性能测试，分析判断性能瓶颈并调优，最终得出性能结果来评估系统的性能指标是否满足既定值。</span></p>
+        <p>概括如下，不管是哪种概念，基本上都离不开这些方法和流程。</p>
+        <img src="/img/note/perf/perf_process.png" alt="perf_process.png" loading="lazy" />
+        <h2>性能指标</h2>
+        <h3>TPS</h3>
+        <p>TPS 是一个关键的性能指标，它用来描述每秒事务数。QPS 是另一个指标，它是描述数据库的每秒查询数。当然还有其他指标，如 RPS、HPS 等。其实最开始只有 TPS 这个指标，QPS 是后来才有的，QPS 是数据库中 SQL 的每秒执行条数，如果用来描述前端的每秒查询数，那就不包括插入、更新和删除操作了，这样的指标用来描述系统整体性能是不够全面的。</p>
+        <p>TPS 该如何定义呢？其实你想怎么定义就怎么定义，只要确保所有相关的人员都知道你是如何定义的就行。通常情况下，会根据场景的目的来定义 TPS 的粒度。如果是接口层性能测试，T 可以定义为接口级；如果是业务级性能测试，T 可以定义为每个业务步骤和完整的业务流。举个栗子吧：</p>
+        <p>假如：我们在购物平台点支付按钮付款时，会通过订单接口查询订单号，通过库存接口查询商品是否有库存，通过支付接口付钱。如果要单独测试订单接口、库存接口、支付接口，那 T 就是接口级；如果从用户角度测试支付，那订单接口、库存接口、支付接口应该在同一个 T 中，这时 T 就是业务级。</p>
+        <h3>Response Time</h3>
+        <p>响应时间是性能测试另一个关键指标，概念很容易理解，但是定位就比较复杂。从浏览器的控制台查看接口的响应时间，可以看到响应时间包含了很多阶段：建立连接、发送请求、等待响应、获取响应，其中等待响应的时间还包括调用链路上各链路的耗时。但是性能测试时，几乎无法这么方便的查看各个阶段的耗时，需要引入链路监控工具或在应用程序内部临时加上各关键节点耗时的日志。</p>
+        <h3>线程数&用户&TPS</h3>
+        <p>有相当一部分同学搞不清并发线程数和 TPS 之间的区别。如果压力工具是 5 个并发线程，每个线程都可以在 1s 内完成 5 个事务，那么总的 TPS 是 25，而在一些同学看来，这样的场景的并发数是 5，而不是 25。</p>
+        <p>用户有了业务含义，如果系统有 1 万个用户在线，并不是要测试 1 万并发，通常在很多业务中，并发度都会低于 5%，甚至低于 1%。如果 1 万用户，5% 在线，平均响应时间 100ms，那么：</p>
+        <pre><code>TPS = 10000 × 5% = 500<br>并发线程数 = TPS / (1000ms / 100ms) = 50</code></pre>
+        <p>响应时间并不都是 100ms，因此并发线程数也不能固定 50，后面再讲怎么做，这里按下不表。</p>
+        <h3>二八原则是什么</h3>
+        <p>很多文章都写到性能测试按照二八原则来计算并发用户数，这种方法既可以说对也可以说不对。如果做了大量的样本数据分析，最后确实得出了二八比例，那就是对的；如果什么数据都没有分析，直接使用二八比例来做评估和计算，那就是不正确的。</p>
+        <p>业务模型应该如何得到呢？这里有两种方式比较合理：</p>
+        <p class="non-row md-indent">1、根据生产环境的统计信息做业务比例的统计或复制生产环境的流量，很多不能在线上环境直接做性能测试的系统，都是通过这种方式获取业务模型；</p>
+        <p class="non-row md-indent">2、直接对生产环境发起性能测试，这种方式被很多人称为全链路压测。其实在生产中做性能测试，最重要的工作不是技术，而是组织协调能力，很多参与过的人都能体会到。但是很多人都无法理解这种方式，包括一些一二线互联网公司工作的人。</p>
+        <h3>二五八原则是什么</h3>
+        <p>响应时间二五八原则是一个经验法则，用于衡量用户对软件系统响应时间的满意度。这个经验是在 80 年代提出的，意思是：2秒以内，用户感觉系统的响应非常快，体验流畅；5秒以内，用户可以接受，但会感觉到轻微的延迟；8秒以内，用户会感到明显的延迟，开始失去耐心；超过8秒，用户会感到非常不耐烦，可能会放弃操作或认为系统出现故障。</p>
+        <h3>TPS和RT的关系</h3>
+        <img src="/img/note/perf/tps_rt.png" alt="tps_rt.png" loading="lazy" />
+        <p>在 TPS 增加的过程中，响应时间一开始会处在较低的状态，也就是在 A 点之前；接着响应时间开始有些增加，直到业务可以承受的时间点 B，这时 TPS 仍有增长的空间；再接着增加压力直到 C 点时，达到最大 TPS；再接着增加压力，响应时间接着增加，但 TPS 会有所下降（这里不是必然的，有些做的比较好的系统会保持稳定的 TPS）。</p>
+        <h2>性能方案</h2>
+        <h2>性能工具</h2>
+        <p>必须要知道工具仅仅只是工具而已。性能测试工具有很多，这里只推荐 JMeter，因为它免费开源。为了更好的做性能测试（全链路压测），可以考虑这个<a href="/p/940241892.html" target="_blank">性能测试平台</a>。</p>
+        <h2>性能监控</h2>
+        <p>很多性能测试工具都有监控的功能，像 JMeter 就有监控服务器资源的插件，但不推荐这样做，因为测试工具不仅需要施加压力，而且还需要接收监控数据，会影响测试结果，且如果是分布式压测或服务端集群部署，获取多个服务器的监控数据就比较麻烦了。可以考虑使用这个<a href="/p/840241882.html" target="_blank">服务器资源监控工具</a>。</p>
+        <h2>测试数据准备</h2>
+        <h3>中间件数据准备</h3>
+        <p>性能测试环境的数据要尽量和线上环境保持一致，最好就是把线上数据镜像到性能测试环境。如果条件不允许，那么自己造的测试数据就需要尽可能和线上保持一致，包括数据量、数据结构、数据分布等。特别是数据库的数据量，空的数据库和几千万数据量的数据库，对测试结果影响很大。</p>
+        <h3>接口数据准备</h3>
+        <p>接口数据的准备需要根据不同的场景单独准备，建议尽可能多的准备数据，并覆盖所有的数据分布、数据逻辑关系和依赖性，且尽量避免同时请求同一条数据。</p>
+        <h2>性能测试用例</h2>
+        <p>这里就不介绍用例怎么写了，具体可以在网上查找教程。</p>
+        <h2>执行性能测试</h2>
+        <p>很多人做接口性能测试时，觉得接口的 TPS 很高，能够满足要求，但是线上实际使用的体验却和性能测试结果相差很大，这是因为性能测试只是测试一个接口，除非系统只有这一个接口，否则的话就还需要测试全链路的性能。</p>
+        <h2>性能分析</h2>
+        <p>性能分析过程是非常耗时和需要技术的活，具体分析过程可参考这篇文章<a href="/p/987654321.html" target="_blank">《Linux 性能分析实战》</a>。</p>
+        <h2>性能测试报告</h2>
+        <h2>最后</h2>
+        <p>性能测试执行和性能监控，可以参考这个<a href="/p/940241892.html" target="_blank">性能测试平台</a>，它提供了性能测试的端到端的解决方案。</p>
+        <p>性能分析可参考这篇文章<a href="/p/987654321.html" target="_blank">《Linux 性能分析实战》</a>。</p>
+        <hr style="margin-top: 3em;">
+        <div class="article-footer fs14"></div>
+      </article>
+      <footer class="page-footer footnote"><hr></footer>
+      <div class="main-mask" onclick="sidebar.dismiss()"></div>
+    </div>
+    <aside class="l_right"></aside>
+  </div>
+  <div id="spig" class="spig"><div id="message">……</div><div id="mumu" class="mumu"></div></div>
+</body>
+<script type="module">
+  import { createLeft, createFootNote, createMobileHeader, createDonate, createRight, createFloatPanel } from '/js/template.js';
+  document.getElementsByClassName('l_left')[0].appendChild(createLeft());
+  document.getElementsByClassName('header mobile-only')[0].appendChild(createMobileHeader());
+  document.getElementsByClassName('article-footer fs14')[0].appendChild(createDonate());
+  document.getElementsByClassName('page-footer footnote')[0].appendChild(createFootNote());
+  document.getElementsByClassName('l_right')[0].appendChild(createRight());
+  document.getElementById('start').appendChild(createFloatPanel());
+</script>
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/spig.js"></script>
+</html>

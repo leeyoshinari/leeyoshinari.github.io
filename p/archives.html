@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>白瑜的博客</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="shortcut icon" href="/img/favicon.ico">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+</head>
+<body>
+  <div class="l_body s:aa index tech" id="start" layout>
+    <aside class="l_left"></aside>
+    <div class="l_main" id="main">
+      <header class="header mobile-only"></header>
+      <div class="navbar top">
+        <nav class="post">
+          <a href="/">最近</a><a href="/p/document.html">文档</a><a class="active" href="/p/archives.html">归档</a>
+        </nav>
+      </div>
+      <div class="post-list archives">
+        <article class="archive-group">
+          <div class='archive-header h4'>2026</div>
+          <div class="archive-list"><a class='post fs14' href="/p/987654327.html"><time>03-02</time><span>搭建自己的 AI 会话应用</span></a></div>
+          <div class='archive-header h4'>2025</div>
+          <div class="archive-list"><a class='post fs14' href="/p/987654326.html"><time>02-07</time><span>ollama 部署本地大模型</span></a></div>
+          <div class='archive-header h4'>2024</div>
+          <div class="archive-list"><a class='post fs14' href="/p/987654325.html"><time>12-31</time><span>acme 证书</span></a></div>
+          <div class="archive-list"><a class='post fs14' href="/p/987654324.html"><time>12-31</time><span>部署 TURN 服务</span></a></div>
+          <div class="archive-list"><a class='post fs14' href="/p/987654323.html"><time>10-20</time><span>自建家庭 KTV</span></a></div>
+          <div class="archive-list"><a class='post fs14' href="/p/987654321.html"><time>08-03</time><span>Linux 性能分析实战</span></a></div>
+          <div class="archive-list"><a class='post fs14' href="/p/888888888.html"><time>07-31</time><span>如何搭建博客网站</span></a></div>
+          <div class="archive-list"><a class='post fs14' href="/p/940241892.html"><time>07-22</time><span>性能测试平台</span></a></div>
+          <div class="archive-list"><a class='post fs14' href="/p/940242882.html"><time>06-08</time><span>做一个自己的领券网站</span></a></div>
+          <div class="archive-list"><a class='post fs14' href="/p/940241893.html"><time>05-25</time><span>AIGC 助力办公智能化</span></a></div>
+          <div class="archive-list"><a class='post fs14' href="/p/940241891.html"><time>02-08</time><span>Windows 风格的个人网盘</span></a></div>
+        </article>
+        <article class="archive-group">
+          <div class='archive-header h4'>2023</div>
+          <div class="archive-list"><a class='post fs14' href="/p/940241883.html"><time>07-09</time><span>“自制”空调遥控器</span></a></div>
+          <div class="archive-list"><a class='post fs14' href="/p/840241882.html"><time>05-04</time><span>Linux 系统服务器资源监控</span></a></div>
+          <div class="archive-list"><a class='post fs14' href="/p/940241882.html"><time>02-12</time><span>做一个自己的领券 APP</span></a></div>
+          <div class="archive-list"><a class='post fs14' href="/p/987654322.html"><time>01-01</time><span>众所周知的小知识</span></a></div>
+          <!--div class="archive-list"><a class='post fs14' href="/p/620203128.html"><time>09-20</time><span>性能测试相关知识</span></a></div-->
+        </article>
+      </div>
+      <footer class="page-footer footnote"><hr></footer>
+      <div class="main-mask" onclick="sidebar.dismiss()"></div>
+    </div>
+    <aside class="l_right"></aside>
+  </div>
+  <div id="spig" class="spig"><div id="message">……</div><div id="mumu" class="mumu"></div></div>
+</body>
+<script type="module">
+  import { createLeft, createFootNote, createMobileHeader, createDefaultRight, createFloatPanel } from '/js/template.js';
+  document.getElementsByClassName('l_left')[0].appendChild(createLeft());
+  document.getElementsByClassName('header mobile-only')[0].appendChild(createMobileHeader());
+  document.getElementsByClassName('page-footer footnote')[0].appendChild(createFootNote());
+  document.getElementsByClassName('l_right')[0].appendChild(createDefaultRight());
+  document.getElementById('start').appendChild(createFloatPanel(false));
+  let hitokoto = document.createElement('script');
+  hitokoto.type = "text/javascript";
+  hitokoto.src = "https://v1.hitokoto.cn/?/?c=b&encode=js&select=%23hitokoto";
+  document.getElementsByClassName('l_right')[0].appendChild(hitokoto);
+</script>
+<script type="text/javascript" src="https://v1.hitokoto.cn/?/?c=b&encode=js&select=%23hitokoto" async></script>
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/spig.js"></script>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>白瑜的博客</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="shortcut icon" href="/img/favicon.ico">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <link rel="stylesheet" href="/css/viewer.min.css">
+  <script type="text/javascript" src="/js/viewer.min.js"></script>
+</head>
+<body>
+  <div class="l_body s:aa content tech" id="start" layout="post" >
+    <aside class="l_left"></aside>
+    <div class="l_main" id="main">
+      <header class="header mobile-only"></header>
+      <div class="article banner top"><div class="content"><div class="bottom only-title"><div class="text-area">
+        <h1 class="text title"><span>“自制”空调遥控器</span></h1>
+      </div><div class="publish-date"><span>发布时间: 2023-07-09</span><span class="copy-right">版权</span></div><div class="copyright-content"></div></div></div></div>
+      <article class="md-text content">
+        <p>夏天到了，又到了晚上愉快地开空调睡觉的时间了。。。</p>
+        <p>很久很久以前，我就发现了一个很普遍的现象：很多人夏天盖着被子吹空调，冬天脱了衣服吹空调。这人到底是冷还是热呢？夏天空调即使设置 28℃，晚上睡着了我还是感觉很冷，为了不盖被子，我就买了空调伴侣，让空调运行一会儿就停一会儿，这样可以控制房间温度不太高也不太低。但是空调伴侣只能联网才能运行，现在我住在了一个没网的房子，怎么控制空调可难为我了。看着一块五一度的电费，我终于下定决心自己弄一个空调遥控器了。</p>
+        <p>材料和工具：</p>
+        <p class="non-row md-indent">1、单片机：STM32F103C8T6，单价：13元</p>
+        <p class="non-row md-indent">2、红外收发模块：淘宝买的，单价：11元</p>
+        <p class="non-row md-indent">3、工具：STM32CubeMX、Keil5、程序烧写器，单价：18元</p>
+        <img src="/img/STM32/stm32.jpg" alt="" loading="lazy" />
+        <p>STM32F103C8T6 是使用最广泛的入门级单片机，最好买原厂（进口）芯片，不要买国产的芯片。</p>
+        <p>红外收发模块是在淘宝上对比了很多家才买的，这家店把模块封装的非常好了，拿来即用，不用管它内部怎么实现的，只管发指令就好了。该模块只支持串口通信，所以单片机启用了串口1，对应的引脚是 PA9 和 PA10。</p>
+        <p>该红外收发模块可以存储7组红外编码，所以首先需要将红外编码写到该模块中，可参考卖家提供的教程。因为这里只控制空调打开和关闭，所以该红外模块的第一组编码存的是空调打开的红外编码，第二组编码存的是空调关闭的红外编码。</p>
+        <p>代码已上传到 github 了，自己写的代码也就才 50 多行，绝大部分代码（寄存器、引脚、时钟、中断、各种库文件）都是 STM32CubeMX 工具生成的。主要用到了串口发送、定时器、时钟、看门狗等，详见：</p>
+        <p>如果想要运行，只需要设置 3 个时间就可以了：单片机开机 10 秒后，打开空调；空调运行 600 秒（第一个需要设置的时间，根据空调性能、房间大小、体感等调整）后关机；等待 3600 秒（第二个需要设置的时间，根据房间保温、体感等调整）后空调再次运行，以此为周期，直到 8 小时（第三个需要设置的时间，如果晚上 23 点睡觉，早上 8 点起床，可设置 8~8.5 小时）后，空调停止运行。当单片机运行 24 小时后，会再次打开空调进入以上周期，从而实现每天都能自动控制空调。由于单片机未联网，不能获取当前日期和时间，所以以上时间都是相对于单片机开始运行的时间。所以如果你晚上 23 点睡觉，请设置好相对时间后，在 23 点开始运行单片机。当然了也可以不用严格按照上述时间设置，只需要睡觉前运行单片机，早上起床后关闭单片机即可，即使忘关了，空调也不会一直运行。</p>
+        <p>其实，最开始是想使用温度传感器来触发空调打开和关闭，但是一般的温度传感器精度不高，反应不灵敏，且温度设置如果不合理会导致空调频繁打开和关闭，反而会增加耗电量。而设置固定时间的方法虽然麻烦，但是绝对可以保证空调可以按时运行，且亲测耗电量比较低，在深圳 7 月份每天晚上开空调，加上洗衣机、电水壶等其他用电，一个月电费也就不到 50 块钱。</p>
+        <p>最后，放一张最终接线图，这个单片机最小系统可直接通过 5V 的 USB 口供电，如果想做成便携式的，可以外接 5V 电源。四根线接的引脚分别是 5V、地线、PA9（TX）、PA10（RX）。</p>
+        <img src="/img/STM32/complate.jpg" alt="" loading="lazy" />
+        <p>最最后，后续计划使用STM32和树莓派搭建一套本地离线智能家居，就像华为的那样（华为的太贵买不起也用不起），而不是像小米的那样（数据存在小米服务器，极不安全可靠）。</p>
+        <p>如果你想自己玩一玩，请<a href="https://github.com/leeyoshinari/STM32" target="_blank">下载代码：https://github.com/leeyoshinari/STM32</a>吧。</p>
+        <hr style="margin-top: 3em;">
+        <div class="article-footer fs14"></div>
+      </article>
+      <footer class="page-footer footnote"><hr></footer>
+      <div class="main-mask" onclick="sidebar.dismiss()"></div>
+    </div>
+    <aside class="l_right"></aside>
+  </div>
+  <div id="spig" class="spig"><div id="message">……</div><div id="mumu" class="mumu"></div></div>
+</body>
+<script type="module">
+  import { createLeft, createFootNote, createMobileHeader, createDonate, createDefaultRight, createFloatPanel } from '/js/template.js';
+  document.getElementsByClassName('l_left')[0].appendChild(createLeft());
+  document.getElementsByClassName('header mobile-only')[0].appendChild(createMobileHeader());
+  document.getElementsByClassName('article-footer fs14')[0].appendChild(createDonate());
+  document.getElementsByClassName('page-footer footnote')[0].appendChild(createFootNote());
+  document.getElementsByClassName('l_right')[0].appendChild(createDefaultRight());
+  document.getElementById('start').appendChild(createFloatPanel());
+  let hitokoto = document.createElement('script');
+  hitokoto.type = "text/javascript";
+  hitokoto.src = "https://v1.hitokoto.cn/?/?c=b&encode=js&select=%23hitokoto";
+  document.getElementsByClassName('l_right')[0].appendChild(hitokoto);
+</script>
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/spig.js"></script>
+</html>

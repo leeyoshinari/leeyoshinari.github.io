@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>白瑜的博客</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="shortcut icon" href="/img/favicon.ico">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <link rel="stylesheet" href="/css/viewer.min.css">
+  <script type="text/javascript" src="/js/viewer.min.js"></script>
+</head>
+<body>
+  <div class="l_body s:aa content tech" id="start" layout="post" >
+    <aside class="l_left"></aside>
+    <div class="l_main" id="main">
+      <header class="header mobile-only"></header>
+      <div class="article banner top"><div class="content"><div class="bottom only-title"><div class="text-area">
+        <h1 class="text title"><span>性能测试平台</span></h1>
+      </div><div class="publish-date"><span>发布时间: 2024-07-20</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>更新时间: 2024-08-20</span><span class="copy-right">版权</span></div><div class="copyright-content"></div></div></div></div>
+      <article class="md-text content">
+        <h2>介绍</h2>
+        <h3>写在最前面</h3>
+        <p>性能测试作为软件生命周期中的一个重要环节，其对软件质量至关重要。据了解，目前绝大部分公司都是用 JMeter 做性能测试，少部分土豪公司用 LoadRunner，极少数是用其他方式做性能测试。在使用 JMeter 的公司里，绝大部分是直接使用 JMeter 软件，少部分公司是在 JMeter 的基础上二次开发做成性能测试平台。目前市面上的培训班基本上都是讲解 JMeter 的使用，讲的都是网上都能搜到的东西，核心知识点少得可怜。既然大家都在用 JMeter，那为什么还要做平台化呢？我认为工具平台化的好处有以下几点：</p>
+        <p class="non-row md-indent">·方便团队协作和数据整合：开源工具大多是 C/S 架构的，不利于团队之间共享和交互，也无法对数据进行归档和整合历史数据；</p>
+        <p class="non-row md-indent">·定制化功能：在开源工具的基础上可以结合业务实现自定义功能，使得测试变得更加灵活和方便；</p>
+        <p class="non-row md-indent">·降低成本：平台化后会比原工具的操作更简单，功能更丰富，降低了操作成本和学习成本；</p>
+        <p class="non-row md-indent">·流程规范化：通过平台对测试流程进行规范，避免因个人能力不同而严重影响测试结果；</p>
+        <p>所以，如果你还停留在使用 JMeter GUI 模式做性能测试的阶段，那么你就需要阅读本文。</p>
+        <p>本人之前工作在一个非互联网行业的公司，在公司专职的性能测试工程师的带领下，学会了自认为流程比较规范标准的性能测试。但是在我去了国内某电商公司，真正去参与了一次大促活动的全链路压测，才发现我之前做的性能测试完全就是过家家。在这个电商公司里，没有专职的性能测试工程师，所有测试工程师，甚至开发工程师都可以做性能测试，没人会在意你有没有性能测试的经验。这里就有一个问题：为什么没有专职的性能测试工程师，系统还能够抗住像双十一这种大促活动的流量？我认为可能原因是：公司有功能强大的性能测试平台，依托于该性能测试平台，才有了比较完善的性能测试流程和规范，只要你按照这个流程和规范，并借助于平台，不管你的性能测试经验有多少，你测试的系统就能够抗住目标流量。</p>
+        <p><span style="font-weight: bold;">工欲善其事，必先利其器</span>。早在 2022 年底，我就已经完成了性能测试平台的demo版本（已开源），因为做的匆忙，很多地方都没有仔细思考，在系统可靠性，压测准确性，模块耦合性等方面存在较大的问题。一年多以后，在进行了必要的研究后，我对这个性能测试平台的架构做了全面的升级，解耦各模块，支持集群部署，优化数据采集，删除冗余代码，我自认为这个版本算是一个能拿的出手的版本了。<span style="font-weight: bold;">想要完整的体验这个平台的所有功能，你至少需要一台内存至少 1G 的 Linux 服务器</span>，如果你没有服务器，那么就只能在 Windows 或者 MAC 上体验部分功能。只要你有电脑，你就可以通过看代码了解平台的各个部分是怎么实现的。</p>
+        <h3>适用人群</h3>
+        <p>本平台纯 Python 开发，使用 Django 框架，对代码能力薄弱的测试工程师来说非常友好，上手门槛极低，绝对比上培训班的性价比高很多，本平台适合以下人群：</p>
+        <p class="non-row md-indent">1、想学习性能测试，提高技术能力的测试工程师；</p>
+        <p class="non-row md-indent">2、想提升性能测试经验的测试工程师；</p>
+        <p class="non-row md-indent">3、想升职加薪，或入职更好的公司的测试工程师；</p>
+        <p class="non-row md-indent">4、想规范性能测试流程，提高性能测试质量的测试经理/测试总监；</p>
+        <p class="non-row md-indent">5、想降本增效的公司老板，用此平台可以削减专职的性能测试工程师岗位；</p>
+        <h2>架构图</h2>
+        <img src="/img/PerformanceRunner/myPlarform.jpg" alt="" loading="lazy">
+        <p>该平台已支持集群部署，可通过 Nginx 的 upstream 挂在任意多个后端服务，如需高可用，请自行部署 keepalive。所有 Agent 也可部署任意多个。</p>
+        <h2>部署</h2>
+        <p>以下是在 Linux 服务器上的部署方法，Windows 和 MAC 设备的部署仅供参考。</p>
+        <h3>平台部署</h3>
+        <p>1、先获取代码：<a href="" target="_blank">暂未开源</a>。然后解压 PerformanceRunner.zip，并进入文件夹； </p>
+        <p>2、安装 MySQL(SQLite3不用安装，可直接使用)、InfluxDB、Redis、MinIO(可选安装，不安装文件存本地)；</p>
+        <p>3、安装第三方依赖包；</p>
+        <pre><code>pip3 install -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple</code></pre>
+        <p>4、修改配置文件<code>config.conf</code>；</p>
+        <p>5、数据库初始化，依次执行下面命令；</p>
+        <pre><code>python3 manage.py migrate<br>python3 manage.py makemigrations server performance management<br>python3 manage.py migrate</code></pre>
+        <p>6、创建超级管理员账号；</p>
+        <pre><code>python3 manage.py createsuperuser</code></pre>
+        <p>7、数据初始化；</p>
+        <pre><code>python3 manage.py loaddata initdata.json</code></pre>
+        <p>8、处理所有静态文件；</p>
+        <pre><code>python3 manage.py collectstatic --noinput</code></pre>
+        <p>9、处理多语言；</p>
+        <p>处理多语言需要安装 gettext，不同操作系统安装 gettext 的方法可以从网上查找。gettext 安装完成后，就可以执行下面命令了：</p>
+        <pre><code>python3 manage.py compilemessages</code></pre>
+        <p>如果你手动修改了多语言翻译，那么需要执行上面命令让多语言生效。如果你需要从代码中重新收集多语言信息，那么需要执行下面命令：</p>
+        <pre><code>python3 manage.py makemessages -l zh_Hans<br>python3 manage.py makemessages -l en<br>python3 manage.py makemessages -d djangojs -l zh_Hans<br>python3 manage.py makemessages -d djangojs -l en</code></pre>
+        <p>10、按需修改<code>startup.sh</code>中的端口号；</p>
+        <p>11、部署<code>nginx</code>，并修改配置，location 相关配置如下：(ps: 下面 location 中的<code>platform</code>就是配置文件<code>config.conf</code>中的<code>prefix</code>，可根据自己需要修改)；</p>
+        <p>（1）upstream 配置</p>
+        <pre><code>upstream myplatform-server {<br>    server 127.0.0.1:15200;<br>    server 127.0.0.1:15201;<br>}</code></pre>
+        <p>（2）静态请求：通过 nginx 直接访问静态文件，配置静态文件路径</p>
+        <pre><code>location /platform/static {<br>    alias /home/MyPlatform/static;<br>}</code></pre>
+        <p>（3）动态http请求：</p>
+        <pre><code>location /platform {<br>    proxy_pass http://myplatform-server;<br>    proxy_set_header Host $proxy_host;<br>    proxy_set_header X-Real-IP $remote_addr;<br>    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;<br>}</code></pre>
+        <p>（4）websocket协议通信：</p>
+        <pre><code>location /server {  # 必须是server，不能修改<br>    proxy_pass http://myplatform-server;<br>    proxy_set_header Upgrade $http_upgrade;<br>    proxy_set_header Connection &quot;upgrade&quot;;<br>}</code></pre>
+        <p >12、启动</p>
+        <pre><code>sh startup.sh</code></pre>
+        <p>停止请执行 <code>sh shutdown.sh</code></p>
+        <p >13、访问页面，url是 <code>http://ip:port/config.conf中的prefix</code>
+        <h3>Redis 部署</h3>
+        <p  >Redis 安装比较简单，可按照 <a href="https://redis.io/docs/latest/operate/oss_and_stack/install/install-redis/install-redis-on-linux/" target="_blank">Redis官方文档</a>安装，也可以<a href="https://github.com/redis/redis/releases" target="_blank">自行下载源码</a>编译安装。Redis 配置文件主要修改的配置如下：</p>
+        <ul>
+            <li>注释掉 <code>bind 127.0.0.1</code> 这一行</li>
+            <li>设置 <code>daemonize yes</code></li>
+            <li>设置密码 <code>requirepass xxxx</code></li>
+        </ul>
+        <h3>InfluxDB 部署</h3>
+        <p>InfluxDB 安装非常简单，可直接按照 <a href="https://www.influxdata.com/downloads/" target="_blank">InfluxDB 官网</a>的步骤安装。安装完成后，用浏览器打开 web 页面，设置 Organization，获取 Token，将 Organization 和 Token 配置在 <code>config.conf</code> 中。（ps：仅支持 InfluxDB2.x 版本，建议安装最新版）</p>
+        <h3>MinIO 部署</h3>
+        <p>MinIO 安装非常简单，可直接按照 <a href="https://min.io/download?license=agpl&platform=linux" target="_blank">MinIO 官网</a>的步骤安装。安装完成后，用浏览器打开 web 页面，主要配置如下：</p>
+        <img src="/img/PerformanceRunner/minio_config.JPG" alt="" loading="lazy">
+        <p>打开 <code>User Policy</code>，配置数据访问策略，如下。然后把 <code>Access Key</code> 和 <code>Secret Key</code> 配置在 <code>config.conf</code> 中。</p>
+        <pre><code>{<br>    "Version": "2012-10-17",<br>    "Statement": [<br>    {<br>      "Effect": "Allow",<br>      "Action": [<br>        "s3:*"<br>      ],<br>      "Resource": [<br>        "arn:aws:s3:::*"<br>      ]<br>    }]<br>  }<br>}</code></pre>
+        <h3>Nginx 部署</h3>
+        <p>Nginx 部署比较简单，可根据自己服务器的 Linux 发行版本在网上查找部署方法。源码编译安装的主要步骤如下：</p>
+        <ul>
+            <li>去 <a href="https://nginx.org/en/download.html" target="_blank">Nginx 官网</a>下载安装包。然后解压并进入文件夹</li>
+            <li>执行配置命令：<code>./configure --prefix=/usr/local/nginx</code>。如有报错，一般是系统缺少包，可自行在网上查找并安装</li>
+            <li>编译：<code>make && make install</code></li>
+            <li>安装完成后，Nginx 配置文件在<code>/usr/local/nginx/conf/nginx.conf</code></li>
+        </ul>
+        <h2>项目组管理</h2>
+        <p>在项目组列表中，可以查看所有用户所在的项目组的配置，可以往项目组中添加/删除用户。点击 Create Group 按钮（仅管理员可见），可以创建项目组，需要设置项目组应用的唯一标识符和后端接口的 prefix。</p>
+        <p>唯一标识符：一般在整个公司是唯一的，对于在服务器上，通过<code>ps -ef | grep 唯一标识符 | grep -v grep</code> 命令可以查找到唯一一个进程，这个配置主要用于监控服务器资源时，自动获取服务进程。</p>
+        <p>后端 URL 中的 prefix：对于特定的应用，后端地址中的前缀（prefix）是固定，这个配置主要用于采集后端接口流量。</p>
+        <img src="/img/PerformanceRunner/group_management.jpg" alt="" loading="lazy">
+        <p>用户管理，可以把用户添加到项目组中，也可以将用户从项目组中移除。</p>
+        <img src="/img/PerformanceRunner/user_management.jpg" alt="" loading="lazy">
+        <h2>机房管理</h2>
+        <p>在机房列表中，可以查看所有的机房。点击 Create Server Room 按钮（仅管理员可见），可以创建机房。机房列表中的删除按钮是仅管理员可见。</p>
+        <img src="/img/PerformanceRunner/room_management.jpg" alt="" loading="lazy">
+        <p>点击 Create Server Room 创建机房，设置机房时主要有3个选项，分别是用于应用、用于中间件、用于压测。为什么有这3个呢？</p>
+        <p>例如一个机房有100台服务器，项目组A用了40台部署自己的服务，项目组B也用了40台部署自己的服务，还有10台服务器部署了中间件，剩余10台可以用于压测，这3个选项就用于区分这些类型。因为这个项目把服务器管理、服务器监控和压测整合在一个应用里了，为了能够区分，所以才加了3个选项；不像大公司的平台都是不同的人开发的不同的应用，只是把前端页面挂在一起。</p>
+        <p>一般性能测试需要施压机和被测服务所在服务器在同一个机房，如果你就想跨机房压测，可以把不是同一个机房的服务器设置成同一个机房，假装它们在一起。</p>
+        <h2>服务器管理</h2>
+        <p>服务器列表展示当前用户可见的所有服务器，服务器列表可以概览服务器的基本信息（系统、CPU、内存、磁盘），也可以打开 Shell 远程连接 Linux；其中的编辑服务器和删除服务器的按钮仅创建人和管理员可见。</p>
+        <p>点击 Add Server 创建服务器，这里需要设置服务器所属项目组、所在的机房、以及服务器IP、用户名和登录密码。</p>
+        <img src="/img/PerformanceRunner/server_home.jpg" alt="" loading="lazy">
+        <h3>远程连接服务器</h3>
+        <p>点击 OpenShell 即可打开 Shell 远程连接 Linux，可以同时打开很多个页面，如下:</p>
+        <img src="/img/PerformanceRunner/shell_ternimal.JPG" alt="" loading="lazy">
+        <p>为了提供更好的使用体验，提供了 Ctrl+C（复制）和 Ctrl+V（粘贴）快捷键，不仅如此，还仍然保留了 Ctrl+C 快捷键在 shell 中的终止前台进程的功能，而绝大部分主流 shell 工具是不支持这种功能的，老板再也不担心你敲命令慢了。</p>
+        <p>在打开的 Shell 中，可以上传文件到服务器，或者下载文件到本地。为了安全，上传和下载的入口也是可以关闭的。</p>
+        <ul style="margin-top: 1em;">
+          <li>在上传文件时，首先会弹出输入框，需要填入文件上传到哪个目录（绝对路径，不填默认 /home 目录），然后选择文件上传。</li>
+          <li>在下载文件时，也会弹出输入框，需要填入文件的完整路径（绝对路径），必须填文件路径，不能填目录路径，然后可通过浏览器下载到本地。</li>
+        </ul>
+        <h3>自动部署Agent</h3>
+        <p>点击 Deploy 会打开新的页面，这个页面可以上传部署包、自动部署和卸载。</p>
+        <img src="/img/PerformanceRunner/shell_deploy.JPG" alt="" loading="lazy">
+        <p>由于一些部署包区分 Linux 发行版本和 CPU 架构，故需要先准备好对应的部署包，然后上传到平台，通过该平台进行部署。如果部署包不区分 Linux 发行版本和 CPU 架构，上传部署包时可随意选择一种。</p>
+        <p>该平台下面的所有 agent 都可以且只能通过该平台自动部署（当前只支持部署 monitor-agent 、jmeter-agent 、java、jmeter）。为了方便部署，所有的 agent 的配置文件已经简化到不能再简化了，一般情况下不需要修改任何配置，所有的配置都从平台自动获取。建议部署顺序：先部署 Java (仅施压机部署且没有部署过)，再部署 JMeter (仅施压机部署)，再部署 monitor-agent 和 jmeter-agent。请往后查看如何打包 monitor-agent 和 jmeter-agent。</p>
+        <p>在点击部署/卸载前，请仔细核对当前服务器的 Linux 系统发行版本和 CPU 架构是否和部署包的 Linux 系统发行版本和 CPU 架构一致。</p>
+        <p>注：极少数情况下需要修改 agent 配置文件，例如：你的 nginx 部署方式和 99% 的人都不一样，无法自动获取 nginx 的日志路径，这时就需要修改配置文件。</p>
+        <h4>打包 monitor-agent</h4>
+        <p>1、解压<code>monitor_agent.zip</code>文件后进入文件夹。</p>
+        <p>2、修改配置文件<code>config.conf</code>，一般情况下是不需要修改的。</p>
+        <p>3、如果需要采集 Nginx 流量，那么需要修改 Nginx 日志输出格式，如下：</p>
+        <p><code>log_format  main   '$remote_addr - [$time_iso8601] "$request" $status $body_bytes_sent $upstream_response_time "$http_referer" "$http_performance_header" "$http_user_agent"';</code></p>
+        <p><code>access_log  logs/access.log  main;</code></p>
+        <p>4、打包：</p>
+        <ul>
+            <li>执行打包命令：<code>pyinstaller --onefile --name=server server.py --hidden-import logger --hidden-import config</code></li>
+            <li>编辑 server.spec 文件，修改 pathex 为当前项目目录，例如：<code>pathex=['/home/monitor_agent']</code></li>
+            <li>执行打包命令：<code>pyinstaller server.spec</code></li>
+            <li>复制 config.conf 到 dist 目录，命令：<code>cp config.conf dist/</code></li>
+            <li>进入 dist 目录，将文件打包成 zip，命令：<code>zip monitor_agent.zip server config.conf</code></li>
+            <li>将打包好的 monitor_agent.zip 文件上传至平台。</li>
+        </ul>
+        <h4>打包 jmeter-agent</h4>
+        <p>1、解压<code>jmeter_agent.zip</code>文件后进入文件夹。</p>
+        <p>2、修改配置文件<code>config.conf</code>，一般情况下是不需要修改的。</p>
+        <p>3、打包：</p>
+        <ul>
+            <li>执行打包命令：<code>pyinstaller --onefile --name=server server.py --hidden-import taskController --hidden-import common</code></li>
+            <li>编辑 server.spec 文件，修改 pathex 为当前项目目录，例如：<code>pathex=['/home/jmeter_agent']</code></li>
+            <li>执行打包命令：<code>pyinstaller server.spec</code></li>
+            <li>复制 config.conf 到 dist 目录，命令：<code>cp config.conf dist/</code></li>
+            <li>进入 dist 目录，将文件打包成 zip，命令：<code>zip jmeter_agent.zip server config.conf</code></li>
+            <li>将打包好的 jmeter_agent.zip 文件上传至平台。</li>
+        </ul>
+        <h2>服务器资源监控</h2>
+        <p>该工具主要用于监控服务器资源使用情况，主要有一下功能：</p>
+        <ul>
+            <li>监控整个服务器的CPU使用率、io wait、内存使用、磁盘IO、网络带宽和TCP连接数</li>
+            <li>监控端口的 TCP 状态</li>
+            <li>针对java应用，可以监控jvm大小和垃圾回收情况；当Full GC频率过高时，可发送邮件提醒</li>
+            <li>系统CPU使用率过高，或者剩余内存过低时，可发送邮件提醒；可设置自动清理缓存</li>
+        </ul>
+        <h3>监控首页</h3>
+        <p>首页展示了所有已经部署监控的服务器，这里可以概览服务器资源的当前使用情况。这个入口仅管理员可以看到，可分项目组查询。</p>
+        <img src="/img/PerformanceRunner/monitor_home.JPG" alt="" loading="lazy">
+        <h3>监控可视化</h3>
+        <p>监控结果可视化，分项目组和机房查看，可选择任意时间段（监控数据保留时长在配置中设置）。</p>
+        <img src="/img/PerformanceRunner/monitor_figure.JPG" alt="" loading="lazy">
+        <p >主要监控下面数据：</p>
+        <ul>
+          <li>CPU：CPU 总使用率、iowait 使用率</li>
+          <li>内存：剩余内存、可用内存、JVM内存（仅Java）</li>
+          <li>磁盘：磁盘读写速度、磁盘IO</li>
+          <li>网络：网络上行和下行速度、网络使用率</li>
+          <li>TCP：系统的 TCP 连接总数、TCP 重传数，端口的 TCP 数量、time-wait 数量、close-wait 数量</li>
+        </ul>
+        <p>查看监控结果时，默认展示指定项目组和机房下的所有服务器资源的平均值，左侧展示的是服务器列表，排列顺序按照 CPU、IO、网络使用率权重（5:3:2）排序，颜色也按照这个权重计算展示。点击某个服务器，即可查看该服务器的资源监控数据。页面所有数据每隔 10s 刷新一次。</p>
+        <h2>流量采集工具</h2>
+        <p>该工具主要用于解析 Nginx 的 access.log，从日志中提取出接口访问数据。如果您使用的不是 Nginx，可自行修改代码和日志格式。如果您不需要采集流量，可在配置文件中关闭该功能。</p>
+        <h3>首页概览</h3>
+        <p>首页页面展示的信息是根据接口聚合后的结果（过滤掉静态文件的请求），默认按照QPS排序，可选按响应时间、响应体大小、响应错误数量排序；可分别查看压测流量数据和正常流量数据。</p>
+        <img src="/img/PerformanceRunner/nginx_summary.JPG" alt="" loading="lazy">
+        <h3>单接口流量</h2>
+        <p>点击每个接口，可查看该接口的每秒数据变化图，分别是 QPS、平均响应时间、响应体大小和错误数。</p>
+        <img src="/img/PerformanceRunner/nginx_detail.JPG" alt="" loading="lazy">
+        <h2>性能测试工具</h2>
+        <p>现在开源的、最好用的性能测试工具是 JMeter，很多公司的性能测试平台的底层都用的是 JMeter，所以本工具底层也是用 JMeter 实现的，而且原滋原味的保留了 JMeter 的所有功能，让您像在本地使用 JMeter 一样的丝般顺滑，使用体验远超某电商的全链路压测平台。</p>
+        <p>该工具具有以下功能：</p>
+        <ul>
+          <li>在页面可以编辑 JMeter 脚本，或可以导入已有 JMeter 脚本；</li>
+          <li>支持根据压测情况随时调整 TPS，可调整总的 TPS，也可以调整每个施压机的 TPS；</li>
+          <li>支持分布式压测，可以动态增加/减少施压机，实现施压机热挂载；</li>
+          <li>支持自动执行压测；</li>
+          <li>强大的赋能能力，该工具具有的功能几乎可以用于所有的 JMeter 脚本；</li>
+          <li>原滋原味的保留了 JMeter 的所有功能，只要本地能运行的脚本，用该工具都可以运行，因此也支持 JMeter 所有的扩展插件；</li>
+        </ul>
+        <p>先说一下使用 JMeter 做 HTTP 接口性能测试的基本流程：</p>
+        <p class="non-row md-indent">1、创建 jmx 文件，编写压测脚本。压测脚本的结构是：<code>测试计划(Test Plan)—&gt;线程组(Thread Group)—&gt;控制器(Controller)—&gt;取样器(HTTP Sample)</code>。
+        另外还有一些辅助的组件例如：CSV数据文件设置、吞吐量控制器、Http Cookie管理器等。</p>
+        <p class="non-row md-indent">2、确定并发数，设置压测执行时间；</p>
+        <p class="non-row md-indent">3、执行压测；</p>
+        <p class="non-row md-indent">4、查看压测结果；</p>
+        <p>以上，所以该工具的作用就是把上述步骤流程化、便捷化、自动化。</p>
+        <h3>在页面新增JMeter脚本</h3>
+        <h4>添加测试计划</h4>
+        <p>在左侧点击 Test Plan，可以查看测试计划，测试计划列表如下：</p>
+        <img src="/img/PerformanceRunner/plan_home.JPG" alt="" loading="lazy">
+        <p>Server Room 列可以查看该机房里空闲的施压机数量；</p>
+        <p>Action列具有的一些操作：</p>
+        <ul>
+          <li>Enabled/Disabled：禁用/启用，对应 JMeter 右键菜单里的 禁用/启用 功能；</li>
+          <li>Copy：复制，快速复制一个测试计划；</li>
+          <li>Variables：设置全局变量，对应 JMeter 中的测试计划中的 “用户自定义的变量”；</li>
+          <li>ThreadGroup：查看测试计划中的所有线程组；</li>
+          <li>StartTest：开始执行性能测试。如果是手动执行，则会立即开始压测；如果是自动执行，则会生成一个压测任务，等待压测时间开始后自动执行。如果是指定线程数压测，则压测开始后，线程数会直接到目标线程数；如果是指定 TPS 压测，则压测开始后的初始压测流量为目标流量的 30%，等待后续手动/自动调整流量。</li>
+        </ul>
+        <p>点击 Variables，可以设置全局变量，如下：</p>
+        <img src="/img/PerformanceRunner/plan_variable.JPG" alt="" loading="lazy">
+        <p>点击添加或编辑，出现下面的页面：（如果不清楚每个字段的意思，可点击问号查看提示）</p>
+        <img src="/img/PerformanceRunner/plan_add.JPG" alt="" loading="lazy">
+        <ul>
+          <li>tearDown：对应 JMeter 中的 测试计划 中的设置 “主线程结束后运行tearDown线程组”；</li>
+          <li>Serialize：对应 JMeter 中的 测试计划 中的设置 “独立运行每个线程组（例如在一个组运行结束后启动下一个）”；</li>
+          <li>runType：指定压测脚本运行类型，可选指定线程数运行和指定 TPS 运行；</li>
+          <li>Target TPS/Thread Num：当运行类型为指定 TPS 运行时，这里就是目标 TPS；当运行类型为指定线程数运行时，这里就是线程数；</li>
+          <li>Duration：压测执行时间，单位：秒；对应 JMeter 中的 线程组 中的设置 “持续时间（秒）”；</li>
+          <li>Schedule：压测执行方式，可选手动执行或自动执行。当选择自动执行时，需要设置自动执行的时间；</li>
+          <li>Time Setting：用于设置自动执行时间，仅当 Schedule 设置为自动执行时生效。设置时间后，可以点击 Preview 预览流量变化曲线；</li>
+          <li>Server Room：机房，指的是施压机所在的机房，压测脚本会在设置的机房的施压机上运行 (一般性能测试尽可能避免跨机房，减少网络对性能测试的影响)。压测时，该机房必须有可用的(空闲的)施压机；</li>
+          <li>Server Number：施压机数，执行压测时，设置的机房里必须有足够数量的空闲的施压机；</li>
+          <li>isDebug：如果设置 Debug 模式，则脚本在执行时候会生成 jtl 文件，该文件包含每一个请求的结果，正式测试时，建议设置非 Debug 模式，以免影响施压机性能；</li>
+        </ul>
+        <h4>添加线程组</h4>
+        <p>在左侧点击 Thread Group，可以查看所有的线程组；如果在 Test Plan 中点击 ThreadGroup，可以查看该测试计划下的所有线程组。线程组列表如下：</p>
+        <img src="/img/PerformanceRunner/group_home.JPG" alt="" loading="lazy">
+        <p>Action列具有的一些操作：</p>
+        <ul>
+          <li>Enabled/Disabled：禁用/启用，对应JMeter右键菜单里的 禁用/启用 功能；</li>
+          <li>Copy：复制，快速复制一个线程组；</li>
+          <li>Cookies：如果压测需要 cookies，可以在这里设置；对应的是 JMeter 中的 Http Cookie管理器；</li>
+          <li>Controller：查看线程组中的所有控制器；</li>
+        </ul>
+        <p>Cookies 设置页面如下：</p>
+        <img src="/img/PerformanceRunner/group_cookie.JPG" alt="" loading="lazy">
+        <p>点击添加或编辑，出现下面的页面：（如果不清楚每个字段的意思，可点击问号查看提示）</p>
+        <img src="/img/PerformanceRunner/group_add.JPG" alt="" loading="lazy">
+        <ul>
+          <li>Plan ID：将该线程组绑定到指定的测试计划；</li>
+          <li>Ramp Time：在这个时间内启动所有的线程，对应 JMeter 线程组中的 “Ramp-Up时间（秒）”；</li>
+          <li>CSVDataSet：上传压测需要的文件，需要设置变量名称（英文逗号分割）、分隔符、遇到文件结束符是否继续、线程共享模式，这里的设置和 JMeter 中的 CSV 数据文件设置一样；</li>
+        </ul>
+        <h4>添加控制器</h4>
+        <p>在左侧点击 Controller，可以查看所有的控制器；如果在 Thread Group 中点击 Controller，可以查看该线程组下的所有控制器。控制器列表如下：</p>
+        <img src="/img/PerformanceRunner/controller_home.jpg" alt="" loading="lazy">
+        <p>Action列具有的一些操作：</p>
+        <ul>
+          <li>Enabled/Disabled：禁用/启用，对应 JMeter 右键菜单里的 禁用/启用 功能；</li>
+          <li>Copy：复制，快速复制一个控制器；</li>
+          <li>HTTPSample：查看控制器中的所有取样器；</li>
+        </ul>
+        <h4>添加取样器</h4>
+        <p>在左侧点击 HTTP Sample，可以查看所有的取样器；如果在 Controller 中点击 HttpSample，可以查看该控制器下的所有取样器。取样器列表如下：</p>
+        <img src="/img/PerformanceRunner/sample_home.JPG" alt="" loading="lazy">
+        <p>点击添加或编辑，出现下面的页面：（如果不清楚每个字段的意思，可点击问号查看提示）</p>
+        <img src="/img/PerformanceRunner/sample_add.JPG" alt="" loading="lazy">
+        <ul>
+          <li>Controller ID：把该取样器绑定到指定的控制器；</li>
+          <li>Protocol：协议，可选 HTTP 或 HTTPs；</li>
+          <li>Domain Name：域名或 ip；</li>
+          <li>Port：端口号；</li>
+          <li>Path：url 路径；</li>
+          <li>Method：http 请求方法；</li>
+          <li>Arguments：http 请求参数，可选请求参数格式为 json 或 form 表单，对应 JMeter 中的取样器的参数设置；</li>
+          <li>HTTP Header：下拉选择对应的请求头，请求头配置在 HTTP Header 中；如果没有请求头，需要提前设置好；</li>
+          <li>Assertion：断言，可选类型为 Contain(包含)、Equal(相等)或 Match(匹配)，对应 JMeter 中的响应断言；</li>
+          <li>Post Extractor：后置处理器，用于提取响应值中的数据，仅支持 JSON 提取器和正则表达式提取器；</li>
+          <li>contentEncoding：内容编码格式，可选 None 或 UTF-8，对应 JMeter 中的取样器中的 “内容编码”；</li>
+        </ul>
+        <p>以上设置和在 JMeter 中的取样器中的设置一样，也可以引用变量，后置处理器也可以设置变量。</p>
+        <h4>添加请求头</h4>
+        <p >在左侧点击 HTTP Header，可以查看所有的请求头；</p>
+        <img src="/img/PerformanceRunner/header_home.jpg" alt="" loading="lazy">
+        <p>在设置请求头时，只需要把字段和值填入即可，这里也可以引用变量，引用格式和 JMeter 一样。</p>
+        <img src="/img/PerformanceRunner/header_add.JPG" alt="" loading="lazy">
+        <p>以上，就完成了在这个工具上手动编写压测脚本。如果已有本地的已经调试好的 JMeter 脚本，且是按照上面说的结构，可以在 Test Plan 页面直接点击 Import Plan 按钮导入进系统中。导入后会对文件进行解析，可能会有少许修改，可以在页面手动核对和修改。</p>
+        <h3>上传本地JMeter文件</h3>
+        <p>考虑到有些性能测试场景的压测脚本很复杂，例如有 BeanShell 脚本、for/if 等控制语句，但仍想使用压测工具赋予的压测能力，可以把本地调试通过的 JMeter 脚本，连同需要使用的外部文件，打包成 zip 压缩包，然后在 Upload JMeter 页面上传该压缩包，上传成功后就可以使用工具赋予的压测能力了。</p>
+        <p>这里说一下这个工具对上传的压缩包是怎么处理的：</p>
+        <p class="non-row md-indent">1、压缩包上传后，首先使用 zip 命令解压，故只支持 zip 格式压缩；</p>
+        <p class="non-row md-indent">2、解压后，直接在解压的文件夹中寻找 jmx 格式的 JMeter 脚本，压缩包里必须有且仅有一个 jmx 格式的文件；由于是直接在解压的文件中寻找 jmx 文件，故压缩文件时，选择需要压缩的文件，然后压缩，而不是选择文件夹进行压缩；</p>
+        <p class="non-row md-indent">3、经过一系列校验后，压缩包会被上传到文件系统；</p>
+        <p class="non-row md-indent">4、生成一条记录，然后可以在页面修改压测参数，和 Test Plan 一样，如下：</p>
+        <img src="/img/PerformanceRunner/upload_home.JPG" alt="" loading="lazy">
+        <p>当需要压测的时候，会对 JMeter 文件进行修改，如下：
+        <p class="non-row md-indent">1、从文件系统中下载文件，并解压；</p>
+        <p class="non-row md-indent">2、如果运行类型设置为指定 TPS 运行，则会往 JMeter 脚本中添加一个吞吐量控制器；如果运行类型设置为指定线程数运行，则会修改 JMeter 脚本中的 Thread Group 的参数；</p>
+        <p class="non-row md-indent">3、把修改后的 jmx 文件和其他依赖的文件一起打包，然后开始压测；</p>
+        <h3>测试任务</h3>
+        <p>在左侧点击 Test Task 可以查看所有的测试任务，所有待执行、执行中、已停止的测试记录都会显示在这里，只有测试完成后，才会显示 Sample、TPS、RT、Error 等数据。</p>
+        <img src="/img/PerformanceRunner/task_home.jpg" alt="" loading="lazy">
+        <p>在Actions列，可以下载每个任务执行的 JMeter 文件，如果压测出现问题，可以下载文件看看是哪里出现问题了。</p>
+        <h4>查看压测详情</h4>
+        <p>在压测执行时或压测结束后，可以查看压测详情。
+        当开始执行压测后，首先会生成压测所需要的文件，然后传给施压机，施压机会执行压测文件。此时页面会自动跳转到查看压测详情页面，由于压测初始化和产生压测结果需要时间，故需要等待一会儿才会在页面看到数据。</p>
+        <img src="/img/PerformanceRunner/task_detail.JPG" alt="" loading="lazy">
+        <p>在压测详情页面可以的操作（页面右上角）：</p><ul>
+          <li>Stop：会立即停止压测；</li>
+          <li>Change TPS：统一调整所有施压机的 TPS；</li>
+          <li>Download File：下载该任务执行的 JMeter 文件；</li>
+        </ul>
+        <p>每个施压机可以的操作：</p><ul>
+          <li>View：查看单个施压机的压测数据；</li>
+          <li>Start：启动该施压机开始压测，施压机启动需要一点时间，当启动后，就可以调整该施压机的 TPS；</li>
+          <li>Stop：停止该施压机的压测，其他施压机不停；</li>
+          <li>Download logs：下载该施压机的 JMeter 执行的日志；</li>
+          <li>Change TPS：调整单个施压机的 TPS；</li>
+        </ul>
+        <h4>分布式压测</h4>
+        <p>在测试计划编辑页面，可以设置该测试计划使用的施压机数量，当开始压测后，会自动获取空闲的施压机，多个施压机的压测数据会自动汇总，这就突破了使用 JMeter 进行分布式压测时需要各施压机的系统时间、Java 版本、JMeter 版本必须一样的限制，可以更加方便进行分布式压测。</p>
+        <h4>施压机热挂载</h4>
+        <p>在查看压测详情页面，如果在性能测试过程中，发现压力不够，需要增加施压机时，只需要在当前压测任务下（即查看压测详情页面）启动一个施压机即可，而不需要单独另开启一个压测任务（两个任务之间的数据是独立的）；当需要下掉一个施压机时，直接点击施压机的停止按钮即可立即下线；不管是启动一个施压机，还是停止一个施压机，所有施压机的压测数据都会被汇总在一起，可以更加灵活地调整压测流量。</p>
+        <h2>QAQ</h2>
+        <p class="title">1、为什么shell会经常提醒 Session is in closed status？</p>
+        <p>为了避免可能的无效连接占用服务器资源，对超过10分钟没有任何数据交互的连接进行关闭；同时由于客户端网络问题或其他各种异常，服务端也需要及时关闭无效连接。</p>
+        <p class="title">2、为什么自动部署 agent 包时一直不成功？</p>
+        <p>首先核对 Linux 系统发行版本和 CPU 架构是否和部署包一致，然后查看部署日志。部署路径是配置文件<code>config.conf</code>中的<code>deployPath</code>。</p>
+        <p class="title">3、单台施压机支持压测的流量多少？</p>
+        <p>建议每台施压机的流量不要超过 3000/s（需要结合服务器环境等实际情况）。如果发现压力上不来，请先排除施压机和被测系统问题后，再增加一台施压机。</p>
+        <p class="title">4、性能测试怎么区分压测流量和正常流量？</p>
+        <p>如果你是在页面上手动编写的脚本，那么当脚本执行时，会自动往请求头中添加 <code>Performance-Header</code> 字段，故可根据 <code>Performance-Header</code> 区分压测流量。</p>
+        <p>如果你是在<code>Upload JMeter</code>页面手动上传本地调试好的脚本，那么脚本中必须有 <code>HTTP信息头管理器</code> ，当执行脚本时，会自动往请求头中添加 <code>Performance-Header</code> 字段。</p>
+        <p class="title">5、性能测试的某个接口的请求怎么 mock，或者写入影子表/影子库？</p>
+        <p>本工具只提供通用的压测能力，可根据请求头的 <code>Performance-Header</code> 区分是否是压测流量。由于服务端的部署架构、语言和业务的不同，因此没法提供各语言的探针，可自己结合实际情况编写探针，来实现 mock 功能，或将数据写入影子表/影子库，或走影子链路。</p>
+        <p class="title">6、服务器资源监控一直在运行，但为什么查询监控结果会有错误提示？</p>
+        <p>一般出现这种情况是因为服务器资源监控运行后，该服务器所属的项目组和机房被修改过，修改后的信息没有同步到资源监控工具，导致数据不一致。因此需要重启服务器资源监控工具，或者重新部署。</p>
+        <h2>ToDo</h2>
+        <p>1、支持智能压测，根据服务器资源使用率动态调整流量</p>
+        <p>2、引入第三方定时任务调度工具，保证平台重启后，定时任务仍然有效</p>
+        <hr style="margin-top: 3em;">
+        <div class="article-footer fs14"></div>
+      </article>
+      <footer class="page-footer footnote"><hr></footer>
+      <div class="main-mask" onclick="sidebar.dismiss()"></div>
+    </div>
+    <aside class="l_right"></aside>
+  </div>
+  <div id="spig" class="spig"><div id="message">……</div><div id="mumu" class="mumu"></div></div>
+</body>
+<script type="module">
+  import { createLeft, createFootNote, createMobileHeader, createDonate, createRight, createFloatPanel } from '/js/template.js';
+  document.getElementsByClassName('l_left')[0].appendChild(createLeft());
+  document.getElementsByClassName('header mobile-only')[0].appendChild(createMobileHeader());
+  document.getElementsByClassName('article-footer fs14')[0].appendChild(createDonate());
+  document.getElementsByClassName('page-footer footnote')[0].appendChild(createFootNote());
+  document.getElementsByClassName('l_right')[0].appendChild(createRight());
+  document.getElementById('start').appendChild(createFloatPanel());
+</script>
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/spig.js"></script>
+</html>

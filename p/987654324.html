@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>白瑜的博客</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="shortcut icon" href="/img/favicon.ico">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <link rel="stylesheet" href="/css/viewer.min.css">
+  <script type="text/javascript" src="/js/viewer.min.js"></script>
+</head>
+<body>
+  <div class="l_body s:aa content tech" id="start" layout="post" >
+    <aside class="l_left"></aside>
+    <div class="l_main" id="main">
+      <header class="header mobile-only"></header>
+      <div class="article banner top"><div class="content"><div class="bottom only-title"><div class="text-area">
+        <h1 class="text title"><span>部署 TURN 服务</span></h1>
+      </div><div class="publish-date"><span>发布时间: 2024-12-31</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="copy-right">版权</span></div><div class="copyright-content"></div></div></div></div>
+      <article class="md-text content">
+        <p>STUN 是一种轻量级的协议，主要用于帮助客户端发现其在公共网络上的 IP 地址和端口号，并检测 NAT 类型。</p>
+        <p>TURN 是一种中继协议，客户端通过连接 TURN 服务器，并使用 TURN 服务器分配的中继地址进行通信。</p>
+        <p>WebRTC 使用 ICE 协议来协调 STUN 和 TURN 的使用。ICE 会尝试所有可能的连接方式，并选择最佳的连接方式。免费的 STUN 服务有很多，但免费的 TURN 很少很少，需要自建。</p>
+        <h2>下载并安装coturn</h2>
+        <p>CentOS: yum install coturn</p>
+        <p>Debian / Ubuntu: apt install coturn</p>
+        <h2>生成证书</h2>
+        <pre><code>openssl req -x509 -newkey rsa:1024 -keyout /etc/turn_server_pkey.pem -out /etc/turn_server_cert.pem -days 99999 -nodes</code></pre>
+        <h2>修改配置文件</h2>
+        <p>配置文件在 <code>/etc/turnserver.conf</code>。</p>
+        <pre><code>listening-device=eth0						# 网卡名称
+listening-port=3478							# turnserver监听UDP/TCP端口
+tls-listening-port=5349					    # turnserver监听TLS/DTLS端口
+listening-ip=0.0.0.0							# 设置 0.0.0.0 即可
+relay-ip=10.120.92.4						    # 一定是内网IP，不然relayIP会获取不到
+external-ip=X.X.X.X						# 一定是公网IP
+cert=/etc/turn_server_cert.pem			# 证书地址
+pkey=/etc/turn_server_pkey.pem		# 密钥地址
+user=用户名:密码							    # 用户名:密码
+realm=X.X.X.X								# 域名或者公网IP
+lt-cred-mech								    # 开启密码验证</code></pre>
+        <h2>启动coturn</h2>
+        <pre><code>启动：systemctl start coturn.service<br>重启：systemctl restart coturn.service<br>停止：systemctl stop coturn.service</code></pre>
+        <h2>放开端口</h2>
+        <p>服务器防火墙一定要放开 TCP 和 UDP 协议的端口，如果监听了 TLS 端口，那么也要放开。</p>
+        <h2>测试</h2>
+        <p>可以在 <a href="https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/" target="_blank">Trickle ICE </a>测试 STUN/TURN 服务是否部署好。只有 relay 的地址是你的 IP 才算穿透成功。</p>
+        <hr style="margin-top: 3em;">
+        <div class="article-footer fs14"></div>
+      </article>
+      <footer class="page-footer footnote"><hr></footer>
+      <div class="main-mask" onclick="sidebar.dismiss()"></div>
+    </div>
+    <aside class="l_right"></aside>
+  </div>
+  <div id="spig" class="spig"><div id="message">……</div><div id="mumu" class="mumu"></div></div>
+</body>
+<script type="module">
+  import { createLeft, createFootNote, createMobileHeader, createDonate, createRight, createFloatPanel } from '/js/template.js';
+  document.getElementsByClassName('l_left')[0].appendChild(createLeft());
+  document.getElementsByClassName('header mobile-only')[0].appendChild(createMobileHeader());
+  document.getElementsByClassName('article-footer fs14')[0].appendChild(createDonate());
+  document.getElementsByClassName('page-footer footnote')[0].appendChild(createFootNote());
+  document.getElementsByClassName('l_right')[0].appendChild(createRight());
+  document.getElementById('start').appendChild(createFloatPanel());
+</script>
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/spig.js"></script>
+</html>

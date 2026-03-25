@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>白瑜的博客</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="shortcut icon" href="/img/favicon.ico">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <link rel="stylesheet" href="/css/viewer.min.css">
+  <script type="text/javascript" src="/js/viewer.min.js"></script>
+</head>
+<body>
+  <div class="l_body s:aa content tech" id="start" layout="post" >
+    <aside class="l_left"></aside>
+    <div class="l_main" id="main">
+      <header class="header mobile-only"></header>
+      <div class="article banner top"><div class="content"><div class="bottom only-title"><div class="text-area">
+        <h1 class="text title"><span>搭建自己的 AI 会话应用</span></h1>
+      </div><div class="publish-date"><span>发布时间: 2026-03-02</span><span class="copy-right">版权</span></div><div class="copyright-content"></div></div></div></div>
+      <article class="md-text content">
+        <p>本文档介绍一个基于 Next.js 框架构建的 AI 会话应用。</p>
+        <p>为什么要做这个呢？现在开源的比较好的项目有 LobeChat 和 NextChat，LobeChat 功能很多，支持主流的模型提供商，社区也在逐渐发展，正是因为它的功能太多了，导致已经无法在 vercel 平台上免费部署了，而且官方已经不再维护 WEB 版本了，而很多人就只用用聊天功能和插件功能，这就导致如果想继续使用 LobeChat 的新功能和 bug 修复版本，就必须自备服务器或者付费使用 vercel 这样的平台；NextChat 项目功能比 LobeChat 少很多，作者也不怎么维护，所以不想使用。于是决定自己做一个轻便版的 AI 会话应用，核心功能自主可控。</p>
+        <h2>功能特性</h2>
+        <ul>
+          <li><span style="font-weight:bold;">多模型支持</span>: OpenAI、Google Gemini、DeepSeek、Cloudflare Workers AI</li>
+          <li><span style="font-weight:bold;">流式输出</span>: 实时展示 AI 回复内容</li>
+          <li><span style="font-weight:bold;">推理模式</span>: 支持模型的深度思考功能</li>
+          <li><span style="font-weight:bold;">联网搜索</span>: 支持使用 Google 联网搜索</li>
+          <li><span style="font-weight:bold;">多模态输入</span>: 支持图片、音频、文件上传</li>
+          <li><span style="font-weight:bold;">历史对话</span>: 本地存储，支持管理和搜索</li>
+          <li><span style="font-weight:bold;">角色系统</span>: 自定义提示词角色</li>
+          <li><span style="font-weight:bold;">响应式设计</span>: 支持桌面端和移动端</li>
+          <li><span style="font-weight:bold;">多语言支持</span>: 中文/英文</li>
+          <li><span style="font-weight:bold;">明暗主题</span>: 跟随系统自动切换</li>
+          <li><span style="font-weight:bold;">PWA 支持</span>: 可安装为桌面应用</li>
+        </ul>
+        <h2>项目结构</h2>
+        <pre><code>├── app/                    # Next.js App Router<br>│   ├── api/               # API 路由<br>│   │   ├── chat/         # 聊天 API<br>│   │   ├── config/       # 配置 API<br>│   │   └── roles/        # 角色 API<br>│   ├── globals.css       # 全局样式<br>│   ├── layout.tsx        # 根布局<br>│   └── page.tsx          # 主页面<br>├── components/            # React 组件<br>│   ├── chat/             # 聊天相关组件<br>│   └── ui/               # UI 基础组件<br>├── config/               # 配置文件<br>│   ├── providers.ts      # 模型提供商配置<br>│   ├── tools.ts          # 工具配置<br>│   └── roles.json        # 角色配置<br>├── i18n/                 # 国际化<br>│   ├── config.ts         # i18n 配置<br>│   └── messages/         # 翻译文件<br>├── lib/                  # 工具库<br>│   ├── db.ts             # IndexedDB 存储<br>│   └── utils.ts          # 工具函数<br>├── services/             # 服务层<br>│   ├── adapters/         # 模型适配器<br>│   └── tools/            # 工具执行器<br>├── store/                # 状态管理<br>│   └── chat-store.ts     # Zustand Store<br>├── types/                # TypeScript 类型<br>│   └── index.ts          # 类型定义<br>└── public/               # 静态资源<br>    └── icons/            # 图标文件</code></pre>
+        <h2>模型支持</h2>
+        <p>当前只支持 OpenAI、Gemini、DeepSeek、Cloudflare Workers AI 公司的模型。为什么不重点支持国内的模型呢？说实话：国内模型和美国的模型比起来还是要差很多，特别是在解决复杂问题和指令遵循上，更重要的是国内有几十万的敏感词，当你的问题涉及的这些词时，国内模型就是傻瓜一个。当然了，以上都不重要，重要的是这几个平台都是长期免费使用的（至少目前看是免费的），不像国内的都是新用户注册才送100万token，而且还限时使用，所以还是资本主义好。</p>
+        <!--img src="/img/ollama/ollama_m_list.jpg" alt="" loading="lazy" /-->
+        <h2>模型能力</h2>
+        <p>当前支持的模型能力有 支持函数/工具调用、支持思考模式、支持图片输入、支持文件输入、支持图片生成、支持文字转语音、支持语音转文字、支持联网搜索。这些能力都是在单个模型维度设置的，模型本身支持这个能力，你才可以配置这个能力，当然了也可以不配置这个能力，那就在使用时无法使用这个能力了。我现在的配置如下：</p>
+        <img src="/img/AI/model_list.png" alt="" loading="lazy" />
+        <p>其中，OpenAI 和 DeepSeek 使用第三方提供的免费模型，Gemini 和 Cloudflare Workers AI 使用的是官方提供的免费模型，这些当然有额度限制，但是个人使用完全足够了。</p>
+        <h2>联网搜索</h2>
+        <p>一个 AI 聊天工具如果不支持联网搜索，那就失去了灵魂了，如果只能接入百度这样的搜索能力，那只是聊胜于无，所以联网搜索能力在我这里是优先级比较高的功能。项目支持原生的 Google Search API，直接调用 Google 的搜索引擎搜索全网任何内容，同时还支持 Serper(一个把 Google Search API 包装了一层的搜索能力提供商) API 搜索能力，根据用户输入的内容智能提取出搜索关键词。本还想做智能搜索能力，就是模型自动决策和规划要怎么搜索、搜索什么内容，但是免费的额度有限，怕一下子就用完了。</p>
+        <h2>其他介绍</h2>
+        <p>支持思考模式，会展示思考过程（仅 Gemini、DeepSeek 模型会展示，其他模型没有输出思考过程）。</p>
+        <p>历史对话只存在本地，不会存在其他任何地方，这是一个无服务的应用。</p>
+        <p>多语言和明暗主题全部都是跟随系统自动切换。</p>
+        <p>支持 PWA，可以“安装”到手机上，像使用 APP 一样。</p>
+        <p>在 vercel 上部署时间不到 1 分钟，而 LobeChat 部署时间在 15 分钟以上，甚至经常部署失败。</p>
+        <p>浏览器资源占用更小，缓存文件不到 1M，而 LobeChat 的缓存文件超过 120M。</p>
+        <h2>部署</h2>
+        <h3>账号准备</h3>
+        <p>首先需要注册 GitHub 账号，然后可以使用 GitHub 账号登陆 Vercel 平台。然后注册 Google 账号（需要梯子）和 Cloudflare 账号。</p>
+        <p></p>
+        <h3>获取 API Key</h3>
+        <p>获取 Google Gemini 的 API Key，和 Cloudflare Workers AI 的 API Token 和 Account ID，OpenAI 和 DeepSeek 的账号和 API Key 自行去网上找，这里不说了，避免广告嫌疑。</p>
+        <h3>导入项目</h3>
+        <p>进入 GitHub，Fork <a href="https://github.com/leeyoshinari/chat" target="_blank">本项目</a>，如果喜欢 LobeChat，也可以 Fork <a href="https://github.com/lobehub/lobe-chat" target="_blank">LobeChat</a>。然后进入 Vercel 平台，点击 <code>Add New -> Project</code>，然后<code>Import Git Repository</code>，然后选择 Repository，点击部署即可。</p>
+        <h3>配置环境变量</h3>
+        <p>在 Vercel 平台部署的 Project 里，点击 <code>Settings -> Environment Variables</code>，开始设置环境变量，设置完成后重新部署一次。</p>
+        <pre><code># 应用访问密码<br>ACCESS_PASSWORD=your-password-here<br><br># 历史消息限制数量<br>HISTORY_LIMIT=50<br><br># OpenAI 配置<br>OPENAI_ENABLED=false<br>OPENAI_BASE_URL=https://api.openai.com/v1<br>OPENAI_API_KEY=your-openai-api-key<br>OPENAI_MODELS=gpt-4o=GPT-4o&lt;fc:vision&gt;,gpt-4o-mini=GPT-4o Mini&lt;fc:vision&gt;,gpt-4-turbo=GPT-4 Turbo&lt;fc:vision&gt;<br><br># Google (Gemini) 配置<br>GOOGLE_ENABLED=false<br>GOOGLE_BASE_URL=https://generativelanguage.googleapis.com/v1beta<br>GOOGLE_API_KEY=your-google-api-key<br>GOOGLE_MODELS=gemini-2.5-flash=Gemini 2.5 Flash&lt;fc:vision:file:reasoning&gt;,gemini-3.0-flash=Gemini 3.0 Flash&lt;fc:vision:file:reasoning:search&gt;<br><br># DeepSeek 配置<br>DEEPSEEK_ENABLED=false<br>DEEPSEEK_BASE_URL=https://api.deepseek.com/v1<br>DEEPSEEK_API_KEY=your-deepseek-api-key<br>DEEPSEEK_MODELS=deepseek-chat=DeepSeek V3&lt;fc&gt;,deepseek-reasoner=DeepSeek R1&lt;reasoning&gt;<br><br># Cloudflare Workers AI 配置<br>CLOUDFLARE_ENABLED=false<br>CLOUDFLARE_BASE_URL=https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/v1<br>CLOUDFLARE_API_KEY=your-cloudflare-api-key<br>CLOUDFLARE_MODELS=@cf/meta/llama-3.3-70b-instruct-fp8-fast=Llama 3.3 70B&lt;fc&gt;<br><br># 联网搜索工具<br>WEB_SEARCH_ENABLED=false<br># 搜索 API 类型: google 或 serper<br>SEARCH_API_TYPE=serper<br><br># Google Search API 配置<br>GOOGLE_SEARCH_API_KEY=your-google-search-api-key<br>GOOGLE_SEARCH_ENGINE_ID=your-search-engine-id<br><br># Serper API 配置<br>SERPER_API_KEY=your-serper-api-key<br><br># 联网搜索关键词智能提取使用的模型提供商和模型名称<br># openai | deepseek | cloudflare | google<br>KEYWORD_EXTRACTOR_PROVIDER=cloudflare<br>KEYWORD_EXTRACTOR_MODEL=@cf/meta/llama-3.3-70b-instruct-fp8-fast</code></pre>
+        <p>模型的能力标识</p>
+        <pre><code>#  fc: 支持函数/工具调用<br>#  vision: 支持图片输入<br>#  file: 支持文件输入<br>#  reasoning: 支持思考模式<br>#  imageOutput: 支持图片生成<br>#  tts: 支持文字转语音<br>#  asr: 支持语音转语音<br>#  stt: 支持语音转文字<br>#  search: 支持联网搜索</code></pre>
+        <h3>配置域名</h3>
+        <p>在 Vercel 平台部署完成一个 Project 后，会自动生成一个域名，因为域名已经被污染了，所以国内无法访问，这时需要自己购买一个域名，然后把你自己的域名 CNAME 到 <code>cname-china.vercel-dns.com</code> 即可。购买域名是唯一一个需要花钱的地方，买一个便宜一点的域名，一年不到 10 块钱，非常划算。推荐国外域名，因为不用备案。</p>
+        <p>以上，你就极低成本拥有一个没有限制的 AI 会话应用了，随时随地都可以使用。</p>
+        <h2>怎么自己做一个项目</h2>
+        <p>说实话，我是不会 Nodejs 的，要是我自己做，肯定是做不出来，得益于 AI Coding，我可以迅速完成这个项目的开发，这里推荐使用 Qoder 工具。Qoder 开发这个项目用了不到十分钟的时间，这充分说明了 AI 将能替代绝大部分人的工作；但是细节优化、页面和交互调整、Bug修复却用了我四天多的时间，这也充分说明了 AI 暂时还不能完全取代人工。下面是我写的第一版的提示词：</p>
+        <pre><code>你是一个全球顶尖的前端工程师，请使用nextjs框架实现一个大模型对话的项目，支持回答问题、发送图片和文件、接受图片和文件、支持展示各种返回格式的文本，具体要求如下：
+- 使用nodejs和nextjs框架，使用typescript语言，代码加上详细的注释。
+- 整个页面主要分2块，左侧边栏展示历史对话列表，页面剩余部分展示对话内容，页面样式参考图片 destop.png。如果在手机端使用，整个页面都要展示对话内容（页面样式参考mobile.png），历史对话列表在下方使用抽屉页的交互展示（页面样式参考mobile session.png），对话列表每个对话支持删除和重命名。在对话内容的上方展示对话的标题、使用的模型名称、调用的工具名称（如果没有调用工具，则不展示）。
+- 页面需要有一个输入框，输入框右侧是消息发送按钮，紧挨着输入框上方是工具栏，工具栏支持选择模型、是否思考模式、上传图片、上传文件、选择调用工具、清除当前对话历史、新建对话等。
+- 选择模型时，分公司展示模型名称（页面样式参考model list.png），图标直接读取静态文件即可。使用环境变量配置每个公司的模型列表，每个公司都有一个是否启用的配置、url、token、模型列表等配置，模型列表配置如下：gemini-3-flash-preview=Gemini 3.0 Flash<fc:vision:search:reasoning>，其中gemini-3-flash-preview是真正调用的模型名，Gemini 3.0 Flash是展示在前端页面的名字，fc是模型支持工具调用，vision是支持上传图片，file是支持上传文件，reasoning是支持推理思考，imageOutput是支持图片生成，search是支持联网搜索，多个模型用逗号分隔。如果不启用这个公司的模型，那么在前端页面就不要展示出来。
+- 工具栏支持的功能，如果选择的模型不支持该功能，工具栏就不要展示这个功能入口。
+- 消息对话中，用户发送的内容和模型回复的内容的样式参考session.png，每一个模型的回复内容都支持删除并重新生成和复制的功能，每一个用户发送的内容都支持复制。
+- 要求输出的文本支持流式输出，实时在页面上展示出来。对于支持思考模式的模型，页面要支持展示思考过程。
+- 要求可以发送图片、文件、音频、视频，大模型回答问题后，也可以展示出文本和图片、视频等，总之尽可能支持所有模型回复的内容。
+- 历史对话记录列表，要可以自动从第一轮对话中提取出标题，对话数据存在浏览器本地，有删除按钮可以删除，点击就可以查看对话并继续对话。前端存储使用indexedDB，不需要跨设备使用，数据只需要存在浏览器本地就行。
+- 支持工具调用，调用工具的列表展示支持的所有工具（页面样式参考tools.png），是否启动工具以及工具的key等参数在环境变量中配置。每个工具的图标在静态文件中已有。例如调用联网搜索工具等，你必须给出一个标准的工具调用框架，以便以后可以更方便的接入其他工具。并在代码中明确注释说明怎么接入其他工具。联网搜索功能支持 google search api 和 serper api，能够根据用户输入内容智能决定怎么搜索，然后给出最终答案。
+- 为了控制未授权的访问，需要环境变量设置访问密码。前端页面在对话时传入密码，后端验证密码是否正确，不正确则弹出密码输入框。前端输入的密码要求存在浏览器中。
+- 支持加载自定义角色的提示词，在输入框中用 / 开头，然后自动检索自定义的角色，支持模糊匹配角色名字。角色名字和角色对应的提示词需要配置在一个json文件中，从这个json文件中读取数据即可。
+- 如果历史对话消息太多，你需要限制历史消息数量，这个数量在环境变量中可配置。
+- 支持多语言，使用 i18n。多语言跟随电脑和手机的设置自动切换，默认是英语。
+- 支持明暗主题跟随电脑和手机的设置自动切换，默认是明亮主题。
+- 字体大小跟随电脑和手机的设置。
+- 支持PWA，每次部署自动更换版本号。
+- 你的代码框架设计必须符合架构设计规范，可以灵活扩展功能支持不同公司的模型和不同的自定义工具调用，代码结构严谨清晰。你需要支持Gemini、ChatGPT、DeepSeek、Cloudflare等模型。
+- 页面精美，能适配不同的分辨率，支持电脑和手机和平板。</code></pre>
+        <hr style="margin-top: 3em;">
+        <div class="article-footer fs14"></div>
+      </article>
+      <footer class="page-footer footnote"><hr></footer>
+      <div class="main-mask" onclick="sidebar.dismiss()"></div>
+    </div>
+    <aside class="l_right"></aside>
+  </div>
+  <div id="spig" class="spig"><div id="message">……</div><div id="mumu" class="mumu"></div></div>
+</body>
+<script type="module">
+  import { createLeft, createFootNote, createMobileHeader, createDonate, createRight, createFloatPanel } from '/js/template.js';
+  document.getElementsByClassName('l_left')[0].appendChild(createLeft());
+  document.getElementsByClassName('header mobile-only')[0].appendChild(createMobileHeader());
+  document.getElementsByClassName('article-footer fs14')[0].appendChild(createDonate());
+  document.getElementsByClassName('page-footer footnote')[0].appendChild(createFootNote());
+  document.getElementsByClassName('l_right')[0].appendChild(createRight());
+  document.getElementById('start').appendChild(createFloatPanel());
+</script>
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/spig.js"></script>
+</html>
