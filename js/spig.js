@@ -28,7 +28,7 @@ jQuery(document).ready(function ($) {
     let spig_top = window.innerHeight - 100
     $(".spig").animate({
         top: spig_top,
-        left: document.body.offsetWidth - 205
+        left: document.body.offsetWidth - 110
     },{
         queue: false,
         duration: 1000
