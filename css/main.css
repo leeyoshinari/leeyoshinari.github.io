@@ -1520,11 +1520,6 @@ div.toast.show {
   background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0.2));
   text-shadow: 0 0 1px rgba(0,0,0,0.12);
 }
-@media screen and (max-width: 667px) {
-  .banner.top {
-    border-radius: 0;
-  }
-}
 .colorful[color='red'] {
   --theme: #f44336;
   --theme-border: #e6b6b3;

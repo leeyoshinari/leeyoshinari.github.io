@@ -16,7 +16,7 @@ jQuery(document).ready(function ($) {
         showMessage('你是夜猫子呀？还不睡觉！', 6000);
     } else if (now > 6 && now <= 9) {
         showMessage('早上好呀，记得吃早饭哦！', 6000);
-    } else if (now > 11 && now <= 14) {
+    } else if (now > 11 && now <= 13) {
         showMessage('中午了，吃饭了么？', 6000);
     } else if (now > 14 && now <= 17) {
         showMessage('下午的时光真难熬！', 6000);
@@ -25,7 +25,7 @@ jQuery(document).ready(function ($) {
     } else {
         showMessage('哇！是不是吓了你一跳！', 6000);
     }
-    let spig_top = window.innerHeight - 200
+    let spig_top = window.innerHeight - 100
     $(".spig").animate({
         top: spig_top,
         left: document.body.offsetWidth - 205
