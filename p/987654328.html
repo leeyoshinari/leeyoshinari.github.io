@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>白瑜的博客</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="shortcut icon" href="/img/favicon.ico">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <link rel="stylesheet" href="/css/viewer.min.css">
+  <script type="text/javascript" src="/js/viewer.min.js"></script>
+</head>
+<body>
+  <div class="l_body s:aa content tech" id="start" layout="post" >
+    <aside class="l_left"></aside>
+    <div class="l_main" id="main">
+      <header class="header mobile-only"></header>
+      <div class="article banner top"><div class="content"><div class="bottom only-title"><div class="text-area">
+        <h1 class="text title"><span>A股短线交易之AI自动化选股</span></h1>
+      </div><div class="publish-date"><span>发布时间: 2026-02-13</span><span class="copy-right">版权</span></div><div class="copyright-content"></div></div></div></div>
+      <article class="md-text content">
+        <p>现在肯定有很多人通过AI来交易股票了，基本上所有的炒股软件都有付费AI工具可以使用，我没用过也不知道好不好用。我现在的公司有人做了AI模拟炒股的平台，每个人都可以去搭建自己的Agent模拟炒股，基本上都是通过调用接口获取各种数据进行基本面分析和技术面分析，然后决策买入哪只股票和什么时候卖出，总的来看，模拟收益都还挺高的，但这也只是模拟，真正的实操的话，还不清楚收益怎么样。</p>
+        <p>A股，作为全国规模最大的知识付费平台，可以让人学到很多有用的、没用的、奇奇怪怪的知识。现在股市交易策略基本是两种，一种是基本面分析，一种是技术面分析。巴菲特已经证明了基本面分析是可以带来巨大收益的，也有很多人使用这种策略赚钱了。我是不会基本面分析的，这需要详细分析公司的财报，分析行业发展情况，分析宏观经济，分析政策和国际局势等方方面面的数据，需要对你选出来的股票有绝对的信仰，不会被短期波动洗出去，而有的公司可能会财务造假，我也分辨不出来，我也不是坚定的长期主义者，我相信我自己没有这种能力，所以我选择了技术面分析。</p>
+        <p>废话不多说，先看 AI 选股的效果：（选出日期是指在当天收盘前选出，用收盘价买入；第一二三四五天分别是选出后的连续5个交易日，收：当天收盘价相对于选出价的涨跌幅，高/低：当天最高/低价相对于选出价的涨跌幅，目前只统计了股票选出后的5个交易日的数据）</p>
+        <img src="/img/AI/1.png" alt="/img/AI/1.png" loading="lazy" />
+        <p>这是目前为止选出来的表现最强的股票，2025年12月31日选出，随后的6个交易日连板，总涨幅超过198%，这可能是2026年第一只翻倍的股票了，很可惜没买入。</p>
+        <p>并不是所有选出来的股票都这么强势，也有这种涨幅一般般的：</p>
+        <img src="/img/AI/2.png" alt="AI选股效果图2" loading="lazy" />
+        <p>也有这种先涨然后又跌的：</p>
+        <img src="/img/AI/3.png" alt="AI选股效果图3" loading="lazy" />
+        <p>也有这种先跌然后又涨的：</p>
+        <img src="/img/AI/4.png" alt="AI选股效果图4" loading="lazy" />
+        <p>还有这种持续下跌的：</p>
+        <img src="/img/AI/5.png" alt="AI选股效果图5" loading="lazy" />
+        <p>还有这种上下波动很小来回织布的：</p>
+        <img src="/img/AI/6.png" alt="AI选股效果图6" loading="lazy" />
+        <p>总之各种各样的情况都有：以下是跌幅最大的那两天和涨幅还不错的那两天选出来的股票的统计数据</p>
+        <img src="/img/AI/7.png" alt="统计图1" loading="lazy" />
+        <img src="/img/AI/8.png" alt="统计图2" loading="lazy" />
+        <p>你肯定想知道总体收益怎么样吧。对每天选出的股票进行统计如下：如果不使用任何止盈止损策略，都在股票选出后的第一、二、三、四、五天全部卖出，那么收益（从2025年12月开始算）是这样的：（假设每只股票只买入5000元，可能会多一点少一点。收盘价就是指在收盘时卖出，最高/低价就是指在最高/低价时卖出）</p>
+        <img src="/img/AI/9.png" alt="收益折线图" loading="lazy" />
+        <p>以上折线图看着不清楚，汇总后的收益如下（未计入手续费）：</p>
+        <img src="/img/AI/10.png" alt="收益汇总图" loading="lazy" />
+        <p>如果计入每只股票的买入卖出的手续费（约13元），那么收益如下：（手续费是真贵啊）</p>
+        <img src="/img/AI/11.png" alt="手续费后收益图" loading="lazy" />
+        <p>总体来看，持有股票到第四天或者第五天，收益还是比较高的（充分证明了超短线交易亏损概率很高，我现在的平均持股天数是2天，妥妥的超短线交易了）。如果每次在最高点卖掉，那么七八万的本金就可以轻松做到月入1万+；如果都在收盘时卖掉，那么平均月收入也和普通牛马差不多；如果很不幸每次卖在最低点，那么肯定是亏到心绞痛（悄悄说一下：有很多股票我都卖在了最低点，妥妥的韭菜）。如果你很会操作，基本上可以接近甚至超过最高收益；如果你不会操作或者不懂股市，那么就直接在收盘前卖出，也不用盯盘了，这样收益也还可以。（PS：如果按照这套策略买入股票，本金只需要5～10万，其余的本金仍然可以做稳健理财或者价值投资。）</p>
+        <p>以上给出的收益都是简单的统一在某一天卖出，没有任何交易策略，而实际操作时，可以更灵活地随时卖出某一只股票，这样操作的收益肯定要比上面计算出来的收益高很多。你可能想知道我赚了多少，很可惜的是我不仅没赚钱，还亏了很多。为什么我还亏钱了呢？第一是因为我并不是每只股票都会买入，我是选着买，很可惜的是我买的股票要不下跌，要不涨的很少，而没有买的股票却是大涨，我还是太高估自己的能力了；说实话，选出来那么多连板的股票，而我只买到一只这样的股票，只吃了一个涨停板，再次证明了自己的选股能力太差了，卖出策略也更是差到极致。第二是因为我一直在验证不同的卖出策略，例如在第一天涨了就卖、跌了就卖、持有多天再卖、跌了5%或10%就止损等，我最多的持有一只股票的时间也就6天，更极端的是有的股票在第一天开盘几分钟就卖了，总持有的交易时间不到10分钟。根据目前的统计来看，股票选出来后就下跌，那就可以多持有几天甚至持有一个月（20天），股票大概率都会涨至少5%，很可惜我没有做到多持有几天，贴几张自己的骚操作交易记录：</p>
+        <img src="/img/AI/12.png" alt="交易记录1" loading="lazy" />
+        <img src="/img/AI/13.png" alt="交易记录2" loading="lazy" />
+        <p>从图中可以看出我卖出股票：有时候能避免下跌亏损，有时候能错过大涨亏损，有时候能及时止损避免更多亏损。股市令人着迷地方就在这里，你不知道股票现在涨了是到顶了还是会继续涨，你不知道现在跌了是洗盘还是会继续下跌，你也不知道现在横盘震荡后是上涨还是下跌，你也无法预知一些突发事件。每个人的决策不一样，就会导致收益相差甚远。</p>
+        <p>好了，现在开始说一下选股策略了。这个策略的底层逻辑就是：相信大多数情况下主力资金不会一日游，主力吃肉喝汤，我舔一下锅总可以吧，如果每天都能舔一下锅，那收益肯定不差。因此策略如下：</p>
+        <ul>
+        <li><strong>K线图：</strong>当天涨幅在1%~9%，最近2天5日均线上涨，股价在5日均线上</li>
+        <li><strong>成交量：</strong>量比大于1.2</li>
+        <li><strong>资金流入：</strong>主力净流入，主动买盘大于卖盘</li>
+        <li><strong>MACD：</strong>金叉且diff大于0，柱体变大</li>
+        <li><strong>KDJ：</strong>辅助判断超买超卖</li>
+        <li><strong>BOLL：</strong>参考指标</li>
+        <li><strong>TRIX：</strong>金叉作为增强信号</li>
+        <li><strong>AI：</strong>最终决策是否买入</li>
+        </ul>
+        <p>由此可见，我选的指标很少。我试过其他指标，指标越多，越难选出股票，越难做出决策，大道从简可能就是这个道理吧。其实从一开始并不是这个策略，第一版是找低价潜力股，然后等待它爆涨，但是效果太差了，因为潜力股可能会潜“一辈子”，我可等不了它“一辈子”，要找就得找现在就强势的股票，所以才有了第二版的现在这个策略，只不过最开始全都是通过代码选出来，效果很不稳定，于是有了第三版，简化了代码的策略，增加了AI选股，然后就从12月开始运行至今。</p>
+        <p>然后说一下具体操作流程：每天14:50从市场的主力资金净流入排行中拉取股票（拉取前1000只股票），然后批量拉取股票的最新行情数据并计算出指标值，然后通过上述策略快速过滤一遍股票，这一步会过滤掉大量的股票，然后把剩余的股票扔给ChatGPT，此步骤又会过滤掉大部分股票，为了避免一个AI出现幻觉导致误判，又把通过ChatGPT过滤后的股票再扔给了Gemini，最终选出最后的股票，为了避免选出的股票过多耗费精力，每天最多选出10只股票。AI给出的结果如下：</p>
+        <img src="/img/AI/14.png" alt="AI选股结果" loading="lazy" />
+        <p>需要特别注意的是：不管你使用什么选股策略，第二天股票能不能涨还取决于市场整体的情绪，如果情绪比较悲观，那么股票大概率会大跌的。可参考上面的收益折线图，在1月底、2月初黄金剧烈波动和外部资金压力导致A股也剧烈波动，收益是很差的。其实当市场情绪很差的时候，是不建议买入股票的，虽然风浪越大鱼越大，但风浪越大风险也大，后续会把市场情绪作为是否应该选出股票的条件之一。</p>
+        <p>为什么不用AI直接选呢？首先用AI选股也需要给它实时的数据或者联网搜索的功能，其次如果全部都用AI选股，那么Token的消耗肯定是惊人的，不能还没赚钱就需要花一笔钱买Token。所以我的策略就是快速用代码过滤一遍股票，然后把股票的数据扔给AI处理，这样Token消耗很少，因此我这一套选股策略的成本仅仅只是一个云服务器的成本，当然这是排除了人力成本了，至于AI全部都是免费的，免费的额度已经足够用了。</p>
+        <p>现在初步解决了买入股票的问题了，真正决定能否赚钱的是卖出策略。经常炒股的韭菜们都会发现：有时候你一买入股票，它就开始下跌；你一卖出股票，它就开始上涨，仿佛主力庄家就盯着你的三瓜俩枣。有时候你不盯盘的时候，股票走势平稳，你一开始盯盘，股票就开始下跌，仿佛有人在监控你。人性，已经被主力庄家研究透了，所以韭菜很容易被拿捏。所谓的长期价值投资，只不过是在选定股票买入后，把“人”暂时排除在股票交易外了，所以才能丝毫不会受到股票短期波动的影响。由此可以得出一个结论：要想炒股盈利，你必须要在股票交易中把你自己排除在外，做到没有“人性”，这样主力和庄家就没办法收割你了（我就已经用实际行动证明了，一顿操作猛如虎，还没有无脑全部买入选出来的股票，然后无脑在收盘前卖出的收益高）。这句话说起来容易，真正交易时一般人都很难做到，因为你投入的是真金白银，不可能不受市场波动的影响，我也很难做到。因此接下来我将会重点验证股票卖出策略，要真正地把我自己从股票买卖交易中排除出去。</p>
+        <p>现在已经初步接入了AI，但卖出策略还得不断验证。现在也只是手动触发，我期望是做到分钟级的实时自动决策，怎么实现收益和Token消耗的均衡将是接下来重点要做的事。这是现在做的卖出策略，后续会不断优化：</p>
+        <img src="/img/AI/15.png" alt="卖出策略图" loading="lazy" />
+        <p>接下来的半年将会重点验证卖出策略（也可能半年后就玩脱了，亏损多了就不玩了），实现自动计算出卖出时机。如果经过验证后的卖出策略收益还可以，再下一步就是全自动化交易，选出股票后自动买入，计算应该卖出股票后就自动卖出，实现“量化”。</p>
+        <hr style="margin-top: 3em;">
+        <div class="article-footer fs14"></div>
+      </article>
+      <footer class="page-footer footnote"><hr></footer>
+      <div class="main-mask" onclick="sidebar.dismiss()"></div>
+    </div>
+    <aside class="l_right"></aside>
+  </div>
+  <div id="spig" class="spig"><div id="message">……</div><div id="mumu" class="mumu"></div></div>
+</body>
+<script type="module">
+  import { createLeft, createFootNote, createMobileHeader, createDonate, createDefaultRight, createFloatPanel } from '/js/template.js';
+  document.getElementsByClassName('l_left')[0].appendChild(createLeft());
+  document.getElementsByClassName('header mobile-only')[0].appendChild(createMobileHeader());
+  document.getElementsByClassName('article-footer fs14')[0].appendChild(createDonate());
+  document.getElementsByClassName('page-footer footnote')[0].appendChild(createFootNote());
+  document.getElementsByClassName('l_right')[0].appendChild(createDefaultRight());
+  document.getElementById('start').appendChild(createFloatPanel());
+  let hitokoto = document.createElement('script');
+  hitokoto.type = "text/javascript";
+  hitokoto.src = "https://v1.hitokoto.cn/?/?c=b&encode=js&select=%23hitokoto";
+  document.getElementsByClassName('l_right')[0].appendChild(hitokoto);
+</script>
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/spig.js"></script>
+</html>

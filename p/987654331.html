@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>白瑜的博客</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="shortcut icon" href="/img/favicon.ico">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <link rel="stylesheet" href="/css/viewer.min.css">
+  <script type="text/javascript" src="/js/viewer.min.js"></script>
+</head>
+<body>
+  <div class="l_body s:aa content tech" id="start" layout="post" >
+    <aside class="l_left"></aside>
+    <div class="l_main" id="main">
+      <header class="header mobile-only"></header>
+      <div class="article banner top"><div class="content"><div class="bottom only-title"><div class="text-area">
+        <h1 class="text title"><span>再见，HUST</span></h1>
+      </div><div class="publish-date"><span>发布时间: 2018-06-24</span><span class="copy-right">版权</span></div><div class="copyright-content"></div></div></div></div>
+      <article class="md-text content">
+        <p>转眼间又到了一个重要的时刻，寒窗苦读了18年，以后终于不用再上学了，是开心呢，还是该伤心呢？现在看来还是真有点舍不得在学校的时光。</p>
+        <p>两年的时间很快就过去了，看看现在，再看看自己两年多前立下的flag，脸打的真是啪啪响。曾经信心满满的读研，现在感觉什么都没学会就毕业了，一直在吃以前的老本，完全就是为了那个毕业证。每天也是忙前忙后，但都不知道自己搞得是什么，真是因碌碌无为而羞愧呀！</p>
+        <p>当初那么多学校选择了华科，是因为很久很久之前就被它吸引住了，当然不是学术吸引，因为我给自己的定位就不是真的搞科研。于是，在那个人生重要的路口，脑一抽，手一抖，不想搞科研的我阴差阳错地选择了一个不搞科研的老师，看似完美，实是造化弄人。天天不懂瞎指挥，一会儿要干这一会儿又要干那，美其名曰锻炼你的能力；和他做一些“探讨”，简直就是秀才遇到兵，没有一点交谈的欲望，不过还好，他的“科研能力”在我们的带领下有所提升，从微信搞科研逐渐变成了知乎搞科研。想当初面试的时候问的那么low的问题，我还天真地以为怕问太难了我不会，来了之后才发现他的水平也就只能问出那样的问题。他在今年面试一个学生的时候，问的是和我当初几乎一样的问题。</p>
+        <p>读研就像一个围城，里面的人想出来，外面的人拼命也要进去，而拼命进去的那些人时间一长后也想出来。研究生导师对学生的影响其实是很大的，选了一个不好的老师还真不如不读研，当然了，不好的老师也是有高徒的，自己很菜也有很多的个人因素在里面。</p>
+        <p>学生时代已经结束，现在的自己真是一穷二白，要啥没啥，看着自己以前的同学，老婆孩子热炕头，感觉他们过的很开心、幸福（可能背后有不为人知的辛酸），反过来看看自己，上了这么多年的学，心里一点幸福感都没有，天天想着还有课要上，还有考试要准备，还有老板安排的事情没做完，还有怎么毕业······，每天数着毕业的日子，等到真的毕业，心里很平静，没有一丝波澜。人的一生不就是要过的开心幸福一点吗，我只是一个普通的人，我没有改变世界的远大抱负，我只想过一个普普通通的幸福生活。</p>
+        <p>现在不想再立那些没用的flag了，只想一步一步的按照自己的内心走下去，过自己想过的生活。人生苦短，应及时行乐。</p>
+        <p>未来的路很长，而我仍在路上。</p>
+        <p>HUST，我会经常回来看你的。</p>
+        <hr style="margin-top: 3em;">
+        <div class="article-footer fs14"></div>
+      </article>
+      <footer class="page-footer footnote"><hr></footer>
+      <div class="main-mask" onclick="sidebar.dismiss()"></div>
+    </div>
+    <aside class="l_right"></aside>
+  </div>
+  <div id="spig" class="spig"><div id="message">……</div><div id="mumu" class="mumu"></div></div>
+</body>
+<script type="module">
+  import { createLeft, createFootNote, createMobileHeader, createDonate, createDefaultRight, createFloatPanel } from '/js/template.js';
+  document.getElementsByClassName('l_left')[0].appendChild(createLeft());
+  document.getElementsByClassName('header mobile-only')[0].appendChild(createMobileHeader());
+  document.getElementsByClassName('article-footer fs14')[0].appendChild(createDonate());
+  document.getElementsByClassName('page-footer footnote')[0].appendChild(createFootNote());
+  document.getElementsByClassName('l_right')[0].appendChild(createDefaultRight());
+  document.getElementById('start').appendChild(createFloatPanel());
+  let hitokoto = document.createElement('script');
+  hitokoto.type = "text/javascript";
+  hitokoto.src = "https://v1.hitokoto.cn/?/?c=b&encode=js&select=%23hitokoto";
+  document.getElementsByClassName('l_right')[0].appendChild(hitokoto);
+</script>
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/spig.js"></script>
+</html>

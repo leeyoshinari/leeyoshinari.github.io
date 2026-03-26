@@ -7,6 +7,7 @@ export function createLeft() {
       <widget class="widget-wrapper post-list">
           <div class="widget-header dis-select"><span class="name" style="font-weight: bold;">墙裂推荐</span></div>
           <div class="widget-body fs14">
+          <a class="item title" href="/p/987654328.html"><span class="title">A股短线交易之AI自动化选股</span></a>
           <a class="item title" href="/p/987654327.html"><span class="title">搭建自己的 AI 会话应用</span></a>
           <a class="item title" href="/p/940241891.html"><span class="title">Windows 风格的个人网盘</span></a>
           <a class="item title" href="/p/987654323.html"><span class="title">自建家庭 KTV</span></a>

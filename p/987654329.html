@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>白瑜的博客</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="shortcut icon" href="/img/favicon.ico">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <link rel="stylesheet" href="/css/viewer.min.css">
+  <script type="text/javascript" src="/js/viewer.min.js"></script>
+</head>
+<body>
+  <div class="l_body s:aa content tech" id="start" layout="post" >
+    <aside class="l_left"></aside>
+    <div class="l_main" id="main">
+      <header class="header mobile-only"></header>
+      <div class="article banner top"><div class="content"><div class="bottom only-title"><div class="text-area">
+        <h1 class="text title"><span>我的十月，你伤不起</span></h1>
+      </div><div class="publish-date"><span>发布时间: 2012-06-09</span><span class="copy-right">版权</span></div><div class="copyright-content"></div></div></div></div>
+      <article class="md-text content">
+        <p>十个月，四十多个星期，三百多个日日夜夜！！ 我，感觉似乎已经过了三百多年，但又似乎是弹指一瞬间。曾经的过去，过去的曾经，痛过，哭过，恨过，也悔过，可最终还是没有放弃过。曾经的风风雨雨，现在已经一路走过，过去的迷茫与痛苦，只为了化为现在的清晰与坚强。现在回首，这一切都只不过是人生的一朵小小的很小的浪花，笑一笑就没了，真正的大浪花还在等我。 如今。。暴风雨过后，阴风怒号了三百多天的天空能否霞光万丈 ？瓜蒂已落，瓜是否已熟？渠已修成，水会来吗？？ 但愿。。三百多天的破茧能化作彩蝶翩翩起舞。。</p>
+        <hr style="margin-top: 3em;">
+        <div class="article-footer fs14"></div>
+      </article>
+      <footer class="page-footer footnote"><hr></footer>
+      <div class="main-mask" onclick="sidebar.dismiss()"></div>
+    </div>
+    <aside class="l_right"></aside>
+  </div>
+  <div id="spig" class="spig"><div id="message">……</div><div id="mumu" class="mumu"></div></div>
+</body>
+<script type="module">
+  import { createLeft, createFootNote, createMobileHeader, createDonate, createDefaultRight, createFloatPanel } from '/js/template.js';
+  document.getElementsByClassName('l_left')[0].appendChild(createLeft());
+  document.getElementsByClassName('header mobile-only')[0].appendChild(createMobileHeader());
+  document.getElementsByClassName('article-footer fs14')[0].appendChild(createDonate());
+  document.getElementsByClassName('page-footer footnote')[0].appendChild(createFootNote());
+  document.getElementsByClassName('l_right')[0].appendChild(createDefaultRight());
+  document.getElementById('start').appendChild(createFloatPanel());
+  let hitokoto = document.createElement('script');
+  hitokoto.type = "text/javascript";
+  hitokoto.src = "https://v1.hitokoto.cn/?/?c=b&encode=js&select=%23hitokoto";
+  document.getElementsByClassName('l_right')[0].appendChild(hitokoto);
+</script>
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/spig.js"></script>
+</html>

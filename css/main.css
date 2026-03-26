@@ -3725,7 +3725,8 @@ a[data-fancybox] {
   border-radius:5px;
   min-height:1em;
   padding:5px;
-  top:-45px;
+  top:-25px;
+  left: 50%;
   position:absolute;
   text-align:center;
   width:auto !important;
@@ -3733,10 +3734,14 @@ a[data-fancybox] {
   border-color:#f6f6f6ee;
   box-shadow:0 0 15px #5cb8b8;
   outline:none;
+  transform: translateX(-50%);
+  white-space: nowrap;
 }
-.mumu{
-  width:110px;
-  height:160px;
+.mumu {
+  width:55px;
+  height:100px;
   cursor:move;
+  margin: 0 auto;
   background:url(spig.gif) no-repeat;
+  background-size: contain;
 }

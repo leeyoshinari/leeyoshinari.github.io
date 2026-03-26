@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>白瑜的博客</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="shortcut icon" href="/img/favicon.ico">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <link rel="stylesheet" href="/css/viewer.min.css">
+  <script type="text/javascript" src="/js/viewer.min.js"></script>
+</head>
+<body>
+  <div class="l_body s:aa content tech" id="start" layout="post" >
+    <aside class="l_left"></aside>
+    <div class="l_main" id="main">
+      <header class="header mobile-only"></header>
+      <div class="article banner top"><div class="content"><div class="bottom only-title"><div class="text-area">
+        <h1 class="text title"><span>搭建自己的 AI 会话应用</span></h1>
+      </div><div class="publish-date"><span>发布时间: 2026-03-02</span><span class="copy-right">版权</span></div><div class="copyright-content"></div></div></div></div>
+      <article class="md-text content">
+        <p>本文档介绍一个基于 Next.js 框架构建的 AI 会话应用。</p>
+        
+        <hr style="margin-top: 3em;">
+        <div class="article-footer fs14"></div>
+      </article>
+      <footer class="page-footer footnote"><hr></footer>
+      <div class="main-mask" onclick="sidebar.dismiss()"></div>
+    </div>
+    <aside class="l_right"></aside>
+  </div>
+  <div id="spig" class="spig"><div id="message">……</div><div id="mumu" class="mumu"></div></div>
+</body>
+<script type="module">
+  import { createLeft, createFootNote, createMobileHeader, createDonate, createRight, createFloatPanel } from '/js/template.js';
+  document.getElementsByClassName('l_left')[0].appendChild(createLeft());
+  document.getElementsByClassName('header mobile-only')[0].appendChild(createMobileHeader());
+  document.getElementsByClassName('article-footer fs14')[0].appendChild(createDonate());
+  document.getElementsByClassName('page-footer footnote')[0].appendChild(createFootNote());
+  document.getElementsByClassName('l_right')[0].appendChild(createRight());
+  document.getElementById('start').appendChild(createFloatPanel());
+</script>
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/spig.js"></script>
+</html>
