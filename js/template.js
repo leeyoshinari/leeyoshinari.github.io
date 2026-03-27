@@ -55,7 +55,7 @@ export function createDefaultRight() {
       <div class="widget-header dis-select"><span class="name">🎉 你好呀，欢迎光临 ~</span></div><div class="widget-body fs14"><p><span id="hitokoto"></span></p><hr style="border: 1px solid black; background-color: black;">本站仅分享个人原创、二次开发的东西，以及个人学习和经验的总结，绝不灌水，欢迎收藏本站。</div>
     </widget>
     <widget class="widget-wrapper markdown">
-      <div class="widget-header dis-select"><span class="name">🥂 这么有缘，那就认识一下吧 ~</span></div><div class="widget-body fs14" style="text-align: center;"><hr style="border: 1px solid black; background-color: black;"><img src="/img/wechat.jpg" alt="" loading="lazy" /></div>
+      <div class="widget-header dis-select"><span class="name">🥂 既然这么有缘<br/>那我们就认识一下吧 ~</span></div><div class="widget-body fs14"><hr style="border: 1px solid black; background-color: black;"><span>公众号: ileeyoshinari<br/>邮&emsp;箱: kinoko@ihuster.top</span><!--img src="/img/wechat.jpg" alt="" loading="lazy" /--></div>
     </widget>`;
   return ele;
 }

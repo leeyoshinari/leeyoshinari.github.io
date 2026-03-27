@@ -18,8 +18,8 @@
     <div class="l_main" id="main">
       <header class="header mobile-only"></header>
       <div class="article banner top"><div class="content"><div class="bottom only-title"><div class="text-area">
-        <h1 class="text title"><span>整装再出发</span></h1>
-      </div><div class="publish-date"><span>发布时间: 2021-08-18</span><span class="copy-right">版权</span></div><div class="copyright-content"></div></div></div></div>
+        <h1 class="text title"><span>Debian部署Postfix邮件发送服务</span></h1>
+      </div><div class="publish-date"><span>发布时间: 2026-03-28</span><span class="copy-right">版权</span></div><div class="copyright-content"></div></div></div></div>
       <article class="md-text content">
         <p>转眼间，已经工(bi)作(ye)三年了。</p>
         <p class="non-row md-indent">回顾这三年，除了搬砖，我就没干成啥事，还把自己搬成了一个“老油条”了。这三年中，基本上加班还算比较多的，也学到了很多知识，接触到了很多东西，但还远远不够。</p>
@@ -35,15 +35,6 @@
         <p class="non-row md-indent">何以暴富，唯有做梦。梦想还是要有的，万一实现了呢。我要一步一步地按照自己的内心走下去，要知足，要过一个普普通通、平平淡淡的幸福生活。</p>
         <p>未来的路很长，而我仍在路上。</p>
         <p class="non-row md-indent">愿我出走半生，归来仍是少年。</p>
-        <div style="width:100%;height:100px;border-radius:10px;background:#ececec;overflow:hidden;position:relative">
-          <div style="position:absolute;left:5%;right:5%"><p style="font-weight:bold;line-height:1.4;margin:10px 0">少年 - 梦然</p></div>
-          <div style="position:absolute;bottom:16px;left:5%;right:5%;display:flex;align-items:center;gap:10px">
-            <div class="play-btn" style="width:40px;height:40px;background:#9e9a9a;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:50%">▶</div>
-            <div style="flex:1;height:6px;background:rgba(0,0,0,0.2);border-radius:3px;overflow:hidden"><div class="progress-bar" style="width:0%;height:100%;background:#ffffff"></div></div>
-            <div class="time" style="width:50px;font-size:14px;color:#000;text-align:right">00:00</div>
-            <audio class="audio" src="/css/shaonian.mp3"></audio>
-          </div>
-        </div>
         <hr style="margin-top: 3em;">
         <div class="article-footer fs14"></div>
       </article>
@@ -66,26 +57,6 @@
   hitokoto.type = "text/javascript";
   hitokoto.src = "https://v1.hitokoto.cn/?/?c=b&encode=js&select=%23hitokoto";
   document.getElementsByClassName('l_right')[0].appendChild(hitokoto);
-  const playBtn = document.querySelector('.play-btn');
-  const audio = document.querySelector('.audio');
-  const bar = document.querySelector('.progress-bar');
-  const time = document.querySelector('.time');
-  playBtn.addEventListener('click', () => {
-    if (audio.paused) {
-      audio.play();
-    } else {
-      audio.pause();
-    }
-  });
-
-  audio.addEventListener('play', () => {playBtn.innerText = '⏸';});
-  audio.addEventListener('pause', () => {playBtn.innerText = '▶';});
-  audio.addEventListener('timeupdate', () => {
-    const p = audio.currentTime / audio.duration || 0;
-    bar.style.width = (p * 100) + '%';
-    const f = s => String(Math.floor(s/60)).padStart(2,'0') + ':' + String(Math.floor(s%60)).padStart(2,'0');
-    time.innerText = f(audio.currentTime);
-  });
 </script>
 <script type="text/javascript" src="/js/main.js"></script>
 <script type="text/javascript" src="/js/spig.js"></script>
