@@ -43,8 +43,15 @@ jobs:
       - name: Generate SEO files
         env:
           SITE_URL: https://leeyoshinari.github.io
-          OUT_DIR: ./_site
         run: node generate_seo.js
+             if [ -f "sitemap.xml" ]; then
+              sudo mv sitemap.xml ./_site/
+              sudo mv robots.txt ./_site/
+              echo "成功使用超级权限将 SEO 文件移入 _site 文件夹！"
+            else
+              echo "未能在根目录找到 sitemap.xml"
+              exit 1
+            fi
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
