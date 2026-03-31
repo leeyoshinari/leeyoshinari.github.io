@@ -283,14 +283,20 @@ if (isArticle === 0) {
 }
 if(typeof(Viewer) !== 'undefined'){setTimeout(() => {document.querySelectorAll('article img').forEach(ele => {new Viewer(ele, {viewed() {},});})}, 2000);}
 if (document.getElementsByClassName('copy-right')[0]) {
-  document.getElementsByClassName('copy-right')[0].addEventListener('click', () => {
+  document.getElementsByClassName('copy-right')[0].addEventListener('click', (event) => {
     const url = window.location.href.split('#')[0];
     if (document.getElementsByClassName('copyright-content')[0].innerText.length > 10) {
       document.getElementsByClassName('copyright-content')[0].innerHTML = '';
       document.getElementsByClassName('copy-right')[0].innerText = '版权';
     } else {
-      document.getElementsByClassName('copyright-content')[0].innerHTML = `<div class="publish-date" style="margin-top: 1rem;"><span>版权声明：本文为博主原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.en" target="_blank">CC BY-NC-ND 4.0</a> 版权协议，转载请附上原文出处链接和本声明。</span></div>
-      <div class="publish-date"><span>本文链接：<a href="${url}">${url}</a></span></div>`;
+      let s = '';
+      if (event.target.getAttribute("text")) {
+        s = `<div class="publish-date" style="margin-top: 1rem;"><span>${event.target.getAttribute("text")}</span></div>`;
+      } else {
+        s = `<div class="publish-date" style="margin-top: 1rem;"><span>版权声明：本文为博主原创文章，遵循 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode.en" target="_blank">CC BY-NC-ND 4.0</a> 版权协议，转载请附上原文出处链接和本声明。</span></div>`;
+      }
+      s += `<div class="publish-date"><span>本文链接：<a href="${url}">${url}</a></span></div>`;
+      document.getElementsByClassName('copyright-content')[0].innerHTML = s;
       document.getElementsByClassName('copy-right')[0].innerText = '收起';
     }
   })
