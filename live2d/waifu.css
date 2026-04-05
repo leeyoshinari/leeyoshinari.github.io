@@ -39,9 +39,9 @@
 	display: none;
 }
 
-#waifu:hover {
+/* #waifu:hover {
 	transform: translateY(20px);
-}
+} */
 
 #waifu-tips {
 	animation: waifu-shake 50s ease-in-out 5s infinite;
