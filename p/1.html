@@ -18,11 +18,21 @@
     <div class="l_main" id="main">
       <header class="header mobile-only"></header>
       <div class="article banner top"><div class="content"><div class="bottom only-title"><div class="text-area">
-        <h1 class="text title"><span>搭建自己的 AI 会话应用</span></h1>
-      </div><div class="publish-date"><span>发布时间: 2026-03-02</span><span class="copy-right">版权</span></div><div class="copyright-content"></div></div></div></div>
+        <h1 class="text title"><span>关于我，关于这个博客</span></h1>
+      </div><div class="publish-date"><span>发布时间: 2023-01-01</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>更新时间: 2026-04-05</span><span class="copy-right">版权</span></div><div class="copyright-content"></div></div></div></div>
       <article class="md-text content">
-        <p>本文档介绍一个基于 Next.js 框架构建的 AI 会话应用。</p>
-        
+        <h2>关于这个博客</h2>
+        <p>有人活着，他还活着</p>
+        <p class="non-row md-indent">有人活着，他已死了</p>
+        <p class="non-row md-indent">有人死了，他已死了</p>
+        <p class="non-row md-indent">有人死了，他还活着</p>
+        <p>记得之前在知乎上看到有人分享了一个有趣的博客网站，据说是在20年前就已经创建了，七七八八的记录的博主的小时候，域名还是顶级的.com域名，也就是说这么多年了，一直有人每年都在花费一笔不小的费用维护这个网站。所以我在想：作为一个普通人，百年后，能否有东西证明我来过？</p>
+        <p>于是就有了这个博客网站。</p>
+        <p>以上是开个玩笑，当然不是我建立这个博客网站的初衷。最开始是在其他博客平台写博客，这些平台要不广告多，要不就限流，要不就各种审核限制，于是我就想：与其在这些平台写，我为什么不自己搭建一个博客，反正都是没有流量，我自己的博客网站还没有任何限制，也不用担心平台跑路导致博客没了。</p>
+        <p>在决定搭建博客网站后，我在网上看了很多博客网站的模板，真的眼花缭乱。我想要的是一个极简的纯静态博客网站，页面每一个元素的位置、颜色、样式都可以单独调整，能够免费托管在主流的一些平台上，能够同时兼顾电脑端和手机端。找了很久，终于看中了一个博客网站的风格，但是它使用的是 HEXO 框架，还不够简化，于是我就把这个博客网站渲染后的静态页面单独拧了出来，做了大量的精简和调整，最终形成现在这个博客页面。</p>
+        <p>这个博客页面很简洁，主要分左、中、右三块，中间一块又分了上、中、下三块，正常情况下，每新增一篇博客，只需要修改中间一块的中间的一部分博客正文，就像写普通博客文章一样，唯一要做的事情就是每个段落要加上 p 标签。</p>
+        <h2>关于我</h2>
+        <p>其实我在很早之前就在想我要在这个世界上留下属于我唯一的印记，于是在给自己起网名的时候，我就很认真的思考什么网名好，这个网名必须有意义，还要在世界上独一无二。想了很久没有一个网名满足这两个要求，于是我就试了试自己名字的英文翻译，然后用 Google 搜了一下，确实独一无二，于是就有了网名 <code>leeyoshinari</code>。这个名字既可以是英语，有英语发音，也可以是日语，有日语发音。</p>
         <hr style="margin-top: 3em;">
         <div class="article-footer fs14"></div>
       </article>
@@ -31,7 +41,6 @@
     </div>
     <aside class="l_right"></aside>
   </div>
-  <div id="spig" class="spig"><div id="message">……</div><div id="mumu" class="mumu"></div></div>
 </body>
 <script type="module">
   import { createLeft, createFootNote, createMobileHeader, createDonate, createRight, createFloatPanel } from '/js/template.js';
@@ -43,5 +52,5 @@
   document.getElementById('start').appendChild(createFloatPanel());
 </script>
 <script type="text/javascript" src="/js/main.js"></script>
-<script type="text/javascript" src="/js/spig.js"></script>
+<script type="text/javascript" src="/js/autoload.js"></script>
 </html>

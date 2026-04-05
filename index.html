@@ -8,15 +8,15 @@
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').then(registration => {
-          console.log('SW registered: ', registration);
-        }).catch(registrationError => {
-          console.log('SW registration failed: ', registrationError);
-        });
-      });
-    }
+    // if ('serviceWorker' in navigator) {
+    //   window.addEventListener('load', () => {
+    //     navigator.serviceWorker.register('/sw.js').then(registration => {
+    //       console.log('SW registered: ', registration);
+    //     }).catch(registrationError => {
+    //       console.log('SW registration failed: ', registrationError);
+    //     });
+    //   });
+    // }
   </script>
   <title>Leeyoshinari</title>
   <link rel="stylesheet" href="/css/main.css">
@@ -35,17 +35,6 @@
         </nav>
       </div>
       <div class="post-list post">
-        <!--a class="post-card post" href="/p/1.html">
-          <article class="md-text">
-            <h2 class="post-title">我有话说要说</h2>
-            <div class="excerpt">
-              <p>留一个备份网站</p>
-            </div>
-            <div class="meta cap">
-              <span class="cap post-meta"><img src="/img/post-date.svg" alt=""><time datetime="2026-03-02T22:20:00.000Z">2026-03-02</time></span>
-            </div>
-          </article>
-        </a-->
         <a class="post-card post" href="/p/987654327.html">
           <article class="md-text">
             <h2 class="post-title">搭建自己的 AI 会话应用</h2>
@@ -129,7 +118,6 @@
     </div>
     <aside class="l_right"></aside>
   </div>
-  <div id="spig" class="spig"><div id="message">……</div><div id="mumu" class="mumu"></div></div>
 </body>
 <script type="module">
   import { createLeft, createFootNote, createMobileHeader, createDefaultRight, createFloatPanel } from '/js/template.js';
@@ -144,5 +132,5 @@
   document.getElementsByClassName('l_right')[0].appendChild(hitokoto);
 </script>
 <script type="text/javascript" src="/js/main.js"></script>
-<script type="text/javascript" src="/js/spig.js"></script>
+<script type="text/javascript" src="/js/autoload.js"></script>
 </html>

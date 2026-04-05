@@ -3704,39 +3704,3 @@ img[data-fancybox],
 a[data-fancybox] {
   cursor: zoom-in;
 }
-.spig {
-  display:block;
-  /* width:195px; */
-  /* height:246px; */
-  position:absolute;
-  top: 50px;
-  left: 1px;
-  z-index:9999;
-}
-#message{
-  color :#191919;
-  border: 1px solid #c4c4c400;
-  background:#e8e8e8;
-  border-radius:5px;
-  min-height:1em;
-  padding:5px;
-  top:-25px;
-  left: 50%;
-  position:absolute;
-  text-align:center;
-  width:auto !important;
-  z-index:10000;
-  border-color:#f6f6f6ee;
-  box-shadow:0 0 15px #5cb8b8;
-  outline:none;
-  transform: translateX(-50%);
-  white-space: nowrap;
-}
-.mumu {
-  width:55px;
-  height:100px;
-  cursor:move;
-  margin: 0 auto;
-  background:url(spig.gif) no-repeat;
-  background-size: contain;
-}

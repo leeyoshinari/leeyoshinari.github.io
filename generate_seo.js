@@ -29,6 +29,7 @@ function generateSEOFiles() {
     pages.forEach(file => {
         let urlPath = file.replace(/\\/g, '/');
         if (urlPath === 'index.html') urlPath = '';
+        if (urlPath === '1.html') urlPath = '';
         
         const fullUrl = `${BASE_URL}/${urlPath}`;
         const stats = fs.statSync(file);
