@@ -2,7 +2,7 @@ export function createLeft() {
   const ele = document.createElement('div');
   ele.classList.add('leftbar-container');
   ele.innerHTML = `
-      <header class="header"><div class="logo-wrap"><a class="avatar" href="/"><img class="avatar" src="/img/avatars.png" alt="" loading="lazy" /></a><a class="title" href="/"><div class="main" ff="title">Leeyoshinari</div><div class="sub normal cap" style="margin-left:-3px;">笑，只是一个表情，与快乐无关。</div><div class="sub hover cap" style="margin-left:-3px;opacity:0;">生活，就是过了今天等明天而已。</div></a></div></header>
+      <header class="header"><div class="logo-wrap"><a class="avatar" href="/"><img class="avatar" src="/img/avatars.png" alt="" loading="lazy" /></a><a class="title"><div class="main" ff="title">Leeyoshinari</div><div class="sub normal cap" style="margin-left:-3px;">笑，只是一个表情，与快乐无关。</div><div class="sub hover cap" style="margin-left:-3px;opacity:0;">生活，就是过了今天等明天而已。</div></a></div></header>
       <div class="widgets">
       <widget class="widget-wrapper post-list">
           <div class="widget-header dis-select"><span class="name" style="font-weight: bold;">墙裂推荐</span></div>
@@ -55,7 +55,7 @@ export function createDefaultRight() {
       <div class="widget-header dis-select"><span class="name">🎉 你好呀，欢迎光临 ~</span></div><div class="widget-body fs14"><p><span id="hitokoto"></span></p><hr style="border: 1px solid black; background-color: black;">本站仅分享个人原创、二次开发的东西，以及个人学习和经验的总结，绝不灌水，欢迎收藏本站。</div>
     </widget>
     <widget class="widget-wrapper markdown">
-      <div class="widget-header dis-select"><span class="name">🥂 既然这么有缘<br/>那我们就认识一下吧 ~</span></div><div class="widget-body fs14"><hr style="border: 1px solid black; background-color: black;"><span>公众号: ileeyoshinari<br/>邮&emsp;箱: kinoko@ihuster.top</span><!--img src="/img/wechat.jpg" alt="" loading="lazy" /--></div>
+      <div class="widget-header dis-select"><span class="name">🥂 既然这么有缘<br/>那我们就认识一下吧 ~</span></div><div class="widget-body fs14"><hr style="border: 1px solid black; background-color: black;"><span>公众号:ileeyoshinari<br/>邮箱:leeyoshinari@gmail.com</span><!--img src="/img/wechat.jpg" alt="" loading="lazy" /--></div>
     </widget>`;
   return ele;
 }
@@ -70,7 +70,7 @@ export function createFootNote() {
 export function createMobileHeader() {
   const ele = document.createElement('div');
   ele.classList.add('logo-wrap');
-  ele.innerHTML = `<a class="avatar" href="/"><img class="avatar" src="/img/avatars.png" alt="" loading="lazy" /></a><a class="title" href="/"><div class="main" ff="title">Leeyoshinari</div><div class="sub normal cap">人生无非是笑笑人家，再让人家笑笑而已！</div><div class="sub hover cap" style="opacity:0">今天的事情不必今天做完，万一活不到明天呢！</div></a>`;
+  ele.innerHTML = `<a class="avatar" href="/"><img class="avatar" src="/img/avatars.png" alt="" loading="lazy" /></a><a class="title"><div class="main" ff="title">Leeyoshinari</div><div class="sub normal cap">人生无非是笑笑人家，再让人家笑笑而已！</div><div class="sub hover cap" style="opacity:0">今天的事情不必今天做完，万一活不到明天呢！</div></a>`;
   return ele;
 }
 

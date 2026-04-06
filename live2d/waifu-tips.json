@@ -1,7 +1,7 @@
 {
   "mouseover": [{
-    "selector": "#waifu-tool-hitokoto",
-    "text": ["猜猜我要说些什么？", "我从青蛙王子那里听到了不少人生经验。"]
+    "selector": ".logo-wrap",
+    "text": ["笑，只是一个表情，与快乐无关。", "生活，就是过了今天等明天而已。"]
   }, {
     "selector": "#waifu-tool-asteroids",
     "text": ["要不要来玩飞机大战？", "这个按钮上写着「不要点击」。", "怎么，你想来和我玩个游戏？", "听说这样可以蹦迪！"]
@@ -54,23 +54,32 @@
     "selector": ".feed-link a",
     "text": ["这里可以使用 RSS 订阅呢！", "利用 feed 订阅器，就能快速知道博客有没有更新了呢。"]
   }, {
-    "selector": ".cc-opacity, .post-copyright-author",
-    "text": ["要记得规范转载哦。", "所有文章均采用 CC BY-NC-SA 4.0 许可协议～", "转载前要先注意下文章的版权协议呢。"]
+    "selector": ".copy-right",
+    "text": ["要记得规范转载哦。", "所有文章均采用 CC BY-NC-ND 4.0 许可协议～", "转载前要先注意下文章的版权协议呢。"]
   }, {
     "selector": ".links-of-author",
     "text": ["这里是主人的常驻地址哦。", "这里有主人的联系方式！"]
   }, {
-    "selector": ".followme",
-    "text": ["手机扫一下就能继续看，很方便呢～", "扫一扫，打开新世界的大门！"]
+    "selector": ".leftbar-toggle",
+    "text": ["点它可以打开左侧抽屉页哦～"]
   }, {
-    "selector": ".fancybox img, img.medium-zoom-image",
-    "text": ["点击图片可以放大呢！"]
+    "selector": ".rightbar-toggle",
+    "text": ["点它可以打开右侧抽屉页!"]
   }, {
-    "selector": ".copy-btn",
-    "text": ["代码可以直接点击复制哟。"]
+    "selector": ".topbar-toggle",
+    "text": ["又回到最初的起点咯～"]
   }, {
-    "selector": ".highlight .table-container, .gist",
-    "text": ["GitHub！我是新手！", "PHP 是最好的语言！"]
+    "selector": ".social[title^='主页']",
+    "text": ["点它就可以回到首页啦！"]
+  }, {
+    "selector": ".social[title^='Github']",
+    "text": ["点它就可以去看主人的开源仓库了！"]
+  }, {
+    "selector": ".social[title^='关于我']",
+    "text": ["这里有一些关于我家主人的秘密哦，要不要看看呢？"]
+  }, {
+    "selector": ".social[title^='浅色/深色']",
+    "text": ["点它就可以切换浅色模式和深色模式啦～"]
   }, {
     "selector": "a[href^='mailto']",
     "text": ["邮件我会及时回复的！", "点击就可以发送邮件啦～"]
@@ -96,41 +105,14 @@
     "selector": ".container a[href^='http'], .nav-link .nav-text",
     "text": ["要去看看 <span>{text}</span> 么？", "去 <span>{text}</span> 逛逛吧。", "到 <span>{text}</span> 看看吧。"]
   }, {
-    "selector": ".back-to-top",
-    "text": ["点它就可以回到顶部啦！", "又回到最初的起点～", "要回到开始的地方么？"]
+    "selector": ".widget-footer .top",
+    "text": ["又要回到最初的起点咯～", "要回到开始的地方么？"]
   }, {
-    "selector": ".reward-container",
-    "text": ["我是不是棒棒哒～快给我点赞吧！", "要打赏我嘛？好期待啊～", "主人最近在吃土呢，很辛苦的样子，给他一些钱钱吧～"]
-  }, {
-    "selector": "#wechat",
-    "text": ["这是我的微信二维码～"]
-  }, {
-    "selector": "#alipay",
-    "text": ["这是我的支付宝哦！"]
-  }, {
-    "selector": "#bitcoin",
-    "text": ["这是我的比特币账号！"]
+    "selector": ".donate-icon",
+    "text": ["要打赏我嘛？好期待啊～"]
   }, {
     "selector": "#needsharebutton-postbottom .btn",
     "text": ["好东西要让更多人知道才行哦。", "觉得文章有帮助的话，可以分享给更多需要的朋友呢。"]
-  }, {
-    "selector": ".need-share-button_weibo",
-    "text": ["微博？来分享一波喵！"]
-  }, {
-    "selector": ".need-share-button_wechat",
-    "text": ["分享到微信吧！"]
-  }, {
-    "selector": ".need-share-button_douban",
-    "text": ["分享到豆瓣好像也不错！"]
-  }, {
-    "selector": ".need-share-button_qqzone",
-    "text": ["QQ 空间，一键转发，耶～"]
-  }, {
-    "selector": ".need-share-button_twitter",
-    "text": ["Twitter？好像是不存在的东西？"]
-  }, {
-    "selector": ".need-share-button_facebook",
-    "text": ["emmm…FB 好像也是不存在的东西？"]
   }, {
     "selector": ".post-nav-item a[rel='next']",
     "text": ["来看看下一篇文章吧。", "点它可以看下一篇文章哦！", "要翻到下一篇文章吗？"]
@@ -172,8 +154,8 @@
     "text": ["哇，快看看这个精彩评论！", "如果有疑问，请尽快留言哦～"]
   }],
   "click": [{
-    "selector": ".veditor",
-    "text": ["要吐槽些什么呢？", "一定要认真填写喵～", "有什么想说的吗？"]
+    "selector": ".logo-wrap .title",
+    "text": ["今天的事情不必今天做完，万一活不到明天呢！"]
   }, {
     "selector": ".vsubmit",
     "text": ["输入验证码就可以提交评论啦～"]
@@ -244,16 +226,16 @@
     "text": "晚上好，今天过得怎么样？"
   }, {
     "hour": "22-23",
-    "text": ["已经这么晚了呀，早点休息吧，晚安～", "深夜时要爱护眼睛呀！"]
+    "text": ["已经这么晚了呀，早点休息吧，晚安～", "今天的事情不必今天做完，万一活不到明天呢！"]
   }, {
     "hour": "0-5",
     "text": "你是夜猫子呀？这么晚还不睡觉，明天起的来嘛？"
   }],
   "message": {
-    "default": ["好久不见，时间过得好快呢……", "大坏蛋！你都多久没理人家了呀，嘤嘤嘤～", "嗨～快来逗我玩吧！", "拿小拳拳锤你胸口！", "你是不是不爱人家了呀，呜呜呜～", "好无聊哦，你都不陪我玩！", "人家想和你玩嘛~", "你是不是睡着啦？快醒醒！", "如果这辈子只能陪着你，那……也不是不行啦!", "快看快看，我今天可爱吗？"],
+    "default": ["好久不见，时间过得好快呢……", "大坏蛋！你都多久没理人家了呀，嘤嘤嘤～", "嗨～快来逗我玩吧！", "拿小拳拳锤你胸口！", "你是不是不爱人家了呀，呜呜呜～", "好无聊哦，你都不陪我玩！", "人家想和你玩嘛~", "如果这辈子只能陪着你，那……也不是不行啦!", "快看快看，我今天可爱吗？"],
     "console": "哈哈，你打开了控制台，是想要看看我的小秘密吗？",
     "copy": "你都复制了些什么呀，转载要记得加上出处哦！",
-    "visibilitychange": "哇，你终于回来了～",
+    "visibilitychange": "哇，你终于回来了～就知道你离不开我",
     "changeSuccess": "我的新衣服好看嘛？",
     "changeFail": "我还没有其他衣服呢！",
     "photo": "照好了嘛，是不是很可爱呢？",
