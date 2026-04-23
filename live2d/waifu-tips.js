@@ -527,7 +527,7 @@ async function r(t) {
     null === (s = document.getElementById("waifu")) || void 0 === s || s.classList.add("waifu-active");
     const waifuEl = document.getElementById("waifu");
     if (waifuEl) {
-        const waifu_top = window.innerHeight - 237;
+        const waifu_top = window.innerHeight - 282;
         const animation = waifuEl.animate([
             { top: (window.innerHeight + 250) + "px" },
             { top: waifu_top + "px" }
