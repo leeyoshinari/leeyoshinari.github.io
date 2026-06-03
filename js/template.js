@@ -63,7 +63,7 @@ export function createDefaultRight() {
 export function createFootNote() {
   const ele = document.createElement('div');
   ele.classList.add('text');
-  ele.innerHTML = `<center><span>leeyoshinari  ·  共发表 18 篇 Blogs</span><br></center>`;
+  ele.innerHTML = `<center><span>leeyoshinari  ·  共发表 19 篇 Blogs</span><br></center>`;
   return ele;
 }
 

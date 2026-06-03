@@ -90,11 +90,8 @@
         <p>验证是否配置成功，可在任意命令行窗口输入 <code>ffmpeg -version</code>，如果有正常的输出，则说明配置成功。</p>
         <h3>部署K歌系统</h3>
         <h4>Windows 系统</h4>
-        <p>Windows 系统直接下载打好的包（<a href="https://github.com/leeyoshinari/karaoke/releases" target="_blank">下载地址</a>），解压后，需要修改配置文件 <code>config.conf</code> 中的曲库存放目录，这个目录必须提前创建好，然后运行程序即可。程序运行后会有一个地址，如下图，复制链接到浏览器打开就可以了。</p>
+        <p>Windows 系统直接下载打好的包（<a href="https://github.com/leeyoshinari/karaoke/releases" target="_blank">下载地址(未更新，请使用源码)</a>），解压后，需要修改配置文件 <code>config.conf</code> 中的曲库存放目录，这个目录必须提前创建好，然后运行程序即可。程序运行后会有一个地址，如下图，复制链接到浏览器打开就可以了。</p>
         <img src="/img/karaoke/windows.jpg" alt="windows.jpg" loading="lazy" />
-        <!--h4>Linux 系统</h4>
-        <p>Linux 系统可以使用 Docker 安装，执行命令：</p>
-        <p>注意：使用 Docker 安装时，FFmpeg 必须软链接到 <code>/usr/bin</code> 文件夹里。</p-->
         <h4>源码部署</h4>
         <p>1、获取源码，项目地址：<a href="https://github.com/leeyoshinari/karaoke" target="_blank">https://github.com/leeyoshinari/karaoke</a></p>
         <p>2、修改 <code>config.conf</code> 配置文件</p>
@@ -108,6 +105,8 @@
         <p>源码部署完成后，也可以将代码进行打包，快速在其他设备上部署，打包命令如下：</p>
         <pre><code>pyinstaller --onefile --name main main.py --hidden-import settings --hidden-import main --hidden-import aerich --hidden-import fastapi --hidden-import uvicorn --hidden-import tortoise.backends.sqlite --hidden-import tortoise.backends.base --hidden-import tortoise.backends</code></pre>
         <p>打包完成后，把 templates、static、config.conf、sqlite3.db 拷贝到 dist 文件夹中。</p>
+        <h2>支持 Android TV</h2>
+        <p>详细内容请查看<a href="/p/987654335.html">自建家庭 KTV (更新啦)</a>。</p>
         <hr style="margin-top: 3em;">
         <div class="article-footer fs14"></div>
       </article>

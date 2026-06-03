@@ -30,7 +30,7 @@
 	display:block;
 	position: fixed;
 	top: 120%;
-	left: 15px;
+	left: 16px;
 	/* transition: transform .3s ease-in-out, bottom 3s ease-in-out; */
 	z-index: 999;
 }

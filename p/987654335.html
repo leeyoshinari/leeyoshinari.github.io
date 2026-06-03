@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>自建家庭 KTV</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="shortcut icon" href="/img/favicon.ico">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <link rel="stylesheet" href="/css/viewer.min.css">
+  <script type="text/javascript" src="/js/viewer.min.js"></script>
+</head>
+<body>
+  <div class="l_body s:aa content tech" id="start" layout="post" >
+    <aside class="l_left"></aside>
+    <div class="l_main" id="main">
+      <header class="header mobile-only"></header>
+      <div class="article banner top"><div class="content"><div class="bottom only-title"><div class="text-area">
+        <h1 class="text title"><span>自建家庭 KTV (支持Android TV)</span></h1>
+      </div><div class="publish-date"><span>发布时间: 2026-06-02</span><span class="copy-right">版权</span></div><div class="copyright-content"></div></div></div></div>
+      <article class="md-text content">
+        <p>书接上回<a href="/p/987654323.html">《自建家庭 KTV》</a>，上一次发布后得到了很多人反响，但是由于我常年在外搬砖，偶尔才想起来用一次，所以快两年没有更新了，尽管我明确知道它有一些问题，但我还是懒得修复的。现在我终于回家了，想没事吼两嗓子，所以就更新升级一下。</p>
+        <p>此次更新内容：</p>
+        <p class="non-row md-indent">1、修复音视频无法在手机、部分平板上正常播放的问题</p>
+        <p class="non-row md-indent">2、新增支持Android TV，可直接安装到智能电视/投影仪（系统版本最低 Android 8.0）</p>
+        <h2>问题修复</h2>
+        <p>最开始做的时候，我只是在电脑上调试和使用，完全没有在手机上测试，更没有在平板上测试。直到有一天我买了一个平台，想用平板试试，结果不能正常播放音视频，再用手机测试，发现手机也不行。于是借助聪明的AI，知道了手机、平板上的浏览器和电脑的浏览器差别非常大，之前采用的方案完全不能在手机、平板等设备上运行。于是直接让AI给了一套方案，经过充分测试，在Android和IOS设备的浏览器上，所有功能都正常。（未测试鸿蒙系统）。代码已更新，<a href="https://github.com/leeyoshinari/karaoke" target="_blank">详见项目</a>。</p>
+        <p>页面上这两个，一个是原来的方案，一个是新方案，哪个能用就用哪个：</p>
+        <img src="/img/karaoke/update_index.png" alt="index.jpg" loading="lazy" />
+        <h2>支持 Android TV</h2>
+        <p>之前有一个人给我反馈过一个问题：声音和画面不同步，肉眼可见的明显。我当时就想是不是你不会操作，我可是经过大量的测试，从理论上和实际上都不会存在这个问题，在代码里已经严格同步进度，人基本上察觉不到差异的。直到最近我使用了蓝牙音响，声音和画面不同步真的是肉眼可见的明显，我就觉得还是忍忍吧，用电脑的扬声器或者接入有线音响播放声音。</p>
+        <p>上个月，我在家里把这一整套系统部署成功后，想着用投影仪来K歌，但是我把我能找到的所有可以安装到投影仪上的浏览器都试了一遍，没有一个可以正常播放的（Android TV 的浏览器更精简，在现在这一整套架构下，技术上是无法解决这个问题）。但我觉得还是可以忍忍，毕竟还有投屏这个选项，手机、平台、电脑都可以无线投屏，反正我的设备够多。没想到啊，无线投屏和蓝牙音响一样，声音和画面是肉眼可见的不同步，于是只剩下最后一个选项 —— 只能使用电脑HDMI有线投屏。这我就忍不了了，于是就彻底从根本上解决这个问题，直接做一个apk出来安装到投影仪上。</p>
+        <p>这个App只是一个客户端，只用来播放音视频，必须搭配<a href="/p/987654323.html">《自建家庭 KTV》</a>（它是服务端）使用。由于本人只有极米投影仪，故只测试了这个投影仪（系统版本：Android 8.0）。安装完成后，打开App，首先需要输入服务端网址，IP就是部署服务端的电脑的局域网IP（自己电脑的IP怎么查看可以问豆包、千问），端口是服务端配置文件里的端口号（默认为15200）。</p>
+        <img src="/img/karaoke/update_home.png" alt="home.png" loading="lazy" />
+        <p>第一次设置服务端的IP和端口后，会保存下来，后续每一次打开App都会弹窗展示上一次设置的IP和端口，如果IP或端口变了，则重新设置并保存，如果没有变，直接点击保存即可。</p>
+        <p>然后需要进入控制台，或者手机扫码进入控制台，使用控制台控制App播放、暂停等。</p>
+        <img src="/img/karaoke/update_ktv.png" alt="ktv.png" loading="lazy" />
+        <p>实际效果如下：</p>
+        <img src="/img/karaoke/app_play.jpg" alt="app_play.jpg" loading="lazy" />
+        <p>其他所有使用方法和之前的完全一样，详细请看<a href="/p/987654323.html">《自建家庭 KTV》</a>，播放音视频的客户端（App和网页）和点歌控制台，仍然是多对多的关系。</p>
+        <h2>源码部署</h2>
+        <p>1、获取源码，项目地址：<a href="https://github.com/leeyoshinari/karaokeClient" target="_blank">https://github.com/leeyoshinari/karaokeClient</a></p>
+        <p>2、使用 Android Studio，自行配置开发环境。</p>
+        <p>3、打包成App使用</p>
+        <h2>App下载</h2>
+        <p>可直接下载打包好的App，<a href="https://github.com/leeyoshinari/karaokeClient/releases" target="_blank">下载地址。</a></p>
+        <hr style="margin-top: 3em;">
+        <div class="article-footer fs14"></div>
+      </article>
+      <footer class="page-footer footnote"><hr></footer>
+      <div class="main-mask" onclick="sidebar.dismiss()"></div>
+    </div>
+    <aside class="l_right"></aside>
+  </div>
+</body>
+<script type="module">
+  import { createLeft, createFootNote, createMobileHeader, createDonate, createRight, createFloatPanel } from '/js/template.js';
+  document.getElementsByClassName('l_left')[0].appendChild(createLeft());
+  document.getElementsByClassName('header mobile-only')[0].appendChild(createMobileHeader());
+  document.getElementsByClassName('article-footer fs14')[0].appendChild(createDonate());
+  document.getElementsByClassName('page-footer footnote')[0].appendChild(createFootNote());
+  document.getElementsByClassName('l_right')[0].appendChild(createRight());
+  document.getElementById('start').appendChild(createFloatPanel());
+</script>
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/autoload.js"></script>
+</html>
