@@ -103,10 +103,10 @@
         <pre><code>python3 main.py</code></pre>
         <h4>打包</h4>
         <p>源码部署完成后，也可以将代码进行打包，快速在其他设备上部署，打包命令如下：</p>
-        <pre><code>pyinstaller --onefile --name main main.py --hidden-import settings --hidden-import main --hidden-import aerich --hidden-import fastapi --hidden-import uvicorn --hidden-import tortoise.backends.sqlite --hidden-import tortoise.backends.base --hidden-import tortoise.backends</code></pre>
+        <pre><code>pyinstaller --onefile --name main main.py --hidden-import settings --hidden-import main --hidden-import aerich --hidden-import fastapi --hidden-import uvicorn --hidden-import tortoise.backends.sqlite --hidden-import tortoise.backends.base --hidden-import tortoise.backends --copy-metadata tortoise-orm</code></pre>
         <p>打包完成后，把 templates、static、config.conf、sqlite3.db 拷贝到 dist 文件夹中。</p>
         <h2>支持 Android TV</h2>
-        <p>详细内容请查看<a href="/p/987654335.html">自建家庭 KTV (更新啦)</a>。</p>
+        <p>详细内容请查看<a href="/p/987654335.html">自建家庭 KTV (支持Android TV)</a>。</p>
         <hr style="margin-top: 3em;">
         <div class="article-footer fs14"></div>
       </article>
