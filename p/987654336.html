@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>A股短线交易之AI自动化交易</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="shortcut icon" href="/img/favicon.ico">
+  <script type="text/javascript" src="/js/jquery.min.js"></script>
+  <link rel="stylesheet" href="/css/viewer.min.css">
+  <script type="text/javascript" src="/js/viewer.min.js"></script>
+</head>
+<body>
+  <div class="l_body s:aa content tech" id="start" layout="post" >
+    <aside class="l_left"></aside>
+    <div class="l_main" id="main">
+      <header class="header mobile-only"></header>
+      <div class="article banner top"><div class="content"><div class="bottom only-title"><div class="text-area">
+        <h1 class="text title"><span>A股短线交易之AI自动化交易</span></h1>
+      </div><div class="publish-date"><span>发布时间: 2026-06-27</span><span class="copy-right">版权</span></div><div class="copyright-content"></div></div></div></div>
+      <article class="md-text content">
+        <p>书接上回<a href="/p/987654328.html">《A股短线交易之AI自动化选股》</a>。</p>
+        <p>从三月份开始，A股市场的走势真让人看不懂了，特别是中东地区冲突，特朗普手搓K线图，A股也跟着上下波动，买的股票稳中有跌，恐高的股票越涨越高，太难玩了。而我这几个月主要做了一件事就是验证自动卖出策略，现在就将所有的买入和卖出策略讲一遍，以下就开始献丑了。</p>
+        <h2>股票数据</h2>
+        <p>股票数据直接来自上交所和深交所，每天都会更新数据，主要处理新上市的股票、变成ST的股票、摘帽（去掉ST）的股票，ST股票和退市的股票默认直接剔除。</p>
+        <h2>行情数据</h2>
+        <p>股票行情数据来源国内的财经网站。实时行情数据主要来自腾讯财经、新浪财经、雪球，主力资金净流入数据来自腾讯财经，其他的数据来源还有东方财富、同花顺、搜狐财经等。对于实时行情数据获取，由于股票数量很多，为了避免被系统检测出来拉黑，采用了多台不同公网IP的服务器分布式获取实时行情数据。（后来发现其实没必要实时更新行情数据，但至少每天收盘后要更新一次数据）</p>
+        <p>主要关注的数据：价格、成交量、量比、5/10/20日均线、主力资金净流入、换手率、MACD、布林带、KDJ、TRIX。这些数据都是原始不复权的数据。</p>
+        <h2>选股策略</h2>
+        <p>每天14:48开始从主力资金净流入排行榜获取股票数据，过滤掉净流入小于500万的数据，价格过高、涨幅过高的股票也会过滤掉。然后获取这些股票的实时行情数据，计算出各指标值。</p>
+        <p>通过代码快速筛选所有股票：通过评分制，计算各种场景并打分，场景包括：是否大幅低开、5/10日均线趋势、价格在5日均线上、成交量放大、MACD出现金叉且diff大于0、上影线占比，必须所有指标都满足才会被初选出来。</p>
+        <p>获取主力资金数据，包括主力资金净流入数据，主动性买卖盘占比（主动性买盘必须大于主动性卖盘）。</p>
+        <p>然后把所有数据喂给AI，第一次调用AI使用的是 GPT-5-mini 模型，如果模型判断可以买入，则会第二次调用AI，使用 Gemini-3.0-Flash 模型，如果模型判断可以买入，就是最终选出来的股票了。</p>
+        <p>股票选出后写入数据库，限制每天最多选出10支股票，通过发送邮件通知选出来哪些股票。</p>
+        <h3>缩量下跌选股</h3>
+        <p>这是最近新增的一个选股策略，但是效果不太好，如果条件苛刻，则选不出来股票，如果条件宽松，胜率就很低很低，一直没有调试好，这里就不介绍了。</p>
+        <h2>卖出策略</h2>
+        <p>每天开盘后开始执行，每隔10分钟执行一次。首先获取股票的实时行情数据和当天的分钟级数据（价格、成交量、均价），计算出各个指标的值。</p>
+        <p>通过代码快速初筛股票，只设置止损位，如果股票疯狂上涨，就让它一直涨，具体策略如下：触及涨停就坚定持有、硬止损位（阴跌到10%）、跳空低开、放量下跌、MACD死叉、分钟级数据跳水、从买入后的最高点回撤3%（盈利状态下），只要触发任一个止损点，股票就会被选出来。</p>
+        <p>然后把所有数据喂给AI，这次只使用Gemini-3.0-Flash 模型判断，如果判断卖出，就立即卖出，如果判断继续持有，则20分钟内不再处理这只股票（以AI决策为主，代码决策为辅）</p>
+        <p>股票卖出数据写入数据库。</p>
+        <h2>操盘数据</h2>
+        <h3>模拟数据</h3>
+        <p>当前正在运行的选股和卖出策略只是模拟，还不敢实盘，最近的股票模拟情况如下：</p>
+        <img src="/img/AI/auto-detail.png" alt="交易记录" loading="lazy" />
+        <p>从4月1日开始，截至到6月26日收盘，自动买入卖出策略模拟炒股盈利 <span style="color:green;">-59.95元</span>。一顿操作猛如虎，真不如股票选出来后无脑持有四五天然后收盘前卖掉。</p>
+        <img src="/img/AI/auto-fund.png" alt="盈利图片" loading="lazy" />
+        <h3>实盘数据</h3>
+        <p>光有模拟数据还是不够的，必须还要验证卖出策略是不是真的比人工决策要好。于是我选择性的买入了选出来的股票，实盘验证我的决策和AI决策哪个好。</p>
+        <p>表头中的“卖出价A”和“卖出日期A”是指AI自动决策的卖出价和卖出时间；“卖出价M”和“卖出日期M”是指我自己决策卖出价和卖出时间；差值是指人工操作的盈利和AI卖出的盈利的差值，我卖出的价格比AI卖出的价格低就是负数，反之就是正数。</p>
+        <img src="/img/AI/auto-compare.png" alt="实操对比结果" loading="lazy" />
+        <p>这个实操对比实验，我可以确定自己的决策不受AI决策的影响，AI决策是卖出还是持有不影响我的决策。从数据来看，并没有明显的区别，算是半斤八两吧，看来卖出策略还是不行，需要继续调整策略。</p>
+        <h2>问题分析</h2>
+        <p>最大的问题是这是纯技术面分析，没有个股的基本面分析，也没有行业、板块、大盘的分析，很容易误判走势；且K线图、资金流入流出等数据很容易被人为手搓出来，这种情况技术分析就没啥用了。</p>
+        <p>其次为了节省成本，使用了免费的AI；为了能够使用免费的AI，选股策略和卖出策略加入了大量的硬编码，用代码快速筛选股票确实不错，但是全部无脑的按照设置的条件和指标判断，非常容易误判，因为股票走势是有趋势的，不能只看单点数据。</p>
+        <p>这套框架没有回测能力，没有办法获取历史分钟级数据，且卖出策略如果按照分钟级回测，有点太复杂了，不想做了。现在是修改了策略就直接拿来用，直接在实践中验证策略。</p>
+        <h2>一个好的点</h2>
+        <p>我看过其他一些选股策略，在市场趋势明显走坏、市场情绪低点时，仍然频繁买入卖出股票，这肯定会导致亏损。现在的这套选股策略，在市场低迷和上下波动时，是不会选出股票的。例如3月份中东打仗，经常没有选出一只股票，截至到6月，能选出股票的时候也只是选出两三只股票，不像年前经常一次能选出10只股票（限制最多10只），这就可以在市场不好的情况下尽可能减少亏损。</p>
+        <h2>接下来的计划</h2>
+        <p>作为一个爱折腾的人，我想在我还有精力没变成老登之前再折腾折腾。后续决定全面拥抱AI，先花钱买Token（舍不得孩子套不到狼），接入Openclaw，对股票进行基本面分析和技术面分析，同时也要对市场和行业进行分析，到时再看整个策略的盈利情况。</p>
+        <h2>项目框架</h2>
+        <p>项目地址：<a href="https://github.com/leeyoshinari/stock" target="_blank">https://github.com/leeyoshinari/stock</a>。</p>
+        <p>本项目有2个服务：一个是web服务(main.py)，一个是纯后台获取数据、选股服务(getStock.py)，详细请看 startup.sh 文件。</p>
+        <h3>请求转发服务</h3>
+        <p>因为股票行情数据都是国内网站，所以服务器就在国内，但是调用ChatGPT和Gemini需要梯子，怎么绕过这个呢？这就需要请求转发服务，代码：<a href="https://github.com/leeyoshinari/one-api" target="_blank">https://github.com/leeyoshinari/one-api</a>。这使用的是nextjs框架，只用于请求转发，可直接部署在vercel平台或境外服务器上。同时由于股票数量太多，为了尽可能快的获取实时行情数据，避免被拉黑，也可以用这个项目转发获取行情数据的请求，实现分布式获取股票数据。</p>
+        <h3>配置文件</h3>
+        <p>配置文件是<code>.env.example</code>文件，需要先复制这个文件并重命名为<code>.env</code>，然后修改<code>.env</code>文件中的配置。需要重点关注以下配置：</p>
+        <pre><code>batchSize = 30 # 实时行情数据单次请求的股票数量<br>allStockDataSize = 5 # 获取实时行情的线程数<br>batchInterval = 12 # 每次获取实时行情数据的时间间隔</code></pre>
+        <p><code>HTTPHost1、HTTPHost2、HTTPHost3</code>分别是部署 请求转发服务 的地址，如果你没有部署，可以忽略这个配置，如果你部署了更多的服务，可以自行增加配置。</p>
+        <p>这里使用的是ChatGPT和Gemini模型，如果你使用其他模型，可自行修改配置文件和调用模型的地方。</p>
+        <h3>web服务</h3>
+        <p>主入口是 <code>main.py</code> 文件，主要提供web服务，页面可视化查看数据。同时启动了2个定时任务，分别是压缩数据库并移动到静态文件目录，方便通过访问静态文件的方式下载数据库，实现备份；另一个是卖出策略定时任务。</p>
+        <p>该web页面支持PWA。</p>
+        <h3>后台服务</h3>
+        <p>主入口是 <code>getStock.py</code> 文件，启动了很多个定时任务，用于定时获取、更新数据。</p>
+        <p>最重要的是启动了很多个获取股票行情数据的协程，就是 getStockFromxxx 方法，特别注意：这里启动了多少个获取股票行情数据的协程，配置文件中的 allStockDataSize 就配置多少。HTTPHost1、HTTPHost2、HTTPHost3也必须可以使用，不能使用的话就会报错，如果没有，可以把这些代码注释掉并修改配置文件。（PS：我启动了11个协程，把所有股票数据获取一遍的时间不到4分钟）</p>
+        <p style="font-weight:bold;">以上，本人能力有限，策略肯定不好，仅供大家学习交流。</p>
+        <p>股市有风险，入市需谨慎</p>
+        <hr style="margin-top: 3em;">
+        <div class="article-footer fs14"></div>
+      </article>
+      <footer class="page-footer footnote"><hr></footer>
+      <div class="main-mask" onclick="sidebar.dismiss()"></div>
+    </div>
+    <aside class="l_right"></aside>
+  </div>
+</body>
+<script type="module">
+  import { createLeft, createFootNote, createMobileHeader, createDonate, createRight, createFloatPanel } from '/js/template.js';
+  document.getElementsByClassName('l_left')[0].appendChild(createLeft());
+  document.getElementsByClassName('header mobile-only')[0].appendChild(createMobileHeader());
+  document.getElementsByClassName('article-footer fs14')[0].appendChild(createDonate());
+  document.getElementsByClassName('page-footer footnote')[0].appendChild(createFootNote());
+  document.getElementsByClassName('l_right')[0].appendChild(createRight());
+  document.getElementById('start').appendChild(createFloatPanel());
+</script>
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/autoload.js"></script>
+</html>
